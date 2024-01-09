@@ -1,18 +1,21 @@
 import dotenv from "dotenv";
 import express from "express";
+import bodyParser from "body-parser";
 import {
 	GoogleGenerativeAI,
 	HarmBlockThreshold,
 	HarmCategory,
 } from "@google/generative-ai";
 const app = express();
+const port = 3000;
+
 dotenv.config();
 
 const MODEL_NAME = "gemini-pro";
 const API_KEY = process.env.GOOGLE_API_KEY;
 console.log(API_KEY);
 
-async function runChat() {
+async function runChat(prompt) {
 	const genAI = new GoogleGenerativeAI(API_KEY);
 	const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -220,10 +223,35 @@ async function runChat() {
 			},
 		],
 	});
-	const prompt = "Hello";
+	// const prompt = "Hello";
 	const result = await chat.sendMessage(prompt);
-	const response = await result.response;
+	const response = result.response;
 	console.log(response.text());
+	return response.text();
 }
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-runChat();
+app.get("/", (req, res) => {
+	res.send("Welcome to the chatbot server!");
+});
+
+app.post("/user-input", async (req, res) => {
+	const userPrompt = req.body.userInput;
+
+	if (!userPrompt) {
+		return res.status(400).json({ error: "User input is required." });
+	}
+
+	try {
+		const responseText = await runChat(userPrompt);
+		res.json({ response: responseText });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal server error." });
+	}
+});
+
+app.listen(port, () => {
+	console.log(`Server is running at http://localhost:${port}`);
+});
