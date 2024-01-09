@@ -232,9 +232,9 @@ async function runChat(prompt) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-	res.send("Welcome to the chatbot server!");
-});
+app.get('/', (req, res) => {
+    res.send('Welcome to the chatbot server!');
+  });
 
 app.post("/user-input", async (req, res) => {
 	const userPrompt = req.body.userInput;
