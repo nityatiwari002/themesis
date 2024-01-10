@@ -8,6 +8,8 @@
     background-color: var(--bgtransparentmax);
     border: 1px solid var(--black);
     padding: 30px;
+    min-width: 368px;
+    min-height: 446px;
 }
 
 .register-card {
@@ -17,6 +19,7 @@
     transform: translate(-50%, -50%);
     width: 30%;
     height: 85%;
+    min-width: 368px;
     background-color: var(--bgtransparentmax);
     border: 1px solid var(--black);
     padding: 30px;
