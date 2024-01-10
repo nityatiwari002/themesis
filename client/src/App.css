@@ -1,7 +1,57 @@
 .App {
   background-color: #000;
+  background-image: url(./assets/bg.jpg);
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
-  
+  background-position: 8vw -20vh;
+  background-size: 80vw 190vh;
+  overflow: hidden;
+  color: var(--white);
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.initial {
+  color: var(--primary-brown);
+}
+
+.styled-text {
+  font-family: var(--font-extra);
+}
+
+.hide-element {
+  display: none;
+}
+
+.links {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-normal);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.links-lc {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-normal);
+  transition: all 0.3s ease;
+}
+
+.btn {
+  border: none;
+  padding: 2px 20px;
+  border-radius: 4px;
+  margin: 0 8px;
+  cursor: pointer;
+  background-color: var(--primary-brown);
+  color: var(--white);
+}
+
+
