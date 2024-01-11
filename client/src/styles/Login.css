@@ -95,6 +95,11 @@
 
 }
 
+input::placeholder{
+    color: var(--offwhite);
+
+}
+
 input:focus::placeholder {
     color: transparent;
 }
@@ -144,7 +149,8 @@ select {
     -moz-appearance: none;
     appearance: none;
     background-color: var(--bgtransparent);
-    border-radius: 2px;
+    border-radius: 4px;
+    color: var(--offwhite);
 }
 
 
