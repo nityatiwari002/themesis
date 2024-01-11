@@ -1,8 +1,33 @@
 import React, { useState } from "react";
 import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
+import { AuthData } from "../services/AuthService";
+
 function Login() {
 	const [unamefocus, setUnamefocus] = useState(false);
 	const [passfocus, setPassfocus] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
+	const navigate = useNavigate();
+	const handleEmail = (e) => {
+		setEmail(e.target.value);
+	};
+	const handlePassword = (e) => {
+		setPassword(e.target.value);
+	};
+
+	const { login } = AuthData();
+	const handleSubmit = async () => {
+		try {
+			await login(email, password);
+			navigate("/dashboard");
+		} catch (error) {
+			setErrorMessage(error);
+			console.log(errorMessage);
+		}
+	};
+
 	return (
 		<div className="login-card">
 			<div className="login-title">
@@ -28,6 +53,7 @@ function Login() {
 							className="form-input"
 							id="username"
 							placeholder="Email ID / Username"
+							onChange={handleEmail}
 							onFocus={() => setUnamefocus(true)}
 							onBlur={() => setUnamefocus(false)}
 						/>
@@ -48,6 +74,7 @@ function Login() {
 							className="form-input"
 							id="password"
 							placeholder="Password"
+							onChange={handlePassword}
 							onFocus={() => setPassfocus(true)}
 							onBlur={() => setPassfocus(false)}
 						/>
@@ -72,13 +99,20 @@ function Login() {
 						</div>
 					</div>
 					<div className="btn-wrapper">
-						<button type="submit" className="btn btn-primary">
+						<button
+							type="submit"
+							className="btn btn-primary"
+							id="login-btn"
+							onClick={handleSubmit}
+						>
 							Login
 						</button>
 					</div>
 				</form>
 				<div className="login-link">
-					<a href="/sign-up" className="links-lc forgot-link">Don't have an account?</a>
+					<a href="/sign-up" className="links-lc forgot-link">
+						Don't have an account?
+					</a>
 				</div>
 			</div>
 		</div>

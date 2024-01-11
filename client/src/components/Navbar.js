@@ -1,25 +1,17 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
-
-function Navbar(props) {
-	console.log(props.routing);
+import { AuthData } from "../services/AuthService";
+import routes from "../routes/Routes";
+function Navbar() {
 	const [visible, setVisible] = useState(false);
 	const toggleMenu = () => {
 		setVisible(!visible);
 	};
-	console.log(props.loggedin);
-	const [loggedin, setLoggedin] = useState(props.loggedin);
-	useEffect(() => {
-		setLoggedin(props.loggedin);
-	}, [props.loggedin]);
-	const routings = props.routing;
-	useEffect(() => {
-		console.log(routings);
-	}, [routings]);
+	const { user } = AuthData();
 	return (
 		<div className="Navbar">
 			<div className="menu-toggler" onClick={toggleMenu}>
@@ -36,19 +28,53 @@ function Navbar(props) {
 			</div>
 			<div className={visible ? `menu` : `hide-element`}>
 				<ul>
-					{routings.map((route, index) => {
-						return (
-							<li key={index}>
-								<Link to={route.path} className="menu-links">
-									{route.name}
-								</Link>
-							</li>
-						);
+					{routes.map((route, index) => {
+						if (
+							!user.isAuthenticated &&
+							!route.isPrivate &&
+							route.isMenu
+						) {
+							return (
+								<li key={index}>
+									<Link
+										to={route.path}
+										className="menu-links"
+									>
+										{route.name}
+									</Link>
+								</li>
+							);
+						} else if (
+							user.isAuthenticated &&
+							route.isPrivate &&
+							route.isMenu
+						) {
+							return (
+								<li key={index}>
+									<Link
+										to={route.path}
+										className="menu-links"
+									>
+										{route.name}
+									</Link>
+								</li>
+							);
+						} else return false;
 					})}
 				</ul>
 			</div>
-			{loggedin && <div className="title">Themesis Guardian</div>}
-			{!loggedin && (
+			{user.isAuthenticated ? (
+				<>
+					<div className="title">Themesis Guardian</div>
+					<div className="nav-but">
+						<button className="nav-btn">
+							<Link to="/logout" className="nav-link links">
+								Logout
+							</Link>
+						</button>
+					</div>
+				</>
+			) : (
 				<div className="nav-but">
 					<button className="nav-btn">
 						<Link to="/login" className="nav-link links">

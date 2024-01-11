@@ -37,7 +37,9 @@
     font-family: var(--font-normal);
     color: var(--white);
     margin-left: 10px;
-
+    position: fixed;
+    top: 13px;
+    left: 60px;
 }
 
 .menu li {

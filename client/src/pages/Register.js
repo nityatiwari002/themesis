@@ -7,7 +7,7 @@ function Register() {
 	const [passfocus, setPassfocus] = React.useState(false);
 	const [cpassfocus, setCpassfocus] = React.useState(false);
 	const [emailfocus, setEmailfocus] = React.useState(false);
-	const [available, seavailable] = React.useState(true);
+	const [available, setavailable] = React.useState(true);
 	return (
 		<div className="register-card">
 			<div className="login-title">
