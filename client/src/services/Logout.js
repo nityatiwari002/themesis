@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../services/AuthService";
+import { AuthData } from "./AuthService";
 import { useEffect } from "react";
 
 function Logout() {

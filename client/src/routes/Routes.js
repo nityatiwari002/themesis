@@ -1,5 +1,5 @@
 import Dashboard from "../pages/Dashboard";
-import Logout from "../pages/Logout";
+import Logout from "../services/Logout";
 import Pastcases from "../pages/Pastcases";
 import Efiling from "../pages/Efiling";
 import FindLawyer from "../pages/FindLawyer";

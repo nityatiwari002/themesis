@@ -1,13 +1,14 @@
 import { createContext, useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import RenderRoutes from "../routes/RenderRoutes";
+import Chatbot from "../components/Chatbot";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
 
 export const AuthWrapper = () => {
 	const [user, setUser] = useState({ name: "", isAuthenticated: false });
-
+	console.log(AuthContext);
 	const login = (userName, password) => {
 		return new Promise((resolve, reject) => {
 			if (password === "password") {
@@ -27,6 +28,7 @@ export const AuthWrapper = () => {
 			<>
 				<Navbar />
 				<RenderRoutes />
+				<Chatbot />
 			</>
 		</AuthContext.Provider>
 	);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
@@ -11,6 +11,7 @@ function Navbar() {
 	const toggleMenu = () => {
 		setVisible(!visible);
 	};
+
 	const { user } = AuthData();
 	return (
 		<div className="Navbar">
@@ -39,6 +40,7 @@ function Navbar() {
 									<Link
 										to={route.path}
 										className="menu-links"
+										onClick={toggleMenu}
 									>
 										{route.name}
 									</Link>
@@ -54,6 +56,7 @@ function Navbar() {
 									<Link
 										to={route.path}
 										className="menu-links"
+										onClick={toggleMenu}
 									>
 										{route.name}
 									</Link>

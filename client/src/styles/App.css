@@ -1,6 +1,6 @@
 .App {
   background-color: #000;
-  background-image: url(./assets/bg.jpg);
+  background-image: url(../assets/bg.jpg);
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;

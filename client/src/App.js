@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./styles/App.css";
 import { AuthWrapper } from "./services/AuthService";
 
 function App() {
