@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import RenderRoutes from "../routes/RenderRoutes";
-import Chatbot from "../components/Chatbot";
+import ChatIcon from "../components/ChatIcon";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
@@ -28,7 +28,7 @@ export const AuthWrapper = () => {
 			<>
 				<Navbar />
 				<RenderRoutes />
-				<Chatbot />
+				<ChatIcon />
 			</>
 		</AuthContext.Provider>
 	);

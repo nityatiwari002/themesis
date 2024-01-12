@@ -7,9 +7,9 @@
     height: 70%;
     background-color: var(--bgtransparentmax);
     border: 1px solid var(--black);
-    padding: 30px;
     min-width: 368px;
     min-height: 446px;
+    padding: 3%;
 }
 
 .register-card {
@@ -20,15 +20,15 @@
     width: 30%;
     height: 85%;
     min-width: 368px;
+    min-height: 600px;
     background-color: var(--bgtransparentmax);
     border: 1px solid var(--black);
-    padding: 30px;
+    padding: 2%;
 }
 
 .login-title {
     text-align: center;
     font-size: 2rem;
-
 }
 
 .login-form {

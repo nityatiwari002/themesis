@@ -24,7 +24,11 @@ const RenderRoutes = () => {
 					return (
 						<Route key={i} path={r.path} element={r.component} />
 					);
-				} else return false;
+				} else if (!r.isPrivate && !r.isMenu) {
+					return (
+						<Route key={i} path={r.path} element={r.component} />
+					);
+				} else return null;
 			})}
 		</Routes>
 	);
