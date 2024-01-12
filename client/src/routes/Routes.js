@@ -11,6 +11,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
+import ChatBot from "../pages/ChatBot";
 const routes = [
 	{
 		path: "/dashboard",
@@ -97,6 +98,13 @@ const routes = [
 		name: "Sign Up",
 		isPrivate: false,
 		isMenu: true,
+	},
+	{
+		path: "/chat-bot",
+		component: <ChatBot />,
+		name: "Chat Bot",
+		isPrivate: true,
+		isMenu: false,
 	},
 	{
 		path: "*",

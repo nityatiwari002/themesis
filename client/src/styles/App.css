@@ -54,4 +54,32 @@
   color: var(--white);
 }
 
+.chat-bot-icon-container {
+  position: fixed;
+  bottom: 8vh;
+  right: 4vw;
+  background-color: var(--primary-brown);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.chat-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: var(--black);
+}
+
+.not-found-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
 
