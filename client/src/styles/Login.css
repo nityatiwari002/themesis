@@ -109,18 +109,9 @@ input[type="checkbox"] {
     margin: 5px;
 }
 
-input[type="text"] {
+.form-input{
     color: var(--white);
 }
-
-input[type="password"] {
-    color: var(--white);
-}
-
-input[type="email"] {
-    color: var(--white);
-}
-
 .btn-wrapper {
     width: 100%;
     display: flex;

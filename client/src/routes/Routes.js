@@ -103,7 +103,7 @@ const routes = [
 		path: "/chat-bot",
 		component: <ChatBot />,
 		name: "Chat Bot",
-		isPrivate: false,
+		isPrivate: true,
 		isMenu: false,
 	},
 	{

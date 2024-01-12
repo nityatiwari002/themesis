@@ -28,7 +28,7 @@ export const AuthWrapper = () => {
 			<>
 				<Navbar />
 				<RenderRoutes />
-				<ChatIcon />
+				{user.isAuthenticated && <ChatIcon />}
 			</>
 		</AuthContext.Provider>
 	);
