@@ -2,5 +2,5 @@ chatbot/node_modules
 chatbot/.env
 client/node_modules
 client/.env
-server/.env
+server/config.env
 server/node_modules
