@@ -17,6 +17,8 @@
     left: 10%;
     width: 80%;
     height: 8%;
+    min-height: 50px;
+    z-index: 10;
     margin: 10px 0;
     background-color: var(--bgtransparentmax);
     border-radius: 40px;
@@ -44,7 +46,7 @@
 }
 
 .chat-text-box-input-container {
-    display: inline-block;
+    /* display: inline-block; */
     padding: 10px 0;
     width: 90%;
     height: auto;
@@ -76,18 +78,43 @@
     overflow: scroll;
 }
 
-.bot-message {
+.bot-message---{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+.bot-message {
     margin: 10px;
 
+}
+
+.message-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+.message-details-name{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-right: 10px;
+}
+
+.message-details-time{
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding-top: 6px;
+    color: var(--offwhite);
 }
 
 .message-txt {
     background-color: var(--bgtransparent);
     border-radius: 10px 0 10px 10px;
-    padding: 10px;
+    padding: 5px 10px;
     font-size: 1rem;
     color: var(--white);
     max-width: 80%;
@@ -96,9 +123,9 @@
 }
 
 .message-txt-- {
-    background-color: var(--bgtransparent-two);
+    background-color: var(--black);
     border-radius: 0 10px 10px 10px;
-    padding: 10px;
+    padding: 5px 10px;
     font-size: 1rem;
     color: var(--white);
     max-width: 80%;
@@ -106,7 +133,7 @@
 
 }
 
-.user-message {
+.user-message--- {
     display: flex;
     flex-direction: row;
     margin: 10px;
@@ -123,13 +150,11 @@
     overflow: hidden;
 }
 
-
-.bot-icon {
-    width: 100%;
-    height: 100%;
+.msg{
+    font-size: 0.9rem;
 }
 
-
-em-emoji-picker {
-    z-index: 100;
+.bot-icon-- {
+    width: 100%;
+    height: 100%;
 }

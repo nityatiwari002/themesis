@@ -10,6 +10,7 @@ export const AuthWrapper = () => {
 	const [user, setUser] = useState({ name: "", isAuthenticated: false });
 	console.log(AuthContext);
 	const login = (userName, password) => {
+		
 		return new Promise((resolve, reject) => {
 			if (password === "password") {
 				setUser({ name: userName, isAuthenticated: true });
