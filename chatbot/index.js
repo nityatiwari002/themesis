@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
-import bodyParser from "body-parser";
+import fetch from 'node-fetch'
+globalThis.fetch = fetch
+
+
 import {
 	GoogleGenerativeAI,
 	HarmBlockThreshold,
@@ -69,7 +72,7 @@ async function runChat(prompt) {
 				role: "user",
 				parts: [
 					{
-						text: "you should be able to give information of certain attorneys who are renowned for taking similar cases",
+						text: "you should be able to give information of certain attorneys who are renowned for taking similar cases in the specified country",
 					},
 				],
 			},
