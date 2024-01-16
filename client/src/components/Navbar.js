@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../styles/Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
@@ -37,13 +37,20 @@ function Navbar() {
 						) {
 							return (
 								<li key={index}>
-									<Link
+									<NavLink
 										to={route.path}
-										className="menu-links"
+										className={({ isActive }) => {
+											return isActive
+												? "menu-links active"
+												: "menu-links inactive";
+										}}
 										onClick={toggleMenu}
 									>
+										{/* <div className="activeBlock">
+											{route.name}
+										</div> */}
 										{route.name}
-									</Link>
+									</NavLink>
 								</li>
 							);
 						} else if (
@@ -53,13 +60,20 @@ function Navbar() {
 						) {
 							return (
 								<li key={index}>
-									<Link
+									<NavLink
 										to={route.path}
-										className="menu-links"
+										className={({ isActive }) => {
+											return isActive
+												? "menu-links active"
+												: "menu-links inactive";
+										}}
 										onClick={toggleMenu}
 									>
+										{/* <div className="activeBlock">
+											{route.name}
+										</div> */}
 										{route.name}
-									</Link>
+									</NavLink>
 								</li>
 							);
 						} else return false;
@@ -68,7 +82,12 @@ function Navbar() {
 			</div>
 			{user.isAuthenticated ? (
 				<>
-					<div className="title">Themesis Guardian</div>
+					<div className="title">
+						<span className="initial login-txt">T</span>
+						<span className="login-txt">hemesis </span>
+						<span className="initial login-txt">G</span>
+						<span className="login-txt">uardian</span>
+					</div>
 					<div className="nav-but">
 						<button className="nav-btn">
 							<Link to="/logout" className="nav-link links">

@@ -9,13 +9,13 @@ function NotFound() {
 		if (route.isPrivate) {
 			privateRoutes.push(route.path);
 		}
+		return null;
 	});
 	const [errorMsg, setErrorMsg] = useState("");
 	const [redirectMsg, setRedirectMsg] = useState("");
 	console.log(privateRoutes);
 	const { user } = AuthData();
 	const navigate = useNavigate();
-	const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 	const [timer, setTimer] = useState(3);
 	useEffect(() => {
 		if (privateRoutes.includes(window.location.pathname)) {

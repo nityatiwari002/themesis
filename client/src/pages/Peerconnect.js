@@ -14,10 +14,8 @@ function Peerconnect() {
 	const [message, setMessage] = useState("");
 	const [pickerVisible, setPickerVisible] = useState(false);
 	useEffect(() => {
-		dummy.current.scrollIntoView({ behavior: "smooth", transition:"0.1s" });
+		dummy.current.scrollIntoView();
 	}, [usersChats, message]);
-
-	const [chatData, setChatData] = useState(usersChats);
 
 	function submitForm() {
 		console.log("submit");

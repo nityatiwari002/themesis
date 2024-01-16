@@ -9,10 +9,9 @@ import botChats from "../utilities/BotChats";
 
 function ChatBot() {
 	const dummy = useRef(null);
-	
 	const [message, setMessage] = useState("");
 	const [pickerVisible, setPickerVisible] = useState(false);
-    useEffect(() => {
+	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
 	}, [botChats, message]);
 
@@ -73,6 +72,9 @@ function ChatBot() {
 		return html;
 	};
 
+
+	const [landing, setLanding] = useState(true);
+	
 	return (
 		<div>
 			{pickerVisible && (

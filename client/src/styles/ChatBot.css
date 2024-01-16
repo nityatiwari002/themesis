@@ -3,7 +3,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--bgtransparentmax);
+    /* background-color: var(--bgtransparentmax); */
     border-radius: 10px;
     height: 80vh;
     width: 80vw;
@@ -112,7 +112,7 @@
 }
 
 .message-txt {
-    background-color: var(--bgtransparent);
+    background-color: var(--bgtransparentmax);
     border-radius: 10px 0 10px 10px;
     padding: 5px 10px;
     font-size: 1rem;
@@ -123,7 +123,7 @@
 }
 
 .message-txt-- {
-    background-color: var(--black);
+    background-color: var(--bgtransparentmax);
     border-radius: 0 10px 10px 10px;
     padding: 5px 10px;
     font-size: 1rem;
@@ -141,7 +141,7 @@
 }
 
 .bot-icon-container {
-    margin: 0 10px;
+    margin: 10px 10px;
     min-width: 50px;
     max-width: 50px;
     max-height: 50px;

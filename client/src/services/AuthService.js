@@ -12,7 +12,9 @@ export const AuthWrapper = () => {
 	const login = (userName, password) => {
 		
 		return new Promise((resolve, reject) => {
+			
 			if (password === "password") {
+
 				setUser({ name: userName, isAuthenticated: true });
 				resolve("success");
 			} else {
