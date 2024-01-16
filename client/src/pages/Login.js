@@ -120,7 +120,7 @@ function Login() {
 						</div>
 						<div>
 							<a
-								href="/forgot-password"
+								href="/forgotPassword"
 								className="links-lc input-label"
 							>
 								Forgot Password?

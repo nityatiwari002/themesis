@@ -9,6 +9,8 @@ import userRoutes from './routes/userRouter.js';
 app.use(bodyParser.json({limit : "30mb", extended : true}));
 app.use(bodyParser.urlencoded({limit : "30mb", extended: true}));
 app.use(cors());
+app.use(express.urlencoded({extended: false}));
+app.set("view engine", "ejs");
 
 app.use('/api/v1/users', userRoutes);
 
