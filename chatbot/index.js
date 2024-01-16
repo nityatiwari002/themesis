@@ -1,7 +1,14 @@
 import dotenv from "dotenv";
 import express from "express";
+import bodyParser from "body-parser";
 import fetch from 'node-fetch'
+import cors from 'cors';
 globalThis.fetch = fetch
+
+const app = express();
+app.use(bodyParser.json({limit : "30mb", extended : true}));
+app.use(bodyParser.urlencoded({limit : "30mb", extended: true}));
+app.use(cors());
 
 
 import {
@@ -9,14 +16,12 @@ import {
 	HarmBlockThreshold,
 	HarmCategory,
 } from "@google/generative-ai";
-const app = express();
-const port = 3000;
+const port = 5500;
 
 dotenv.config();
 
 const MODEL_NAME = "gemini-pro";
 const API_KEY = process.env.GOOGLE_API_KEY;
-console.log(API_KEY);
 
 async function runChat(prompt) {
 	const genAI = new GoogleGenerativeAI(API_KEY);

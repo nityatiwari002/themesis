@@ -1,0 +1,117 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import "../styles/Navbar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import { AuthData } from "../services/AuthService";
+import routes from "../routes/Routes";
+function Navbar() {
+	const [visible, setVisible] = useState(false);
+	const toggleMenu = () => {
+		setVisible(!visible);
+	};
+
+	const { user } = AuthData();
+	return (
+		<div className="Navbar">
+			<div className="menu-toggler" onClick={toggleMenu}>
+				<div className="menu-bars">
+					<FontAwesomeIcon
+						icon={faX}
+						className={visible ? `menu-icon` : `hide-element`}
+					/>
+					<FontAwesomeIcon
+						icon={faBars}
+						className={visible ? `hide-element` : `menu-icon`}
+					/>
+				</div>
+			</div>
+			<div className={visible ? `menu` : `hide-element`}>
+				<ul>
+					{routes.map((route, index) => {
+						if (
+							!user.isAuthenticated &&
+							!route.isPrivate &&
+							route.isMenu
+						) {
+							return (
+								<li key={index}>
+									<NavLink
+										to={route.path}
+										className={({ isActive }) => {
+											return isActive
+												? "menu-links active"
+												: "menu-links inactive";
+										}}
+										onClick={toggleMenu}
+									>
+										{/* <div className="activeBlock">
+											{route.name}
+										</div> */}
+										{route.name}
+									</NavLink>
+								</li>
+							);
+						} else if (
+							user.isAuthenticated &&
+							route.isPrivate &&
+							route.isMenu
+						) {
+							return (
+								<li key={index}>
+									<NavLink
+										to={route.path}
+										className={({ isActive }) => {
+											return isActive
+												? "menu-links active"
+												: "menu-links inactive";
+										}}
+										onClick={toggleMenu}
+									>
+										{/* <div className="activeBlock">
+											{route.name}
+										</div> */}
+										{route.name}
+									</NavLink>
+								</li>
+							);
+						} else return false;
+					})}
+				</ul>
+			</div>
+			{user.isAuthenticated ? (
+				<>
+					<div className="title">
+						<span className="initial login-txt">T</span>
+						<span className="login-txt">hemesis </span>
+						<span className="initial login-txt">G</span>
+						<span className="login-txt">uardian</span>
+					</div>
+					<div className="nav-but">
+						<button className="nav-btn">
+							<Link to="/logout" className="nav-link links">
+								Logout
+							</Link>
+						</button>
+					</div>
+				</>
+			) : (
+				<div className="nav-but">
+					<button className="nav-btn">
+						<Link to="/login" className="nav-link links">
+							Login
+						</Link>
+					</button>
+					<button className="nav-btn">
+						<Link to="/sign-up" className="nav-link links">
+							Sign Up
+						</Link>
+					</button>
+				</div>
+			)}
+		</div>
+	);
+}
+
+export default Navbar;
