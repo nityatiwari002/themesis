@@ -10,10 +10,9 @@ import botChats from "../utilities/BotChats";
 
 function ChatBot() {
 	const dummy = useRef(null);
-	
 	const [message, setMessage] = useState("");
 	const [pickerVisible, setPickerVisible] = useState(false);
-    useEffect(() => {
+	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
 	}, [botChats, message]);
 
@@ -62,7 +61,7 @@ function ChatBot() {
 
 	const chat = (entity, index) => {
 		return (
-			<div className={entity + "-message"}>
+			<div className={entity + "-message---"}>
 				{entity === "user" && (
 					<div className="bot-message message-txt">
 						<p>{botChats[entity].messages[index]}</p>
@@ -72,7 +71,7 @@ function ChatBot() {
 					<img
 						src={botChats[entity].icon}
 						alt="bot-icon"
-						className="bot-icon"
+						className="bot-icon--"
 					/>
 				</div>
 				{entity === "bot" && (
@@ -95,6 +94,9 @@ function ChatBot() {
 		return html;
 	};
 
+
+	const [landing, setLanding] = useState(true);
+	
 	return (
 		<div>
 			{pickerVisible && (

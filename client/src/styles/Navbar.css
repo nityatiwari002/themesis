@@ -29,6 +29,7 @@
     position: absolute;
     top: 8vh;
     left: 10px;
+    z-index: 100;
 
 }
 
@@ -65,8 +66,8 @@
 
 .nav-btn {
     border: none;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
     margin: 0 10px;
 }
 
@@ -82,3 +83,4 @@
 .nav-btn:hover .nav-link {
     color: var(--white);
 }
+

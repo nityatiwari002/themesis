@@ -1,12 +1,35 @@
 import { useEffect, useState } from "react";
 import { AuthData } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import routes from "../routes/Routes";
 
 function NotFound() {
+	const privateRoutes = [];
+	routes.map((route, index) => {
+		if (route.isPrivate) {
+			privateRoutes.push(route.path);
+		}
+		return null;
+	});
+	const [errorMsg, setErrorMsg] = useState("");
+	const [redirectMsg, setRedirectMsg] = useState("");
+	console.log(privateRoutes);
 	const { user } = AuthData();
 	const navigate = useNavigate();
-	const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-	const [timer, setTimer] = useState(5);
+	const [timer, setTimer] = useState(3);
+	useEffect(() => {
+		if (privateRoutes.includes(window.location.pathname)) {
+			setErrorMsg("You are not authorized to view this page");
+			setRedirectMsg(
+				`Redirecting you to the login page in ${timer} seconds...`
+			);
+		} else {
+			setErrorMsg("The page you are looking for does not exist");
+			setRedirectMsg(
+				`Redirecting you to the home page in ${timer} seconds...`
+			);
+		}
+	});
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setTimer((timer) => timer - 1);
@@ -18,17 +41,16 @@ function NotFound() {
 			if (user.isAuthenticated) {
 				navigate("/dashboard");
 			} else {
-				navigate("/home");
+				if (privateRoutes.includes(window.location.pathname)) {
+					navigate("/login");
+				} else navigate("/home");
 			}
-		}, 5000);
+		}, 3000);
 	}, [user, navigate]);
 	return (
 		<div className="not-found-container">
-			<h1 className="not-found-title">404</h1>
-			<h2 className="not-found-subtitle">Page Not Found</h2>
-			<p className="not-found-text">
-				Redirecting you to the home page in {timer} seconds...
-			</p>
+			<h2 className="not-found-subtitle">{errorMsg}</h2>
+			<p className="not-found-text">{redirectMsg}</p>
 		</div>
 	);
 }

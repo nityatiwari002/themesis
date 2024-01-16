@@ -1,10 +1,9 @@
 import React from "react";
+import Home from "./Home";
 
 function Dashboard() {
 	return (
-		<div>
-			<h1>Dashboard</h1>
-		</div>
+		<Home/>
 	);
 }
 
