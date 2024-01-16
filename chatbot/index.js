@@ -77,7 +77,7 @@ async function runChat(prompt) {
 				role: "user",
 				parts: [
 					{
-						text: "you should be able to give information of certain attorneys who are renowned for taking similar cases",
+						text: "you should be able to give information of certain attorneys who are renowned for taking similar cases in the specified country",
 					},
 				],
 			},
