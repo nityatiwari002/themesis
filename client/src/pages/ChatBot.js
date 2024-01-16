@@ -7,6 +7,7 @@ import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import botChats from "../utilities/BotChats";
 
+
 function ChatBot() {
 	const dummy = useRef(null);
 	
@@ -16,13 +17,34 @@ function ChatBot() {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
 	}, [botChats, message]);
 
-	function submitForm() {
+	async function submitForm() {
+		botChats.user.messages.push(message);
+
+
+        let userMessage = {
+			"userInput": message
+		}
+
+
+		const response = await fetch('http://localhost:5500/user-input',{
+			method : 'post',
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify(userMessage)
+		}).then(response => response.json()).then(data => {
+			console.log(data.response);
+			botChats.bot.messages.push(data.response);
+			
+		});
+
 		console.log("submit");
 		console.log(message);
-		botChats.user.messages.push(message);
+		// botChats.user.messages.push(message);
 		console.log(botChats.user.messages);
 		setMessage("");
 	}
+
 	function press(event) {
 		if (event.keyCode === 13 && !event.shiftKey) {
 			event.preventDefault();

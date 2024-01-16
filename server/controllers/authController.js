@@ -46,11 +46,13 @@ export const signup = catchAsync(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    username: req.body.username,
     passwordConfirm: req.body.passwordConfirm
   });
 
 
   createSendToken(newUser, 201, res);
+  console.log(req.body);
 });
 
 export const login = catchAsync(async (req, res, next) => {
@@ -104,7 +106,6 @@ export const protect = catchAsync(async (req, res, next) => {
   }
 
   // 2) Verification token
-  console.log(token);
   const decoded = verify(token, 'i-am-shreya');
 
   // 3) Check if user still exists

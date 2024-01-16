@@ -1,13 +1,56 @@
-import React from "react";
+import React, {useState} from "react";
 import "../styles/Login.css";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+
 
 function Register() {
+	const navigate = useNavigate();
+
+	const [name, setName] = useState('');
+	const [userEmail, setUserEmail] = useState('');
+	const [userName, setUserName] = useState('');
+	const [userPassword, setUserPassword] = useState('');
+	const [userCnfPass, setUserCnfPass] = useState('');
+	const [userRole, setUserRole] = useState('');
+
+
 	const [unamefocus, setUnamefocus] = React.useState(false);
 	const [namefocus, setNamefocus] = React.useState(false);
 	const [passfocus, setPassfocus] = React.useState(false);
 	const [cpassfocus, setCpassfocus] = React.useState(false);
 	const [emailfocus, setEmailfocus] = React.useState(false);
 	const [available, setavailable] = React.useState(true);
+
+	async function handleForm (event){ 
+		event.preventDefault();
+
+	   let userData = {
+			name: name,
+			email: userEmail,
+			username: userName,
+			password: userPassword,
+			passwordConfirm : userCnfPass,
+			role: userRole
+		}
+
+
+		const response = await fetch('http://localhost:5001/api/v1/users/signup',{
+			method : 'post',
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify(userData)
+		}).then(response => response.json()).then(data => {
+			// console.log(data);
+			navigate("/login");
+		})
+
+		alert(`Congraulations ${userName} you are successfully registered with us. Please Login to Explore More!!`);
+	
+	}
+
 	return (
 		<div className="register-card">
 			<div className="login-title">
@@ -16,7 +59,7 @@ function Register() {
 			</div>
 
 			<div className="register-form">
-				<form>
+				<form onSubmit={handleForm}>
 					<div className="form-group">
 						<div className="label-wrapper">
 							<label
@@ -35,6 +78,7 @@ function Register() {
 							placeholder="Full Name"
 							onFocus={() => setNamefocus(true)}
 							onBlur={() => setNamefocus(false)}
+							onChange={e => setName(e.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -55,6 +99,7 @@ function Register() {
 							placeholder="Email ID"
 							onFocus={() => setEmailfocus(true)}
 							onBlur={() => setEmailfocus(false)}
+							onChange={e => setUserEmail(e.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -103,6 +148,7 @@ function Register() {
 							placeholder="Username"
 							onFocus={() => setUnamefocus(true)}
 							onBlur={() => setUnamefocus(false)}
+							onChange={e => setUserName(e.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -123,6 +169,7 @@ function Register() {
 							placeholder="Password"
 							onFocus={() => setPassfocus(true)}
 							onBlur={() => setPassfocus(false)}
+							onChange={e => setUserPassword(e.target.value)}
 						/>
 					</div>
 					<div className="form-group">
@@ -143,13 +190,14 @@ function Register() {
 							placeholder="Confirm Password"
 							onFocus={() => setCpassfocus(true)}
 							onBlur={() => setCpassfocus(false)}
+							onChange={e => setUserCnfPass(e.target.value)}
 						/>
 					</div>
 					<div className="form-group2">
 						<label htmlFor="role" className="input-label">
 							Register as:
 						</label>
-						<select id="role" className="form-input-select">
+						<select id="role" className="form-input-select" onChange={e => setUserRole(e.target.value)}>
 							<option value="user">User</option>
 							<option value="lawyer">Lawyer</option>
 						</select>
