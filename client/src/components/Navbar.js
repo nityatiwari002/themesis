@@ -8,9 +8,28 @@ import { AuthData } from "../services/AuthService";
 import routes from "../routes/Routes";
 function Navbar() {
 	const [visible, setVisible] = useState(false);
+	const [profileSec, setProfileSec] = useState(false);
 	const toggleMenu = () => {
 		setVisible(!visible);
 	};
+
+	const handleProfile = () => {
+		if(profileSec == false){
+			 setProfileSec(true);
+		}
+		else{
+			setProfileSec(false);
+		}
+
+		if(setProfileSec == true){
+			return(
+				<div className = "profile_div">
+			
+				</div>
+			)
+		}
+         
+	}
 
 	const { user } = AuthData();
 	return (
@@ -89,12 +108,21 @@ function Navbar() {
 						<span className="login-txt">uardian</span>
 					</div>
 					<div className="nav-but">
-						<button className="nav-btn">
+						<div className = "profile_div" onClick = {handleProfile}>
+							{/* HEllo */}
+							<div className = "profile_picture_holder">
+								<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhwaLDKaK49tsHmdMGOrmTdns5qiw080F2Yw&usqp=CAU" alt = "picture" className="profile_picture"/>
+							</div>
+
+						</div>
+						{/* <button className="nav-btn">
 							<Link to="/logout" className="nav-link links">
 								Logout
 							</Link>
-						</button>
+						</button> */}
 					</div>
+
+
 				</>
 			) : (
 				<div className="nav-but">

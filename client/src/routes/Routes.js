@@ -12,6 +12,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
+import ForgotPw from "../pages/ForgotPw";
+
 const routes = [
 	{
 		path: "/dashboard",
@@ -105,6 +107,14 @@ const routes = [
 		name: "Chat Bot",
 		isPrivate: true,
 		isMenu: false,
+	},
+	{
+		path: "/forgotPassword",
+		component : <ForgotPw />,
+		name: "Forgot Password",
+		isPrivate : false,
+		isMenu : true,
+		
 	},
 	{
 		path: "*",
