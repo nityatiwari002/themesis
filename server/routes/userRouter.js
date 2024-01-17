@@ -11,6 +11,7 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.get('/resetPasswordGet/:token',resetPasswordGet);
+router.post('/protect',protect);
 
 
 

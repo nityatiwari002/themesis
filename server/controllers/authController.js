@@ -21,7 +21,7 @@ const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      Date.now() + "2d" * 24 * 60 * 60 * 1000
     ),
     httpOnly: true
   };
@@ -50,9 +50,9 @@ export const signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm
   });
 
-
-  createSendToken(newUser, 201, res);
-  console.log(req.body);
+  res.status(201).json({
+    status : 'success'
+  })
 });
 
 export const login = catchAsync(async (req, res, next) => {
@@ -95,11 +95,8 @@ export const protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-  } else if (req.cookies.jwt) {
-    token = req.cookies.jwt;
-  }
-  else if(req.cookies.jwt){
-    token = req.cookies.jwt;
+  } else if (req.body.jwt) {
+    token = req.body.jwt;
   }
 
   if (!token) {
@@ -131,9 +128,12 @@ export const protect = catchAsync(async (req, res, next) => {
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
-  req.user = currentUser;
-  res.locals.user = currentUser;
-  next();
+  res.status(200).json({
+    status: 'success',
+  });    
+  // req.user = currentUser;
+  // res.locals.user = currentUser;
+  // next();
 });
 
 

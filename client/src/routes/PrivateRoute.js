@@ -1,9 +1,10 @@
 import React from "react";
 import { Route, Navigate, useNavigate } from "react-router-dom";
+import getCookies from "../hooks/getCookies";
 
 const PrivateRoute = ({ render: Component, ...rest }) => {
 	const navigate = useNavigate();
-	const isAuthenticated = localStorage.getItem("token");
+	const isAuthenticated = getCookies('jwt');
 	if (!isAuthenticated) {
 		navigate("/login");
 	}
