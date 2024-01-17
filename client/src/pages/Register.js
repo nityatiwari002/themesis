@@ -35,8 +35,8 @@ function Register() {
 			role: userRole
 		}
 
-
-		const response = await fetch('http://localhost:5001/api/v1/users/signup',{
+    
+	try{const response = await fetch('http://localhost:5001/api/v1/users/signup',{
 			method : 'post',
 			headers:{
 				"Content-Type":"application/json"
@@ -44,12 +44,16 @@ function Register() {
 			body:JSON.stringify(userData)
 		}).then(response => response.json()).then(data => {
 			// console.log(data);
-			navigate("/login");
+			if(data.status === 'success'){
+				navigate("/login");
+			}
 		})
-
 		alert(`Congraulations ${userName} you are successfully registered with us. Please Login to Explore More!!`);
 	
+	}catch(err){
+		alert(`Entered Email : ${userEmail} or Username: ${userName} is not available!! Please ensure that your Email and Username are Unique.`);
 	}
+}
 
 	return (
 		<div className="register-card">

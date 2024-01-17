@@ -13,7 +13,6 @@ function NotFound() {
 	});
 	const [errorMsg, setErrorMsg] = useState("");
 	const [redirectMsg, setRedirectMsg] = useState("");
-	console.log(privateRoutes);
 	const { user } = AuthData();
 	const navigate = useNavigate();
 	const [timer, setTimer] = useState(3);

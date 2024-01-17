@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { AuthData } from "../services/AuthService";
 import routes from "../routes/Routes";
+
+
 function Navbar() {
 	const [visible, setVisible] = useState(false);
 	const [profileSec, setProfileSec] = useState(false);
