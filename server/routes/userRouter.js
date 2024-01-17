@@ -41,7 +41,7 @@ await user.save();
 // 3) Update changedPasswordAt property for the user
 // 4) Log the user in, send JWT
 const loginLink = "http://localhost:3000/login";
-res.render("loginRedirection");
+res.render("pages/loginRedirection");
 // createSendToken(user, 200, res);
 
 });
