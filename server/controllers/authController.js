@@ -100,9 +100,15 @@ export const protect = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(
-      new AppError('You are not logged in! Please log in to get access.', 401)
-    );
+    // return next(
+      
+    //   new AppError('You are not logged in! Please log in to get access.', 401)
+    // ); 
+    res.status(401).json({
+      status : 'fail',
+    message : 'You are not logged in! Please log in to get access',
+  });    
+
   }
 
   // 2) Verification token
@@ -111,20 +117,28 @@ export const protect = catchAsync(async (req, res, next) => {
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
-    return next(
-      new AppError(
-        'The user belonging to this token does no longer exist.',
-        401
-      )
-    );
+    // return next(
+    //   new AppError(
+    //     'The user belonging to this token does no longer exist.',
+    //     401
+    //   )
+    // );
+    res.status(401).json({
+      status : 'fail',
+      message : 'We are unable to find the user!! Please login again.',
+    });    
   }
 
 
   // 4) Check if user changed password after the token was issued
   if (currentUser.changedPasswordAfterToken(decoded.iat)) {
-    return next(
-      new AppError('User recently changed password! Please log in again.', 401)
-    );
+    // return next(
+    //   new AppError('User recently changed password! Please log in again.', 401)
+    // );
+    res.status(401).json({
+      status: 'fail',
+      message : 'User recently changed password! Please login again',
+    });    
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
