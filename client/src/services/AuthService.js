@@ -18,9 +18,8 @@ export const AuthWrapper = () => {
 	let userData = {
 		jwt : getCookies('jwt'),
 	  };
-
-    try {
-      const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
+  try{
+    const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
 		method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -30,22 +29,27 @@ export const AuthWrapper = () => {
 	  })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status === "success") {
-            setProtected(true);
-			return isprotected;
+          console.log(data.status);
+          if(data.status === 'fail'){
+            setProtected(false);
           }
-        });
+          else if(data.status === "success") {
+            setProtected(true);}
+          }   
+        );
     } catch (err) {
-      console.log(err);
       setProtected(false);
-	  return isprotected;
     }
+
+    return isprotected;
   };
 
+  
   const [user, setUser] = useState({
     name: "",
-    isAuthenticated: checkProtected(),
+    isAuthenticated: checkProtected() === true ? true : false,
   });
+  
 
 
 
