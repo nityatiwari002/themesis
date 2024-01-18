@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import fetch from 'node-fetch'
 import cors from 'cors';
+
 globalThis.fetch = fetch
 
 const app = express();
@@ -250,9 +251,9 @@ app.post("/user-input", async (req, res) => {
 	if (!userPrompt) {
 		return res.status(400).json({ error: "User input is required." });
 	}
-
 	try {
 		const responseText = await runChat(userPrompt);
+		console.log(responseText);
 		res.json({ response: responseText });
 	} catch (error) {
 		console.error(error);

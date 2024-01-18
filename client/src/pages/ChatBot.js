@@ -6,11 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import botChats from "../utilities/BotChats";
-
-
+import MarkdownIt from "markdown-it";
+// import Markdown from "markdown-to-jsx";
+import Markdown from 'react-markdown'
+const md = new MarkdownIt();
 function ChatBot() {
 	const dummy = useRef(null);
 	const [message, setMessage] = useState("");
+	const [isInputDisabled, setIsInputDisabled] = useState(false);
 	const [pickerVisible, setPickerVisible] = useState(false);
 	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -18,30 +21,32 @@ function ChatBot() {
 
 	async function submitForm() {
 		botChats.user.messages.push(message);
+		setIsInputDisabled(true);
 
+		setMessage("...");
 
-        let userMessage = {
-			"userInput": message
-		}
+		let userMessage = {
+			userInput: message,
+		};
 
-
-		const response = await fetch('http://localhost:5500/user-input',{
-			method : 'post',
-			headers:{
-				"Content-Type":"application/json"
+		const response = await fetch("http://localhost:5500/user-input", {
+			method: "post",
+			headers: {
+				"Content-Type": "application/json",
 			},
-			body:JSON.stringify(userMessage)
-		}).then(response => response.json()).then(data => {
-			console.log(data.response);
-			botChats.bot.messages.push(data.response);
-			
-		});
+			body: JSON.stringify(userMessage),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				const formattedResponse = md.render(data.response);
+				console.log("response" + data.response);
+				console.log("formattedResponse" + formattedResponse);
+				botChats.bot.messages.push(data.response);
+				// botChats.bot.messages.push(data.response);
+			});
 
-		console.log("submit");
-		console.log(message);
-		// botChats.user.messages.push(message);
-		console.log(botChats.user.messages);
 		setMessage("");
+		setIsInputDisabled(false);
 	}
 
 	function press(event) {
@@ -59,26 +64,36 @@ function ChatBot() {
 		setMessage(message + emoji);
 	};
 
+	const renderContent = (index) => {
+		const content = botChats.bot.messages[index];
+		// const formattedResponse = md.render(content);
+		// console.log(content);
+		return content;
+	};
 	const chat = (entity, index) => {
 		return (
-			<div className={entity + "-message---"}>
-				{entity === "user" && (
-					<div className="bot-message message-txt">
-						<p>{botChats[entity].messages[index]}</p>
+			<div>
+				<div className={entity + "-message---"}>
+					{entity === "user" && (
+						<div className="bot-message message-txt">
+							<p>{botChats[entity].messages[index]}</p>
+						</div>
+					)}
+					<div className="bot-icon-container">
+						<img
+							src={botChats[entity].icon}
+							alt="bot-icon"
+							className="bot-icon--"
+						/>
 					</div>
-				)}
-				<div className="bot-icon-container">
-					<img
-						src={botChats[entity].icon}
-						alt="bot-icon"
-						className="bot-icon--"
-					/>
+					{entity === "bot" && (
+						<div className="bot-message message-txt--">
+							<Markdown>
+								{botChats[entity].messages[index]}
+							</Markdown>
+						</div>
+					)}
 				</div>
-				{entity === "bot" && (
-					<div className="bot-message message-txt--">
-						<p>{botChats[entity].messages[index]}</p>
-					</div>
-				)}
 			</div>
 		);
 	};
@@ -94,9 +109,8 @@ function ChatBot() {
 		return html;
 	};
 
-
 	const [landing, setLanding] = useState(true);
-	
+
 	return (
 		<div>
 			{pickerVisible && (
@@ -128,6 +142,7 @@ function ChatBot() {
 							onKeyDown={(e) => press(e)}
 							onChange={(e) => setMessage(e.target.value)}
 							value={message}
+							disabled={isInputDisabled}
 						></textarea>
 					</div>
 				</div>

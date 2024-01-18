@@ -16,22 +16,16 @@ function Navbar() {
 	};
 
 	const handleProfile = () => {
-		if(profileSec == false){
-			 setProfileSec(true);
-		}
-		else{
+		if (profileSec == false) {
+			setProfileSec(true);
+		} else {
 			setProfileSec(false);
 		}
 
-		if(setProfileSec == true){
-			return(
-				<div className = "profile_div">
-			
-				</div>
-			)
+		if (setProfileSec == true) {
+			return <div className="profile_div"></div>;
 		}
-         
-	}
+	};
 
 	const { user } = AuthData();
 	return (
@@ -110,21 +104,18 @@ function Navbar() {
 						<span className="login-txt">uardian</span>
 					</div>
 					<div className="nav-but">
-						{/* <div className = "profile_div" onClick = {handleProfile}>
-							{/* HEllo */}
-							{/* <div className = "profile_picture_holder">
+						{/* <div className="profile_div" onClick={handleProfile}> */}
+						{/* HEllo */}
+						{/* <div className = "profile_picture_holder">
 								<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhwaLDKaK49tsHmdMGOrmTdns5qiw080F2Yw&usqp=CAU" alt = "picture" className="profile_picture"/>
-							</div>
-
-						</div> */} 
+							</div> */}
+						{/* </div> */}
 						<button className="nav-btn">
 							<Link to="/logout" className="nav-link links">
 								Logout
 							</Link>
 						</button>
 					</div>
-
-
 				</>
 			) : (
 				<div className="nav-but">
