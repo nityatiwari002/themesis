@@ -28,70 +28,32 @@ function NotFound() {
 				`Redirecting you to the login page in ${timer} seconds...`
 			);
 		} else {
-			// setErrorMsg("The page you are looking for does not exist");
-			// setRedirectMsg(
-			// 	`Redirecting you to the home page in ${timer} seconds...`
-			// );
-			console.log("inside not found");
+			setErrorMsg("The page you are looking for does not exist");
+			setRedirectMsg(
+				`Redirecting you to the home page in ${timer} seconds...`
+			);
 		}
 	});
-	// useEffect(() => {
-	// 	const timer = setInterval(() => {
-	// 		setTimer((timer) => timer - 1);
-	// 	}, 1000);
-	// 	return () => clearInterval(timer);
-	// }, []);
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setTimer((timer) => timer - 1);
+		}, 1000);
+		return () => clearInterval(timer);
+	}, []);
 
-	// const [isprotected, setProtected] = useState(false);
 
-	// useEffect(() => {
-		
-	// 	async function checkProtected ()  {
-	// 		let userData = {
-	// 		  jwt : getCookies('jwt'),
-	// 		  };
-	// 		  const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
-	// 		  method: "post",
-	// 			  headers: {
-	// 				"Content-Type": "application/json",
-	// 			  },
-	// 			  body: JSON.stringify(userData),
-		  
-	// 		  })
-	// 			  .then((response) => response.json())
-	// 			  .then((data) => {
-	// 				// console.log("here", data.status);
-	// 				if(data.status === 'fail'){
-	// 				  setProtected(false);
-	// 				}
-	// 				else {
-	// 				  setProtected(true);
-	// 				}
-	// 				}   
-	// 		 );
-	// 	}
-		
-	// 	checkProtected();
-	// 	// console.log("shreya", isprotected);
-	//  }, [isprotected])
- 
-
-	// useEffect(() => {
-	// 	setTimeout(function () {
-	// 		// console.log("user", isprotected);
-	// 		if (user.isAuthenticated) {
-	// 			console.log("hey we are her");
-	// 			navigate("/dashboard");
-	// 		} else {
-	// 			if (privateRoutes.includes(window.location.pathname)) {
-				
-	// 				console.log("hey we are not here");
-
-	// 				navigate("/login");
-	// 			} else navigate("/home");
-	// 		}
-	// 	}, 3000);
-	// }, [user, navigate]);
+	useEffect(() => {
+		setTimeout(function () {
+			// console.log("user", isprotected);
+			if (user.isAuthenticated) {
+				navigate("/dashboard");
+			} else {
+				if (privateRoutes.includes(window.location.pathname)) {
+					navigate("/login");
+				} else navigate("/home");
+			}
+		}, 3000);
+	}, [user, navigate]);
 
 
 	return (
