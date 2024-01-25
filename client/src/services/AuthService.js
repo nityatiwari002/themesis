@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import RenderRoutes from "../routes/RenderRoutes";
@@ -10,49 +10,90 @@ import removeCookies from "../hooks/removeCookies";
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
 
+
 export const AuthWrapper = () => {
   const navigate = useNavigate();
-  const [isprotected, setProtected] = useState(false);
-
-  const checkProtected = async () => {
-	let userData = {
-		jwt : getCookies('jwt'),
-	  };
-  try{
-    const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
-		method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-
-	  })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.status);
-          if(data.status === 'fail'){
-            setProtected(false);
-          }
-          else if(data.status === "success") {
-            setProtected(true);}
-          }   
-        );
-    } catch (err) {
-      setProtected(false);
-    }
-
-    return isprotected;
-  };
+  let role = 'user';
+  const [isProtected, setProtected] = useState(false);
 
   
+  async function checkProtected (){
+    let userData = {
+      jwt : getCookies('jwt'),
+      };
+      const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
+      method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+  
+      })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+              if (data.status === 'success') {
+                setProtected(true);
+              } 
+              else {
+                setProtected(false);
+              }
+            });
+            }
+
+    
+
+
   const [user, setUser] = useState({
     name: "",
-    isAuthenticated: checkProtected() === true ? true : false,
+    role: "",
+    isAuthenticated: getCookies('jwt') ? true : false
   });
-  
 
+  useEffect(() => {
+    checkProtected();
+    console.log("use effect", isProtected);
 
+   }, []);  
 
+  // const checkProtected = async () => {
+  //     let userData = {
+  //       jwt : getCookies('jwt'),
+  //       };
+  //       const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
+  //       method: "post",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify(userData),
+    
+  //       })
+  //           .then((response) => response.json())
+  //           .then((data) => {
+  //             console.log("yahan wala", data.status);
+  //             if(data.status === 'fail'){
+  //               // // setProtected(false);
+  //               // setUser("", false);
+  //               // navigate("/home");
+  //               return false;
+
+  //             }
+  //             else{
+  //               console.log('idhar');
+  //               // navigate("/dashboard");
+  //               // // setProtected(true);
+  //               // setUser("", true);
+  //               return true;
+  //             }
+  //             }   
+  //      );
+  // }
+
+  // useEffect(async () => {
+  //   checkProtected();
+  //   console.log("kuch to", user.isAuthenticated);
+     
+  // }, []);
   
 
   const login = async (email, password) => {
@@ -71,33 +112,41 @@ export const AuthWrapper = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          // console.log("data", data);
-
           return new Promise((resolve, reject) => {
+
             if (data.status === "success") {
               const tken = data.token;
-              console.log("token", tken);
               removeCookies("jwt");
-              setUser({ name: email, isAuthenticated: true });
+              console.log("user", data.data.user);
+              setUser({ user: email,role: data.data.user.role, isAuthenticated: true });
               setCookies("jwt", tken);
-              navigate("/dashboard");
+              if(data.data.user.role === 'user'){
+                navigate("/dashboard");
+              }
+
+              else if(data.data.user.role === 'lawyer'){
+                role = 'lawyer'
+                navigate("/dashboardLawyer");
+              }
               resolve("success");
             } else {
-              setUser({ name: "", isAuthenticated: false });
+              setUser({ user: "",role: "", isAuthenticated: false });
               reject("Invalid Credentails!!");
             }
           });
         });
     } catch (err) {
       console.log(err);
-      setUser({ name: "", isAuthenticated: false });
+      setUser({ user: "",role:"", isAuthenticated: false });
       alert("Invalid Credentials!!");
     }
   };
 
+
+
   const logout = () => {
     removeCookies("jwt");
-    setUser({ name: "", isAuthenticated: false });
+    setUser({ user: "",role:"", isAuthenticated: false });
   };
 
   return (
@@ -109,4 +158,6 @@ export const AuthWrapper = () => {
       </>
     </AuthContext.Provider>
   );
+
+ 
 };

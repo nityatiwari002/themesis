@@ -48,7 +48,7 @@ function Navbar() {
 						if (
 							!user.isAuthenticated &&
 							!route.isPrivate &&
-							route.isMenu
+							route.isMenuUser
 						) {
 							return (
 								<li key={index}>
@@ -68,30 +68,68 @@ function Navbar() {
 									</NavLink>
 								</li>
 							);
-						} else if (
-							user.isAuthenticated &&
-							route.isPrivate &&
-							route.isMenu
-						) {
-							return (
-								<li key={index}>
-									<NavLink
-										to={route.path}
-										className={({ isActive }) => {
-											return isActive
-												? "menu-links active"
-												: "menu-links inactive";
-										}}
-										onClick={toggleMenu}
-									>
-										{/* <div className="activeBlock">
-											{route.name}
-										</div> */}
-										{route.name}
-									</NavLink>
-								</li>
-							);
-						} else return false;
+						} 
+						else if(user.isAuthenticated){
+							if(user.role == 'user'){
+                                if (
+									user.isAuthenticated &&
+									route.isPrivate &&
+									route.isMenuUser
+								)   {
+									return (
+										<li key={index}>
+											<NavLink
+												to={route.path}
+												className={({ isActive }) => {
+													return isActive
+														? "menu-links active"
+														: "menu-links inactive";
+												}}
+												onClick={toggleMenu}
+											>
+												{/* <div className="activeBlock">
+													{route.name}
+												</div> */}
+												{route.name}
+											</NavLink>
+										</li>
+									);
+								}
+
+							}
+
+							if(user.role == 'lawyer'){
+                                if (
+									user.isAuthenticated &&
+									route.isPrivate &&
+									route.isMenuLawyer
+								)   {
+									return (
+										<li key={index}>
+											<NavLink
+												to={route.path}
+												className={({ isActive }) => {
+													return isActive
+														? "menu-links active"
+														: "menu-links inactive";
+												}}
+												onClick={toggleMenu}
+											>
+												{/* <div className="activeBlock">
+													{route.name}
+												</div> */}
+												{route.name}
+											</NavLink>
+										</li>
+									);
+								}
+
+							}
+
+
+
+						}
+						 else return false;
 					})}
 				</ul>
 			</div>
@@ -104,12 +142,12 @@ function Navbar() {
 						<span className="login-txt">uardian</span>
 					</div>
 					<div className="nav-but">
-						{/* <div className="profile_div" onClick={handleProfile}> */}
-						{/* HEllo */}
-						{/* <div className = "profile_picture_holder">
+						{/* <div className="profile_div" onClick={handleProfile}>
+						<div className = "profile_picture_holder">
 								<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhwaLDKaK49tsHmdMGOrmTdns5qiw080F2Yw&usqp=CAU" alt = "picture" className="profile_picture"/>
-							</div> */}
-						{/* </div> */}
+							</div>
+						</div>  */}
+					
 						<button className="nav-btn">
 							<Link to="/logout" className="nav-link links">
 								Logout

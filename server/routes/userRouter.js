@@ -2,8 +2,9 @@ import express from "express";
 import crypto from "crypto";
 import { User } from "../models/userModel.js";
 
-import { login, signup, logout, forgotPassword, resetPasswordGet, updatePassword, protect } from "../controllers/authController.js";
-import { getMe, getUser } from "../controllers/userController.js";
+import { login, signup, logout, forgotPassword, resetPasswordGet, updatePassword, protect} from "../controllers/authController.js";
+
+import { getMe, getUser, getAllUsers } from "../controllers/userController.js";
 
 const router = express.Router();
 router.post('/signup', signup);
@@ -12,6 +13,7 @@ router.post('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
 router.get('/resetPasswordGet/:token',resetPasswordGet);
 router.post('/protect',protect);
+router.get('/', getAllUsers);
 
 
 

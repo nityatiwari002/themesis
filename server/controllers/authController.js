@@ -47,7 +47,8 @@ export const signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     username: req.body.username,
-    passwordConfirm: req.body.passwordConfirm
+    passwordConfirm: req.body.passwordConfirm,
+    role : req.body.role
   });
 
   res.status(201).json({
@@ -135,6 +136,7 @@ export const protect = catchAsync(async (req, res, next) => {
     // return next(
     //   new AppError('User recently changed password! Please log in again.', 401)
     // );
+    
     res.status(401).json({
       status: 'fail',
       message : 'User recently changed password! Please login again',
@@ -142,12 +144,12 @@ export const protect = catchAsync(async (req, res, next) => {
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
+  req.user = currentUser;
+  res.locals.user = currentUser;
   res.status(200).json({
     status: 'success',
   });    
-  // req.user = currentUser;
-  // res.locals.user = currentUser;
-  // next();
+  next();
 });
 
 

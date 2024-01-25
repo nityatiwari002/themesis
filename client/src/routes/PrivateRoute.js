@@ -7,7 +7,8 @@ const PrivateRoute = ({ render: Component, ...rest }) => {
 	const { user } = AuthData();
 	const navigate = useNavigate();
 	const isAuthenticated = user.isAuthenticated;
-
+	console.log("inside private routes", isAuthenticated);
+    
 	if (!isAuthenticated) {
 		navigate("/login");
 	}
