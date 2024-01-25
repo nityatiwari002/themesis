@@ -45,6 +45,12 @@ const userSchema = new mongoose.Schema(
             message : 'Passwords are not the same!!'
            }
         },
+
+        image : {
+            type : String, 
+            default : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+
+        },
         passwordChangedAt: Date,
         passwordResetToken : String,
         PasswordResetTokenExpires : Date,
@@ -53,6 +59,8 @@ const userSchema = new mongoose.Schema(
             default : true,
             select : false
         }
+    },{
+        timestamps : true
     }
 );
 
