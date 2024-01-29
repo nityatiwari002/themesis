@@ -33,7 +33,7 @@ function ForgotPw() {
 			body:JSON.stringify(userData)
 		}).then(response => response.json()).then(data => {
 			console.log("data", data);
-			alert('Password reset link has been sent on your EmailId!! Make sure to grab the link within 10 minutes.')
+			alert('We have sent you an email with a link to change your password. Please check your email and use that link to continue.')
 		})}catch(err){
 			alert('Wrong Credentaials!!');
 		}

@@ -146,9 +146,9 @@ export const protect = catchAsync(async (req, res, next) => {
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
   res.locals.user = currentUser;
-  res.status(200).json({
-    status: 'success',
-  });    
+  // res.status(200).json({
+  //   status: 'success',
+  // });    
   next();
 });
 
@@ -217,12 +217,12 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     'host'
   )}/api/v1/users/resetPasswordGet/${resetToken}`;
 
-  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
+  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\n\n\nIf you didn't forget your password, please ignore this email!`;
 
   try {
     await sendEmail({
       email: user.email,
-      subject: 'Your password reset token (valid for 10 min)',
+      subject: 'Themesis Guardian - Your password reset token (valid for 10 min)',
       message
     });
 
