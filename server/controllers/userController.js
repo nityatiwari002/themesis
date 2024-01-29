@@ -13,7 +13,7 @@ export const getUser = async (req, res, next) => {
 };
 
 
-//api/v1/users?search=piyush
+//api/v1/users?search=shreya
 export const getAllUsers = async (req, res, next) => {
     const keyword = req.query.search ? {
         $or : [

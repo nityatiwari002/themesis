@@ -45,15 +45,18 @@ export const AuthWrapper = () => {
 
 
   const [user, setUser] = useState({
-    name: "",
-    role: "",
+    name: localStorage.getItem('name'),
+    role: localStorage.getItem('role'),
+    _id : localStorage.getItem('_id'),
     isAuthenticated: getCookies('jwt') ? true : false
   });
+  
+  const [selectedChat, setSelectedChat] = useState([]);
+  const [chats, setChats] = useState([]);
 
   useEffect(() => {
     checkProtected();
     console.log("use effect", isProtected);
-
    }, []);  
 
   // const checkProtected = async () => {
@@ -117,7 +120,10 @@ export const AuthWrapper = () => {
             if (data.status === "success") {
               const tken = data.token;
               removeCookies("jwt");
-              console.log("user", data.data.user);
+              localStorage.setItem('name', data.data.user.name);
+              localStorage.setItem('role', data.data.user.role);
+              localStorage.setItem('_id', data.data.user._id);
+              // console.log("user", data.data.user);
               setUser({ user: email,role: data.data.user.role, isAuthenticated: true });
               setCookies("jwt", tken);
               if(data.data.user.role === 'user'){
@@ -150,7 +156,7 @@ export const AuthWrapper = () => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, selectedChat, setSelectedChat, chats, setChats}}>
       <>
         <Navbar />
         <RenderRoutes />
