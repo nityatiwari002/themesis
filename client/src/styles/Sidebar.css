@@ -1,13 +1,14 @@
 .side-bar{
     background-color: #141414;
     height: 100%;
-    width: 15%;
+    /* width: 15%; */
+    min-width: 200px;
     position: absolute;
     z-index: 1;
     top: 0;
     left: 0;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 4%;
     border-right: 1px solid #685e5e;
     transition: all 0.3s ease-in-out;
 }

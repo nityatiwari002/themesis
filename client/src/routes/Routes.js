@@ -17,8 +17,6 @@ import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
 
-
-
 const routes = [
 	{
 		path: "/dashboard",
@@ -26,15 +24,17 @@ const routes = [
 		name: "Dashboard",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
-	{ 
-		path : "/dashboardLawyer",
+	{
+		path: "/dashboardLawyer",
 		component: <DashboardLawyer />,
-		name : "Dashboard",
-		isPrivate : true,
-		isMenuUser : false,
-		isMenuLawyer : true
+		name: "Dashboard",
+		isPrivate: true,
+		isMenuUser: false,
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/guide",
@@ -42,8 +42,8 @@ const routes = [
 		name: "Legal Guide",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
-
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/Quick-fix-court",
@@ -51,8 +51,8 @@ const routes = [
 		name: "Quick Fix Court",
 		isPrivate: true,
 		isMenuUser: false,
-		isMenuLawyer : true
-
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/find-lawyer",
@@ -60,7 +60,8 @@ const routes = [
 		name: "Find Lawyer",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
 	{
 		path: "/prep-and-pitch",
@@ -68,7 +69,8 @@ const routes = [
 		name: "Prep & Pitch",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
 	{
 		path: "/efilling",
@@ -76,7 +78,8 @@ const routes = [
 		name: "E-Filing",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/peer-connect",
@@ -84,7 +87,8 @@ const routes = [
 		name: "Peer Connect",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/trial-detainees",
@@ -92,7 +96,8 @@ const routes = [
 		name: "Trial Detainees",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
 	{
 		path: "/pastcases",
@@ -100,7 +105,8 @@ const routes = [
 		name: "Past Cases",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/logout",
@@ -108,7 +114,8 @@ const routes = [
 		name: "Logout",
 		isPrivate: true,
 		isMenuUser: false,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
 
 	{
@@ -117,7 +124,8 @@ const routes = [
 		name: "Home",
 		isPrivate: false,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
 	{
 		path: "/login",
@@ -125,7 +133,8 @@ const routes = [
 		name: "Login",
 		isPrivate: false,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/sign-up",
@@ -133,7 +142,8 @@ const routes = [
 		name: "Sign Up",
 		isPrivate: false,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
 	},
 	{
 		path: "/chat-bot",
@@ -141,16 +151,17 @@ const routes = [
 		name: "Chat Bot",
 		isPrivate: true,
 		isMenuUser: false,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
 	},
 	{
 		path: "/forgotPassword",
-		component : <ForgotPw />,
+		component: <ForgotPw />,
 		name: "Forgot Password",
-		isPrivate : false,
-		isMenuUser : true,
-		isMenuLawyer : true
-		
+		isPrivate: false,
+		isMenuUser: true,
+		isMenuLawyer: true,
+		isUtility: true,
 	},
 	{
 		path: "*",
@@ -158,18 +169,18 @@ const routes = [
 		name: "Not Found",
 		isPrivate: false,
 		isMenuUser: false,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: true,
 	},
 	{
-		path : "/chat",
-		component : <ChatPage />,
-		name : "Chat Page",
-		isPrivate : false,
-	    isMenuLawyer : false,
-		isMenuUser : false,
-	
-	}
-
+		path: "/chat",
+		component: <ChatPage />,
+		name: "Chat Page",
+		isPrivate: true,
+		isMenuLawyer: true,
+		isMenuUser: true,
+		isUtility: false,
+	},
 ];
 
 export default routes;

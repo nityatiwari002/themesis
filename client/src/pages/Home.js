@@ -7,7 +7,7 @@ function Home() {
 		<div className="home-card">
 			<div className="home-cards-wrapper">
 				{description.map((desc, index) => {
-					console.log(desc);
+					// console.log(desc);
 					return (
 						<div className="home--card" key={index}>
 							{index % 2 !== 0 && (

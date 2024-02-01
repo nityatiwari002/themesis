@@ -20,112 +20,16 @@ function Navbar() {
 			return <div className="profile_div"></div>;
 		}
 	};
-
-	const [sidebar, setSidebar] = useState(window.innerWidth >= 780);
-
-	useEffect(() => {
-		window.addEventListener("resize", () => {
-			if (window.innerWidth >= 780) {
-				setSidebar(true);
-			} else {
-				setSidebar(false);
-			}
-		});
-	}, []);
-	const toggleSidebar = () => {
-		if (sidebar == true) {
-			setSidebar(false);
-		} else {
-			setSidebar(true);
-		}
-	};
-
+	const { showSidebar, toggleSidebar } = AuthData();
 	const { user } = AuthData();
+	console.log(showSidebar);
 	return (
 		<div className="Navbar">
-			{sidebar && (
-				<div className="side-bar">
-					<ul>
-						{routes.map((route, index) => {
-							if (
-								!user.isAuthenticated &&
-								!route.isPrivate &&
-								route.isMenuUser
-							) {
-								return (
-									<li key={index}>
-										<NavLink
-											to={route.path}
-											className={({ isActive }) => {
-												return isActive
-													? "menu-links active"
-													: "menu-links inactive";
-											}}
-										>
-											{route.name}
-										</NavLink>
-									</li>
-								);
-							} else if (user.isAuthenticated) {
-								if (user.role == "user") {
-									if (
-										user.isAuthenticated &&
-										route.isPrivate &&
-										route.isMenuUser
-									) {
-										return (
-											<li key={index}>
-												<NavLink
-													to={route.path}
-													className={({
-														isActive,
-													}) => {
-														return isActive
-															? "menu-links active"
-															: "menu-links inactive";
-													}}
-												>
-													{route.name}
-												</NavLink>
-											</li>
-										);
-									}
-								}
-
-								if (user.role == "lawyer") {
-									if (
-										user.isAuthenticated &&
-										route.isPrivate &&
-										route.isMenuLawyer
-									) {
-										return (
-											<li key={index}>
-												<NavLink
-													to={route.path}
-													className={({
-														isActive,
-													}) => {
-														return isActive
-															? "menu-links active"
-															: "menu-links inactive";
-													}}
-												>
-													{route.name}
-												</NavLink>
-											</li>
-										);
-									}
-								}
-							} else return false;
-						})}
-					</ul>
-				</div>
-			)}
-			<div className={sidebar ? "top-nav" : "top-nav-unshifted"}>
+			<div className={showSidebar ? "top-nav" : "top-nav-unshifted"}>
 				<div className="title">
 					<span
 						className={
-							sidebar ? `hide-element` : `menu-toggle-icon`
+							showSidebar ? `hide-element` : `menu-toggle-icon`
 						}
 						onClick={toggleSidebar}
 					>
@@ -133,7 +37,7 @@ function Navbar() {
 					</span>
 					<span
 						className={
-							sidebar ? `menu-toggle-icon` : `hide-element`
+							showSidebar ? `menu-toggle-icon` : `hide-element`
 						}
 						onClick={toggleSidebar}
 					>

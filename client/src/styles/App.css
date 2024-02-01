@@ -27,7 +27,7 @@
   display: none;
 }
 
-.links {
+/* .links {
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 600;
@@ -35,17 +35,17 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: all 0.3s ease;
-}
+} */
 
-.links-lc {
+/* .links-lc {
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 600;
   font-family: var(--font-normal);
   transition: all 0.3s ease;
-}
+} */
 
-.btn {
+/* .btn {
   border: none;
   padding: 2px 20px;
   border-radius: 4px;
@@ -53,7 +53,7 @@
   cursor: pointer;
   background-color: var(--primary-brown);
   color: var(--white);
-}
+} */
 
 .chat-bot-icon-container {
   position: fixed;
@@ -84,3 +84,27 @@
   height: 80vh;
 }
 
+
+.outer-container{
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.left-container{
+  height: 100%;
+  width: 15%;
+  min-width: 200px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.right-container{
+  height: 100%;
+  width: 85%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
