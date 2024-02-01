@@ -29,7 +29,7 @@ const routes = [
 		isMenuLawyer : false
 	},
 	{ 
-		path : "dashboardLawyer",
+		path : "/dashboardLawyer",
 		component: <DashboardLawyer />,
 		name : "Dashboard",
 		isPrivate : true,

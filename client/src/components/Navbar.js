@@ -43,9 +43,84 @@ function Navbar() {
 	const { user } = AuthData();
 	return (
 		<div className="Navbar">
-			{sidebar && <div className="side-bar">
-				<h1>hello</h1>
-				</div>}
+			{sidebar && (
+				<div className="side-bar">
+					<ul>
+						{routes.map((route, index) => {
+							if (
+								!user.isAuthenticated &&
+								!route.isPrivate &&
+								route.isMenuUser
+							) {
+								return (
+									<li key={index}>
+										<NavLink
+											to={route.path}
+											className={({ isActive }) => {
+												return isActive
+													? "menu-links active"
+													: "menu-links inactive";
+											}}
+										>
+											{route.name}
+										</NavLink>
+									</li>
+								);
+							} else if (user.isAuthenticated) {
+								if (user.role == "user") {
+									if (
+										user.isAuthenticated &&
+										route.isPrivate &&
+										route.isMenuUser
+									) {
+										return (
+											<li key={index}>
+												<NavLink
+													to={route.path}
+													className={({
+														isActive,
+													}) => {
+														return isActive
+															? "menu-links active"
+															: "menu-links inactive";
+													}}
+												>
+													{route.name}
+												</NavLink>
+											</li>
+										);
+									}
+								}
+
+								if (user.role == "lawyer") {
+									if (
+										user.isAuthenticated &&
+										route.isPrivate &&
+										route.isMenuLawyer
+									) {
+										return (
+											<li key={index}>
+												<NavLink
+													to={route.path}
+													className={({
+														isActive,
+													}) => {
+														return isActive
+															? "menu-links active"
+															: "menu-links inactive";
+													}}
+												>
+													{route.name}
+												</NavLink>
+											</li>
+										);
+									}
+								}
+							} else return false;
+						})}
+					</ul>
+				</div>
+			)}
 			<div className={sidebar ? "top-nav" : "top-nav-unshifted"}>
 				<div className="title">
 					<span
@@ -69,15 +144,16 @@ function Navbar() {
 					<span className="initial login-txt">G</span>
 					<span className="login-txt">uardian</span>
 				</div>
-				{user.isAuthenticated ? (
+				{user.isAuthenticated && (
 					<div className="nav-but">
 						<button className="nav-btn">
-							<Link to="/login" className="nav-link links">
+							<Link to="/logout" className="nav-link links">
 								Logout
 							</Link>
 						</button>
 					</div>
-				) : (
+				)}
+				{!user.isAuthenticated && (
 					<div className="nav-but">
 						<button className="nav-btn">
 							<Link to="/login" className="nav-link links">
