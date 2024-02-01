@@ -8,6 +8,7 @@
   background-size: 80vw 190vh;
   overflow: hidden;
   color: var(--white);
+  
 }
 
 ::-webkit-scrollbar {

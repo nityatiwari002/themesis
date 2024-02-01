@@ -6,15 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { AuthData } from "../services/AuthService";
 import routes from "../routes/Routes";
-
-
+import "../styles/Sidebar.css";
 function Navbar() {
-	const [visible, setVisible] = useState(false);
 	const [profileSec, setProfileSec] = useState(false);
-	const toggleMenu = () => {
-		setVisible(!visible);
-	};
-
 	const handleProfile = () => {
 		if (profileSec == false) {
 			setProfileSec(true);
@@ -27,22 +21,78 @@ function Navbar() {
 		}
 	};
 
+	const [sidebar, setSidebar] = useState(window.innerWidth >= 780);
+
+	useEffect(() => {
+		window.addEventListener("resize", () => {
+			if (window.innerWidth >= 780) {
+				setSidebar(true);
+			} else {
+				setSidebar(false);
+			}
+		});
+	}, []);
+	const toggleSidebar = () => {
+		if (sidebar == true) {
+			setSidebar(false);
+		} else {
+			setSidebar(true);
+		}
+	};
+
 	const { user } = AuthData();
 	return (
 		<div className="Navbar">
-			<div className="menu-toggler" onClick={toggleMenu}>
-				<div className="menu-bars">
-					<FontAwesomeIcon
-						icon={faX}
-						className={visible ? `menu-icon` : `hide-element`}
-					/>
-					<FontAwesomeIcon
-						icon={faBars}
-						className={visible ? `hide-element` : `menu-icon`}
-					/>
+			{sidebar && <div className="side-bar">
+				<h1>hello</h1>
+				</div>}
+			<div className={sidebar ? "top-nav" : "top-nav-unshifted"}>
+				<div className="title">
+					<span
+						className={
+							sidebar ? `hide-element` : `menu-toggle-icon`
+						}
+						onClick={toggleSidebar}
+					>
+						<FontAwesomeIcon icon={faBars} />
+					</span>
+					<span
+						className={
+							sidebar ? `menu-toggle-icon` : `hide-element`
+						}
+						onClick={toggleSidebar}
+					>
+						<FontAwesomeIcon icon={faX} />
+					</span>
+					<span className="initial login-txt">T</span>
+					<span className="login-txt">hemesis </span>
+					<span className="initial login-txt">G</span>
+					<span className="login-txt">uardian</span>
 				</div>
+				{user.isAuthenticated ? (
+					<div className="nav-but">
+						<button className="nav-btn">
+							<Link to="/login" className="nav-link links">
+								Logout
+							</Link>
+						</button>
+					</div>
+				) : (
+					<div className="nav-but">
+						<button className="nav-btn">
+							<Link to="/login" className="nav-link links">
+								Login
+							</Link>
+						</button>
+						<button className="nav-btn">
+							<Link to="/sign-up" className="nav-link links">
+								Sign Up
+							</Link>
+						</button>
+					</div>
+				)}
 			</div>
-			<div className={visible ? `menu` : `hide-element`}>
+			{/* <div className="menu-wrapper">
 				<ul>
 					{routes.map((route, index) => {
 						if (
@@ -59,23 +109,18 @@ function Navbar() {
 												? "menu-links active"
 												: "menu-links inactive";
 										}}
-										onClick={toggleMenu}
 									>
-										{/* <div className="activeBlock">
-											{route.name}
-										</div> */}
 										{route.name}
 									</NavLink>
 								</li>
 							);
-						} 
-						else if(user.isAuthenticated){
-							if(user.role == 'user'){
-                                if (
+						} else if (user.isAuthenticated) {
+							if (user.role == "user") {
+								if (
 									user.isAuthenticated &&
 									route.isPrivate &&
 									route.isMenuUser
-								)   {
+								) {
 									return (
 										<li key={index}>
 											<NavLink
@@ -85,25 +130,20 @@ function Navbar() {
 														? "menu-links active"
 														: "menu-links inactive";
 												}}
-												onClick={toggleMenu}
 											>
-												{/* <div className="activeBlock">
-													{route.name}
-												</div> */}
 												{route.name}
 											</NavLink>
 										</li>
 									);
 								}
-
 							}
 
-							if(user.role == 'lawyer'){
-                                if (
+							if (user.role == "lawyer") {
+								if (
 									user.isAuthenticated &&
 									route.isPrivate &&
 									route.isMenuLawyer
-								)   {
+								) {
 									return (
 										<li key={index}>
 											<NavLink
@@ -113,23 +153,14 @@ function Navbar() {
 														? "menu-links active"
 														: "menu-links inactive";
 												}}
-												onClick={toggleMenu}
 											>
-												{/* <div className="activeBlock">
-													{route.name}
-												</div> */}
 												{route.name}
 											</NavLink>
 										</li>
 									);
 								}
-
 							}
-
-
-
-						}
-						 else return false;
+						} else return false;
 					})}
 				</ul>
 			</div>
@@ -142,12 +173,6 @@ function Navbar() {
 						<span className="login-txt">uardian</span>
 					</div>
 					<div className="nav-but">
-						{/* <div className="profile_div" onClick={handleProfile}>
-						<div className = "profile_picture_holder">
-								<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhwaLDKaK49tsHmdMGOrmTdns5qiw080F2Yw&usqp=CAU" alt = "picture" className="profile_picture"/>
-							</div>
-						</div>  */}
-					
 						<button className="nav-btn">
 							<Link to="/logout" className="nav-link links">
 								Logout
@@ -168,7 +193,7 @@ function Navbar() {
 						</Link>
 					</button>
 				</div>
-			)}
+			)}*/}
 		</div>
 	);
 }

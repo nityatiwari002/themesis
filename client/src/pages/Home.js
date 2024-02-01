@@ -5,18 +5,6 @@ import description from "../assets/desc";
 function Home() {
 	return (
 		<div className="home-card">
-			<div className="home-title-wrapper">
-				<div className="home-title-subwrapper">
-					<div className="home-tile">
-						<span className="initial styled-text home-txt">T</span>
-						<span className="home-txt2">hemesis</span>
-					</div>
-					<div className="home-tile">
-						<span className="initial styled-text home-txt">G</span>
-						<span className="home-txt2">uardian</span>
-					</div>
-				</div>
-			</div>
 			<div className="home-cards-wrapper">
 				{description.map((desc, index) => {
 					console.log(desc);
