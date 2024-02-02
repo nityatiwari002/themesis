@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -6,15 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { AuthData } from "../services/AuthService";
 import routes from "../routes/Routes";
-
-
+import "../styles/Sidebar.css";
 function Navbar() {
-	const [visible, setVisible] = useState(false);
 	const [profileSec, setProfileSec] = useState(false);
-	const toggleMenu = () => {
-		setVisible(!visible);
-	};
-
 	const handleProfile = () => {
 		if (profileSec == false) {
 			setProfileSec(true);
@@ -26,23 +21,61 @@ function Navbar() {
 			return <div className="profile_div"></div>;
 		}
 	};
-
+	const { showSidebar, toggleSidebar } = AuthData();
 	const { user } = AuthData();
+	console.log(showSidebar);
+    
+
 	return (
 		<div className="Navbar">
-			<div className="menu-toggler" onClick={toggleMenu}>
-				<div className="menu-bars">
-					<FontAwesomeIcon
-						icon={faX}
-						className={visible ? `menu-icon` : `hide-element`}
-					/>
-					<FontAwesomeIcon
-						icon={faBars}
-						className={visible ? `hide-element` : `menu-icon`}
-					/>
+			<div className={showSidebar ? "top-nav" : "top-nav"}>
+				<div className="title">
+					<span
+						className={
+							showSidebar ? `hide-element` : `menu-toggle-icon`
+						}
+						onClick={toggleSidebar}
+					>
+						<FontAwesomeIcon icon={faBars} />
+					</span>
+					<span
+						className={
+							showSidebar ? `menu-toggle-icon` : `hide-element`
+						}
+						onClick={toggleSidebar}
+					>
+						<FontAwesomeIcon icon={faX} />
+					</span>
+					<span className="initial login-txt">T</span>
+					<span className="login-txt">hemesis </span>
+					<span className="initial login-txt">G</span>
+					<span className="login-txt">uardian</span>
 				</div>
+				{user.isAuthenticated && (
+					<div className="nav-but">
+						<button className="nav-btn">
+							<Link to="/logout" className="nav-link links">
+								Logout
+							</Link>
+						</button>
+					</div>
+				)}
+				{!user.isAuthenticated && (
+					<div className="nav-but">
+						<button className="nav-btn">
+							<Link to="/login" className="nav-link links">
+								Login
+							</Link>
+						</button>
+						<button className="nav-btn">
+							<Link to="/sign-up" className="nav-link links">
+								Sign Up
+							</Link>
+						</button>
+					</div>
+				)}
 			</div>
-			<div className={visible ? `menu` : `hide-element`}>
+			{/* <div className="menu-wrapper">
 				<ul>
 					{routes.map((route, index) => {
 						if (
@@ -59,23 +92,18 @@ function Navbar() {
 												? "menu-links active"
 												: "menu-links inactive";
 										}}
-										onClick={toggleMenu}
 									>
-										{/* <div className="activeBlock">
-											{route.name}
-										</div> */}
 										{route.name}
 									</NavLink>
 								</li>
 							);
-						} 
-						else if(user.isAuthenticated){
-							if(user.role == 'user'){
-                                if (
+						} else if (user.isAuthenticated) {
+							if (user.role == "user") {
+								if (
 									user.isAuthenticated &&
 									route.isPrivate &&
 									route.isMenuUser
-								)   {
+								) {
 									return (
 										<li key={index}>
 											<NavLink
@@ -85,25 +113,20 @@ function Navbar() {
 														? "menu-links active"
 														: "menu-links inactive";
 												}}
-												onClick={toggleMenu}
 											>
-												{/* <div className="activeBlock">
-													{route.name}
-												</div> */}
 												{route.name}
 											</NavLink>
 										</li>
 									);
 								}
-
 							}
 
-							if(user.role == 'lawyer'){
-                                if (
+							if (user.role == "lawyer") {
+								if (
 									user.isAuthenticated &&
 									route.isPrivate &&
 									route.isMenuLawyer
-								)   {
+								) {
 									return (
 										<li key={index}>
 											<NavLink
@@ -113,23 +136,14 @@ function Navbar() {
 														? "menu-links active"
 														: "menu-links inactive";
 												}}
-												onClick={toggleMenu}
 											>
-												{/* <div className="activeBlock">
-													{route.name}
-												</div> */}
 												{route.name}
 											</NavLink>
 										</li>
 									);
 								}
-
 							}
-
-
-
-						}
-						 else return false;
+						} else return false;
 					})}
 				</ul>
 			</div>
@@ -142,19 +156,11 @@ function Navbar() {
 						<span className="login-txt">uardian</span>
 					</div>
 					<div className="nav-but">
-						<div className="profile_div">
-						<Link to = "/me">
-						<div className = "profile_picture_holder">
-								<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhwaLDKaK49tsHmdMGOrmTdns5qiw080F2Yw&usqp=CAU" alt = "picture" className="profile_picture"/>
-							</div>
-							</Link> 
-						</div> 
-					
-						{/* <button className="nav-btn">
+						<button className="nav-btn">
 							<Link to="/logout" className="nav-link links">
 								Logout
 							</Link>
-						</button> */}
+						</button>
 					</div>
 				</>
 			) : (
@@ -170,7 +176,7 @@ function Navbar() {
 						</Link>
 					</button>
 				</div>
-			)}
+			)}*/}
 		</div>
 	);
 }

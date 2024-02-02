@@ -17,8 +17,23 @@ import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
 import ProfileDashboard from "../pages/ProfileDashboard";
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faHome,
+	faGavel,
+	faChartPie,
+	faHandHoldingHand,
+	faPeopleGroup,
+	faRightToBracket,
+	faUserPlus,
+	faComments,
+	faIdCard,
+	faRightFromBracket,
+	faLandmarkDome,
+	faBook,
+	faClockRotateLeft,
+	faScaleBalanced
+} from "@fortawesome/free-solid-svg-icons";
 
 const routes = [
 	{
@@ -27,15 +42,19 @@ const routes = [
 		name: "Dashboard",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
-	{ 
-		path : "dashboardLawyer",
+	{
+		path: "/dashboardLawyer",
 		component: <DashboardLawyer />,
-		name : "Dashboard",
-		isPrivate : true,
-		isMenuUser : false,
-		isMenuLawyer : true
+		name: "Dashboard",
+		isPrivate: true,
+		isMenuUser: false,
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
 		path: "/guide",
@@ -43,17 +62,19 @@ const routes = [
 		name: "Legal Guide",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
-
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faHandHoldingHand} />,
 	},
 	{
 		path: "/Quick-fix-court",
 		component: <QuickFixCourt />,
 		name: "Quick Fix Court",
 		isPrivate: true,
-		isMenuUser: false,
-		isMenuLawyer : true
-
+		isMenuUser: true,
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faLandmarkDome} />,
 	},
 	{
 		path: "/find-lawyer",
@@ -61,7 +82,9 @@ const routes = [
 		name: "Find Lawyer",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/prep-and-pitch",
@@ -69,15 +92,20 @@ const routes = [
 		name: "Prep & Pitch",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faBook} />,
 	},
+
 	{
 		path: "/efilling",
 		component: <Efiling />,
 		name: "E-Filing",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faIdCard} />,
 	},
 	{
 		path: "/peer-connect",
@@ -85,7 +113,9 @@ const routes = [
 		name: "Peer Connect",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faPeopleGroup} />,
 	},
 	{
 		path: "/trial-detainees",
@@ -93,7 +123,9 @@ const routes = [
 		name: "Trial Detainees",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
+		icon:<FontAwesomeIcon icon={faScaleBalanced} />,
 	},
 	{
 		path: "/pastcases",
@@ -101,15 +133,9 @@ const routes = [
 		name: "Past Cases",
 		isPrivate: true,
 		isMenuUser: true,
-		isMenuLawyer : true
-	},
-	{
-		path: "/logout",
-		component: <Logout token={localStorage.getItem("token")} />,
-		name: "Logout",
-		isPrivate: true,
-		isMenuUser: false,
-		isMenuLawyer : false
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
 	},
 
 	{
@@ -118,15 +144,20 @@ const routes = [
 		name: "Home",
 		isPrivate: false,
 		isMenuUser: true,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faHome} />,
 	},
+
 	{
 		path: "/login",
 		component: <Login />,
 		name: "Login",
 		isPrivate: false,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faRightToBracket} />,
 	},
 	{
 		path: "/sign-up",
@@ -134,7 +165,9 @@ const routes = [
 		name: "Sign Up",
 		isPrivate: false,
 		isMenuUser: true,
-		isMenuLawyer : true
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faUserPlus} />,
 	},
 	{
 		path: "/chat-bot",
@@ -142,16 +175,19 @@ const routes = [
 		name: "Chat Bot",
 		isPrivate: true,
 		isMenuUser: false,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/forgotPassword",
-		component : <ForgotPw />,
+		component: <ForgotPw />,
 		name: "Forgot Password",
-		isPrivate : false,
-		isMenuUser : true,
-		isMenuLawyer : true
-		
+		isPrivate: false,
+		isMenuUser: true,
+		isMenuLawyer: true,
+		isUtility: true,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "*",
@@ -159,7 +195,9 @@ const routes = [
 		name: "Not Found",
 		isPrivate: false,
 		isMenuUser: false,
-		isMenuLawyer : false
+		isMenuLawyer: false,
+		isUtility: true,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path : "/chat",

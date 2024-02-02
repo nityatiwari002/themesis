@@ -1,68 +1,74 @@
 .Navbar {
-    /* background-color: pink; */
-    width: 100vw;
-    height: 10vh;
-    padding: 10px 20px;
+    width: 100%;
+    height: 8vh;
     display: flex;
-    flex-direction: row;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
 }
 
-
-.menu-icon {
-    position: fixed;
-    cursor: pointer;
-    font-size: 2rem;
-    color: var(--primary-brown);
-    padding: 10px;
-}
-
-.menu {
-    display: flex;
-    background-color: var(--bgtransparent);
-    width: fit-content;
-    border-radius: 0 10px 10px;
-    justify-content: left;
-    padding: 10px;
-    position: absolute;
-    top: 8vh;
-    left: 10px;
-    z-index: 100;
-
-}
-
-.title {
-    font-size: 2rem;
-    font-family: var(--font-normal);
+.nav-btn:hover .nav-link {
     color: var(--white);
-    margin-left: 10px;
-    position: fixed;
-    top: 13px;
-    left: 60px;
 }
 
-.menu li {
-    list-style: none;
-    padding: 10px 0;
+.profile_div {
+    border: 1px solid var(--primary-brown);
+    border-radius: 50%;
+    overflow: hidden;
+    height: 2.5rem;
+    width: 2.5rem;
+
+}
+
+.profile_picture {
+    height: 2.5rem;
+    width: 2.5rem;
+
+}
+
+.profile_picture_holder {
+    margin: auto;
+}
+
+
+
+
+.top-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.menu-toggle-icon {
+    color: var(--white);
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.title span {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
 }
 
 .menu-links {
     text-decoration: none;
     color: var(--white);
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-family: var(--font-normal);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
+    width: 100%;
 }
 
-.nav-but {
-    position: absolute;
-    right: 2vw;
+.side-bar ul li {
+    list-style: none;
+}
 
+
+
+
+
+.nav-but {
+    display: flex;
+    flex-direction: row;
 }
 
 .nav-btn {
@@ -70,38 +76,17 @@
     padding: 3px 10px;
     border-radius: 4px;
     margin: 0 10px;
-    font-size: 10px;
-}
-
-.nav-link {
-    color: var(--primary-brown);
-}
-
-.nav-btn:hover {
-    cursor: pointer;
-    background-color: var(--primary-brown);
-}
-
-.nav-btn:hover .nav-link {
+    font-size: 1.2rem;
     color: var(--white);
+    background-color: var(--bgtransparent);
 }
 
-.profile_div{
-    border : 1px solid var(--primary-brown);
-    border-radius: 50%;
-    overflow : hidden;
-    height: 2.5rem;
-    width: 2.5rem;
+@media screen and (max-width: 550px) {
+    .title span {
+        font-size: 1.3rem;
+    }
 
+    .nav-btn {
+        font-size: 1rem;
+    }
 }
-
-.profile_picture{
-    height : 2.5rem;
-    width : 2.5rem;
-    
-}
-
-.profile_picture_holder{
-    margin : auto;
-}
-

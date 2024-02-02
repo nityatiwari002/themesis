@@ -8,6 +8,7 @@
   background-size: 80vw 190vh;
   overflow: hidden;
   color: var(--white);
+  
 }
 
 ::-webkit-scrollbar {
@@ -24,34 +25,6 @@
 
 .hide-element {
   display: none;
-}
-
-.links {
-  text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-family: var(--font-normal);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.3s ease;
-}
-
-.links-lc {
-  text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-family: var(--font-normal);
-  transition: all 0.3s ease;
-}
-
-.btn {
-  border: none;
-  padding: 2px 20px;
-  border-radius: 4px;
-  margin: 0 8px;
-  cursor: pointer;
-  background-color: var(--primary-brown);
-  color: var(--white);
 }
 
 .chat-bot-icon-container {
@@ -81,5 +54,30 @@
   justify-content: center;
   align-items: center;
   height: 80vh;
+}
+
+
+.outer-container{
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.left-container{
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.right-container{
+  height: 100%;
+  width: 100rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* flex-grow: 1; */
 }
 
