@@ -12,10 +12,8 @@ const requestSchema = new mongoose.Schema(
 			ref: "Lawyer",
 			required: [true, "Lawyer ID is required"],
 		},
-		request_id: {
+		_id: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			unique: true,
 			default: mongoose.Types.ObjectId,
 		},
 		request_type: {

@@ -185,7 +185,7 @@ export const AuthWrapper = () => {
 			<div className="outer-container">
 				<Sidebar />
 				<div className="right-container">
-					{/* <Navbar /> */}
+					<Navbar />
 					<RenderRoutes />
 					{user.isAuthenticated && <ChatIcon />}
 				</div>

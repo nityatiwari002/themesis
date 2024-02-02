@@ -24,7 +24,7 @@ const RenderRoutes = () => {
 					return (
 						<Route key={i} path={r.path} element={r.component} />
 					);
-				} else if (!r.isPrivate && !r.isMenu) {
+				} else if (r.isUtility) {
 					return (
 						<Route key={i} path={r.path} element={r.component} />
 					);
