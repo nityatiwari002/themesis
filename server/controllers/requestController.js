@@ -1,13 +1,12 @@
-import { User } from "../models/userModel";
-import { Lawyer } from "../models/lawyerModel";
-import { Request } from "../models/requestModel";
-
+import { User } from "../models/userModel.js";
+import { Lawyer } from "../models/lawyerModel.js";
+import { Request } from "../models/requestModel.js";
+import mongoose from "mongoose";
 export const createRequest = async (req, res) => {
 	try {
 		const { userId, lawyerId, requestType } = req.body;
 		const userObject = await User.findById(userId);
 		const lawyerObject = await Lawyer.findById(lawyerId);
-
 		if (!userObject || !lawyerObject) {
 			return res
 				.status(404)
@@ -23,15 +22,14 @@ export const createRequest = async (req, res) => {
 			return res.status(400).json({ message: "Request already exists" });
 		}
 
-		const newRequest = new Request({
-			user: userObject._id,
-			lawyer: lawyerObject._id,
+		const newRequest = await Request.create({
+			_id : new mongoose.Types.ObjectId(),
+			user_id: userObject._id,
+			lawyer_id: lawyerObject._id,
 			request_type: requestType,
 		});
-		const savedRequest = await newRequest.save();
 		res.status(201).json({
 			message: "Request created successfully",
-			request: savedRequest,
 		});
 	} catch (error) {
 		console.error("Error creating request:", error);
@@ -67,6 +65,36 @@ export const getLawyerRequests = async (req, res) => {
 		res.status(200).json(lawyerRequests);
 	} catch (error) {
 		console.error("Error fetching lawyer requests:", error);
+		res.status(500).json({ message: "Internal server error" });
+	}
+};
+
+export const acceptRequest = async (req, res) => {
+	try {
+		const { requestId } = req.params;
+		const updatedRequest = await Request.findByIdAndUpdate(
+			requestId,
+			{ accepted: true, rejected: false, pending: false },
+			{ new: true }
+		);
+		res.status(200).json(updatedRequest);
+	} catch (error) {
+		console.error("Error accepting request:", error);
+		res.status(500).json({ message: "Internal server error" });
+	}
+};
+export const rejectRequest = async (req, res) => {
+	try {
+		const { requestId } = req.params;
+		const updatedRequest = await Request.findByIdAndUpdate(
+			requestId,
+			{ accepted: false, rejected: true, pending: false },
+			{ new: true }
+		);
+
+		res.status(200).json(updatedRequest);
+	} catch (error) {
+		console.error("Error rejecting request:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 };

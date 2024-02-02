@@ -1,43 +1,83 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	faCaretDown,
 	faFilter,
 	faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/FindLawyer.css";
-import lawyers from "../utilities/LawyerDetails";
+// import lawyers from "../utilities/LawyerDetails";
 import { AuthData } from "../services/AuthService";
 function FindLawyer() {
+	const [lawyers, setLawyers] = useState([]);
+	const [numLawyers, setNumLawyers] = useState(0);
+	useEffect(() => {
+		const fetchLawyers = async () => {
+			const response = await fetch(
+				"http://127.0.0.1:5001/api/v1/users/getLawyers",
+				{
+					method: "get",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			)
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+					setLawyers(data);
+					setNumLawyers(data.length);
+				});
+		};
+		fetchLawyers();
+	}, []);
+
 	const { user } = AuthData();
 	const [searchInput, setSearchInput] = useState("");
 	const [formVisible, setFormVisible] = useState(false);
 	const handleSearch = (e) => {
 		setSearchInput(e.target.value);
 	};
-	const numLawyers = lawyers.length;
+
 	const submitForm = () => {
 		console.log(searchInput);
 		//handle search
 		setSearchInput("");
 	};
 
-	const sendChatRequest = (index) => {
-		console.log(lawyers[index]);
-		console.log("Chat request sent to " + lawyers[index].name);
-		// console.log(ev.target);
-		console.log(user);
-		const newRequest = {
-			name: user.name,
+	const sendChatRequest = async (index) => {
+		const lawyer = lawyers[index];
+		console.log(user._id, lawyer._id);
+		let requestData = {
+			userId: user._id,
+			lawyerId: lawyer._id,
+			requestType: "Chat",
 		};
-		console.log(newRequest);
-		// console.log("Chat request sent to " + lawyer.name);
+		try {
+			const response = await fetch(
+				"http://127.0.0.1:5001/api/v1/requests/createRequest",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(requestData),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			const data = await response.json();
+			console.log("Chat request sent:", data);
+		} catch (error) {
+			console.error("Error:", error);
+		}
 	};
 	const sendHireRequest = (lawyer) => {
 		// console.log("Hire request sent to " + lawyer.name);
 	};
-
-	const [countLawyers, setCountLawyers] = useState(numLawyers);
 	return (
 		<div className="find-lawyer-body">
 			<div className="search-section">
@@ -55,7 +95,7 @@ function FindLawyer() {
 			</div>
 
 			<div className="search-results">
-				{countLawyers === 0 ? (
+				{numLawyers === 0 ? (
 					<h1>No lawyers found</h1>
 				) : (
 					lawyers.map((lawyer, index) => {

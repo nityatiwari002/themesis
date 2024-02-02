@@ -32,7 +32,7 @@ import {
 	faLandmarkDome,
 	faBook,
 	faClockRotateLeft,
-	faScaleBalanced
+	faScaleBalanced,
 } from "@fortawesome/free-solid-svg-icons";
 
 const routes = [
@@ -125,7 +125,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
-		icon:<FontAwesomeIcon icon={faScaleBalanced} />,
+		icon: <FontAwesomeIcon icon={faScaleBalanced} />,
 	},
 	{
 		path: "/pastcases",
@@ -143,7 +143,7 @@ const routes = [
 		component: <Home />,
 		name: "Home",
 		isPrivate: false,
-		isMenuUser: true,
+		isMenuUser: false,
 		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faHome} />,
@@ -154,8 +154,8 @@ const routes = [
 		component: <Login />,
 		name: "Login",
 		isPrivate: false,
-		isMenuUser: true,
-		isMenuLawyer: true,
+		isMenuUser: false,
+		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faRightToBracket} />,
 	},
@@ -164,8 +164,8 @@ const routes = [
 		component: <Register />,
 		name: "Sign Up",
 		isPrivate: false,
-		isMenuUser: true,
-		isMenuLawyer: true,
+		isMenuUser: false,
+		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faUserPlus} />,
 	},
@@ -200,25 +200,29 @@ const routes = [
 		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
-		path : "/chat",
-		component : <ChatPage />,
-		name : "Messages",
-		isPrivate : true,
-	    isMenuLawyer : true,
-		isMenuUser : true,
-	
+		path: "/chat",
+		component: <ChatPage />,
+		name: "Messages",
+		isPrivate: true,
+		isMenuLawyer: true,
+		isMenuUser: true,
 	},
 	{
-		path : "/me",
-		component : <ProfileDashboard />,
-		name : "Profile",
-		isPrivate : true,
-	    isMenuLawyer : false,
-		isMenuUser : false,
-	
+		path: "/me",
+		component: <ProfileDashboard />,
+		name: "Profile",
+		isPrivate: true,
+		isMenuLawyer: false,
+		isMenuUser: false,
 	},
-
-
+	{
+		path: "/logout",
+		component: <Logout />,
+		name: "Logout",
+		isPrivate: true,
+		isMenuLawyer: false,
+		isMenuUser: false,
+	},
 ];
 
 export default routes;
