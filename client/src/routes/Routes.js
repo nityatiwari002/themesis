@@ -16,6 +16,8 @@ import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faGavel} from "@fortawesome/free-solid-svg-icons";
 
 const routes = [
 	{
@@ -26,6 +28,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faHome} />,
 	},
 	{
 		path: "/dashboardLawyer",
@@ -35,6 +38,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faHome} />,
 	},
 	{
 		path: "/guide",
@@ -44,6 +48,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faHome} />,
 	},
 	{
 		path: "/Quick-fix-court",
@@ -53,6 +58,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/find-lawyer",
@@ -62,6 +68,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/prep-and-pitch",
@@ -71,7 +78,9 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
+
 	{
 		path: "/efilling",
 		component: <Efiling />,
@@ -80,6 +89,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/peer-connect",
@@ -89,6 +99,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/trial-detainees",
@@ -98,6 +109,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/pastcases",
@@ -107,6 +119,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/logout",
@@ -116,6 +129,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 
 	{
@@ -126,7 +140,9 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
+
 	{
 		path: "/login",
 		component: <Login />,
@@ -135,6 +151,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/sign-up",
@@ -144,6 +161,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/chat-bot",
@@ -153,6 +171,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: false,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/forgotPassword",
@@ -162,6 +181,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: true,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "*",
@@ -171,6 +191,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: false,
 		isUtility: true,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
 		path: "/chat",
@@ -180,6 +201,7 @@ const routes = [
 		isMenuLawyer: true,
 		isMenuUser: true,
 		isUtility: false,
+		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 ];
 

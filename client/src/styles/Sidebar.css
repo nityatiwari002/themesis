@@ -1,14 +1,45 @@
 .side-bar{
     background-color: #141414;
     height: 100%;
-    /* width: 15%; */
     min-width: 200px;
-    position: absolute;
     z-index: 1;
-    top: 0;
-    left: 0;
     overflow-x: hidden;
+    overflow-y: scroll;
     padding-top: 4%;
     border-right: 1px solid #685e5e;
     transition: all 0.3s ease-in-out;
+}
+
+.side-bar ul{
+    /* padding: ; */
+    margin: 0;
+    /* padding-left: 0; */
+    padding: 10px 4px;
+    margin-top: 15%;
+    list-style: none;
+}
+
+.side-bar ul li{
+    margin: 0;
+    margin: 1px;
+
+}
+
+.side-bar-buttons{
+    display: flex;
+    padding: 10px;
+    background-color: var(--bgtransparentmax);
+    margin: 0;
+    width: 100%;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    justify-content: left;
+}
+.side-bar-icon{
+    margin-right: 4px;
+}
+
+.active button{
+    background-color: var(--primary-brown);
 }

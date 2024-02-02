@@ -157,23 +157,58 @@ export const AuthWrapper = () => {
 		setUser({ user: "", role: "", isAuthenticated: false });
 	};
 
-  const [showSidebar, setShowSidebar] = useState(window.innerWidth > 768);
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  }
+	const [wasManuallyClosed, setWasManuallyClosed] = useState(() => {
+		const savedState = localStorage.getItem("showSidebar");
+		return savedState !== null && !JSON.parse(savedState);
+	});
+	const [showSidebar, setShowSidebar] = useState(() => {
+		const savedState = localStorage.getItem("showSidebar");
+		if (savedState !== null) {
+			return JSON.parse(savedState);
+		} else {
+			return window.innerWidth > 768 && !wasManuallyClosed;
+		}
+	});
 
-  useEffect(() => {
-    const handleResize = () => {
-      setShowSidebar(window.innerWidth > 768);
-    };
+	const toggleSidebar = () => {
+		setShowSidebar((prevShowSidebar) => {
+			if (prevShowSidebar) {
+				setWasManuallyClosed(true);
+			} 
+      else {
+        setWasManuallyClosed(false);
+      }
+			return !prevShowSidebar;
+		});
+	};
+	useEffect(() => {
+		// Save the state to localStorage whenever it changes
+		localStorage.setItem("showSidebar", JSON.stringify(showSidebar));
+	}, [showSidebar]);
 
-    window.addEventListener('resize', handleResize);
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth > 768) {
+				if (!wasManuallyClosed) {
+					setShowSidebar(true);
+				} else {
+					setShowSidebar(false);
+				}
+			} else {
+				if (wasManuallyClosed) {
+					setShowSidebar(false);
+				} else {
+					setShowSidebar(true);
+				}
+			}
+		};
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+		window.addEventListener("resize", handleResize);
 
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, [wasManuallyClosed]);
 
 	return (
 		<AuthContext.Provider
@@ -185,20 +220,18 @@ export const AuthWrapper = () => {
 				setSelectedChat,
 				chats,
 				setChats,
-        showSidebar, 
-        toggleSidebar,
+				showSidebar,
+				toggleSidebar,
 			}}
 		>
-				<div className="outer-container">
-					<div className="left-container">
-						<Sidebar />
-					</div>
-					<div className="right-container">
-						<Navbar />
-						<RenderRoutes />
-						{user.isAuthenticated && <ChatIcon />}
-					</div>
+			<div className="outer-container">
+				<Sidebar />
+				<div className="right-container">
+					<Navbar />
+					<RenderRoutes />
+					{user.isAuthenticated && <ChatIcon />}
 				</div>
+			</div>
 		</AuthContext.Provider>
 	);
 };

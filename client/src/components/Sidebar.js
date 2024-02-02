@@ -6,7 +6,7 @@ import routes from "../routes/Routes";
 
 function Sidebar() {
 	const { showSidebar } = AuthData();
-    const { user } = AuthData();
+	const { user } = AuthData();
 	if (!showSidebar) return null;
 	return (
 		<div>
@@ -20,17 +20,19 @@ function Sidebar() {
 						) {
 							return (
 								<li key={index}>
-									<NavLink
-										to={route.path}
-										className={({ isActive }) => {
-											return isActive
-												? "menu-links active"
-												: "menu-links inactive";
-										}}
-									>
-										{/* <button>{route.name}</button> */}
-                                        {route.name}
-									</NavLink>
+									<button className="side-bar-buttons">
+										<NavLink
+											to={route.path}
+											className={({ isActive }) => {
+												return isActive
+													? "menu-links active"
+													: "menu-links inactive";
+											}}
+										>
+											{/* <button>{route.name}</button> */}
+											{route.name}
+										</NavLink>
+									</button>
 								</li>
 							);
 						} else if (user.isAuthenticated) {
@@ -50,9 +52,15 @@ function Sidebar() {
 														: "menu-links inactive";
 												}}
 											>
-												{route.name}
+												<button className="side-bar-buttons">
+													<span className="side-bar-icon">
+														{route.icon}{" "}
+													</span>
+													{route.name}
+												</button>
 											</NavLink>
 										</li>
+                                        
 									);
 								}
 							}

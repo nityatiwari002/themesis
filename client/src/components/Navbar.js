@@ -23,9 +23,11 @@ function Navbar() {
 	const { showSidebar, toggleSidebar } = AuthData();
 	const { user } = AuthData();
 	console.log(showSidebar);
+    
+
 	return (
 		<div className="Navbar">
-			<div className={showSidebar ? "top-nav" : "top-nav-unshifted"}>
+			<div className={showSidebar ? "top-nav" : "top-nav"}>
 				<div className="title">
 					<span
 						className={
