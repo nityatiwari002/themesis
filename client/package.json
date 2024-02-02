@@ -41,6 +41,7 @@
     "react-scroll": "^1.9.0",
     "react-scrollable-feed": "^2.0.1",
     "socket.io-client": "^4.7.4",
+    "three": "^0.161.0",
     "universal-cookie": "^7.0.1",
     "web-vitals": "^2.1.4"
   },

@@ -1,8 +1,11 @@
 import React from "react";
 import "../styles/efilling.css";
 import { Color } from "three";
+import Navbar from "../components/Navbar";
 function Efiling() {
 	return (
+		<>
+		<Navbar />
 
 		<div className="port">
 			
@@ -31,11 +34,7 @@ function Efiling() {
 						Need legal muscle?<br/>
 						Go to:  Find Lawyer</p> 
 						<div className="vid-img">
-									{/* <img
-										// src="videoo.jpeg"
-										src= "/home/samriddhi/Desktop/solution challenge/themesis_guardian/client/src/pages/videoo.jpeg"
-										className="vid-image"
-									></img> */}
+							
 								</div>
 						<div> <p>Too late to read the text?<br/> No worries!!<br/> click  <a href="https://www.youtube.com/playlist?list=PL8E_yW0GJOLKJVglKxy_kVZzuPK29n_Kc">here</a> to watch video </p></div>
 						</div>
@@ -49,6 +48,7 @@ function Efiling() {
 					</div>
 				</div> </div>
 		</div>
+		</>
 	);
 }
 
