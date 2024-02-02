@@ -160,6 +160,16 @@ const routes = [
 		icon: <FontAwesomeIcon icon={faRightToBracket} />,
 	},
 	{
+		path: "/logout",
+		component: <Logout />,
+		name: "Logout",
+		isPrivate: false,
+		isMenuUser: true,
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faRightToBracket} />,
+	},
+	{
 		path: "/sign-up",
 		component: <Register />,
 		name: "Sign Up",

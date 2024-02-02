@@ -42,58 +42,13 @@ export const AuthWrapper = () => {
 	}
 
 	const [user, setUser] = useState({
-		name: localStorage.getItem("name"),
-		role: localStorage.getItem("role"),
-		_id: localStorage.getItem("_id"),
+		user : localStorage.getItem("userInfo"),
 		isAuthenticated: getCookies("jwt") ? true : false,
 	});
 
 	const [selectedChat, setSelectedChat] = useState([]);
 	const [chats, setChats] = useState([]);
 
-	useEffect(() => {
-		checkProtected();
-		console.log("use effect", isProtected);
-	}, []);
-
-	// const checkProtected = async () => {
-	//     let userData = {
-	//       jwt : getCookies('jwt'),
-	//       };
-	//       const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
-	//       method: "post",
-	//           headers: {
-	//             "Content-Type": "application/json",
-	//           },
-	//           body: JSON.stringify(userData),
-
-	//       })
-	//           .then((response) => response.json())
-	//           .then((data) => {
-	//             console.log("yahan wala", data.status);
-	//             if(data.status === 'fail'){
-	//               // // setProtected(false);
-	//               // setUser("", false);
-	//               // navigate("/home");
-	//               return false;
-
-	//             }
-	//             else{
-	//               console.log('idhar');
-	//               // navigate("/dashboard");
-	//               // // setProtected(true);
-	//               // setUser("", true);
-	//               return true;
-	//             }
-	//             }
-	//      );
-	// }
-
-	// useEffect(async () => {
-	//   checkProtected();
-	//   console.log("kuch to", user.isAuthenticated);
-
-	// }, []);
 
 	const login = async (email, password) => {
 		let userData = {
@@ -118,13 +73,9 @@ export const AuthWrapper = () => {
 						if (data.status === "success") {
 							const tken = data.token;
 							removeCookies("jwt");
-							localStorage.setItem("name", data.data.user.name);
-							localStorage.setItem("role", data.data.user.role);
-							localStorage.setItem("_id", data.data.user._id);
-							// console.log("user", data.data.user);
+              localStorage.setItem("userInfo", JSON.stringify(data.data.user));
 							setUser({
-								user: email,
-								role: data.data.user.role,
+								user: localStorage.getItem("userInfo"),
 								isAuthenticated: true,
 							});
 							setCookies("jwt", tken);
@@ -154,7 +105,7 @@ export const AuthWrapper = () => {
 
 	const logout = () => {
 		removeCookies("jwt");
-		setUser({ user: "", role: "", isAuthenticated: false });
+		setUser({ user: "", isAuthenticated: false });
 	};
 
 	const [wasManuallyClosed, setWasManuallyClosed] = useState(() => {
@@ -181,9 +132,12 @@ export const AuthWrapper = () => {
 			return !prevShowSidebar;
 		});
 	};
+
+  
 	useEffect(() => {
 		// Save the state to localStorage whenever it changes
 		localStorage.setItem("showSidebar", JSON.stringify(showSidebar));
+    console.log(showSidebar);
 	}, [showSidebar]);
 
 	useEffect(() => {

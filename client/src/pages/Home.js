@@ -2,11 +2,17 @@ import React from "react";
 import "../styles/Home.css";
 import description from "../assets/desc";
 import Navbar from "../components/Navbar";
+import { AuthData } from "../services/AuthService";
 
 function Home() {
+	const {user} = AuthData();
+
 	return (
 		<>
-		{/* <Navbar /> */}
+		{ !user.isAuthenticated && (
+		<Navbar />)
+		   }
+
 		<div className="home-card">
 			<div className="home-cards-wrapper">
 				{description.map((desc, index) => {
@@ -38,6 +44,8 @@ function Home() {
 				})}
 			</div>
 		</div>
+
+		
 		</>
 	);
 }
