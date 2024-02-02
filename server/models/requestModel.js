@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema(
 	{
+		_id: {
+			type: mongoose.Schema.Types.ObjectId,
+			default: mongoose.Types.ObjectId,
+		},
 		user_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
@@ -11,10 +15,6 @@ const requestSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Lawyer",
 			required: [true, "Lawyer ID is required"],
-		},
-		_id: {
-			type: mongoose.Schema.Types.ObjectId,
-			default: mongoose.Types.ObjectId,
 		},
 		request_type: {
 			type: String,

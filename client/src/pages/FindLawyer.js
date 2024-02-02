@@ -8,9 +8,10 @@ import {
 import "../styles/FindLawyer.css";
 // import lawyers from "../utilities/LawyerDetails";
 import { AuthData } from "../services/AuthService";
+import Navbar from "../components/Navbar";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);
-	const [numLawyers, setNumLawyers] = useState(0);
+	const [numLawyers, setNumLawyers] = useState(-1);
 	useEffect(() => {
 		const fetchLawyers = async () => {
 			const response = await fetch(
@@ -45,6 +46,29 @@ function FindLawyer() {
 		setSearchInput("");
 	};
 
+	const [requests, setRequests] = useState([]);
+
+	const getAllRequests = async () => {
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/requests/userRequests/" + user._id,
+			{
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log("requesss", data);
+				setRequests(data);
+			});
+	};
+
+	useEffect(() => {
+		getAllRequests();
+	}, []);
+
 	const sendChatRequest = async (index) => {
 		const lawyer = lawyers[index];
 		console.log(user._id, lawyer._id);
@@ -66,6 +90,7 @@ function FindLawyer() {
 			);
 
 			if (!response.ok) {
+				console.log(response.message);
 				throw new Error("Network response was not ok");
 			}
 
@@ -79,110 +104,123 @@ function FindLawyer() {
 		// console.log("Hire request sent to " + lawyer.name);
 	};
 	return (
-		<div className="find-lawyer-body">
-			<div className="search-section">
-				{/* <div className="filter-text"></div> */}
-				<div className="filter">
-					<FontAwesomeIcon
-						icon={faFilter}
-						className="filter-icon"
-						onClick={() => setFormVisible(!formVisible)}
-					/>
-					<div
-						className={formVisible ? "filter-form" : "hide-element"}
-					></div>
+		<>
+			<Navbar />
+			<div className="find-lawyer-body">
+				<div className="search-section">
+					{/* <div className="filter-text"></div> */}
+					<div className="filter">
+						<FontAwesomeIcon
+							icon={faFilter}
+							className="filter-icon"
+							onClick={() => setFormVisible(!formVisible)}
+						/>
+						<div
+							className={
+								formVisible ? "filter-form" : "hide-element"
+							}
+						></div>
+					</div>
+				</div>
+
+				<div className="search-results">
+					{numLawyers === -1 && <h1>Loading...</h1>}
+					{numLawyers === 0 ? (
+						<h1>No lawyers found</h1>
+					) : (
+						lawyers.map((lawyer, index) => {
+							return (
+								<div className="lawyer-card" key={index}>
+									<div className="lawyer-img">
+										<img
+											src={lawyer.img}
+											className="lawyer-image"
+										></img>
+									</div>
+									<div className="lawyer-info">
+										<div className="lawyer-details-wrapper">
+											<div className="lawyer-details">
+												<div className="lawyer-det">
+													{lawyer.name}
+												</div>
+												<div className="lawyer-det">
+													<span className="det">
+														{" "}
+														Type:{" "}
+													</span>
+													{lawyer.tag}
+												</div>
+												<div className="lawyer-det">
+													<span className="det">
+														Number of cases won:{" "}
+													</span>
+													{lawyer.countWonCases}
+												</div>
+												<div className="lawyer-det">
+													{lawyer.description}
+												</div>
+											</div>
+											<div className="lawyer-details">
+												<div className="lawyer-det">
+													<span className="det">
+														Age:{" "}
+													</span>
+													{lawyer.age}
+												</div>
+												<div className="lawyer-det">
+													<span className="det">
+														No. of cases:{" "}
+													</span>
+													{lawyer.countPastCases}
+												</div>
+												<div className="lawyer-det">
+													<span className="det">
+														Experience:{" "}
+													</span>
+													{lawyer.experience}
+												</div>
+												<div className="lawyer-det">
+													{lawyer.city},{" "}
+													{lawyer.state},{" "}
+													{lawyer.country}
+												</div>
+											</div>
+										</div>
+										<div className="lawyer-buttons">
+											<button
+												className="btn btn-primary"
+												onClick={() =>
+													sendChatRequest(index)
+												}
+											>
+												{requests.find(
+													(req) =>
+														req.lawyerId ===
+														lawyer._id
+												)
+													? "Chat Request Sent"
+													: "Chat"}
+											</button>
+											<button
+												className="btn btn-primary"
+												onClick={() =>
+													sendHireRequest(index)
+												}
+											>
+												Book
+											</button>
+										</div>
+									</div>
+									{lawyer.takesProBono && (
+										<div className="free-tag">Pro Bono</div>
+									)}
+								</div>
+							);
+						})
+					)}
 				</div>
 			</div>
-
-			<div className="search-results">
-				{numLawyers === 0 ? (
-					<h1>No lawyers found</h1>
-				) : (
-					lawyers.map((lawyer, index) => {
-						return (
-							<div className="lawyer-card" key={index}>
-								<div className="lawyer-img">
-									<img
-										src={lawyer.img}
-										className="lawyer-image"
-									></img>
-								</div>
-								<div className="lawyer-info">
-									<div className="lawyer-details-wrapper">
-										<div className="lawyer-details">
-											<div className="lawyer-det">
-												{lawyer.name}
-											</div>
-											<div className="lawyer-det">
-												<span className="det">
-													{" "}
-													Type:{" "}
-												</span>
-												{lawyer.tag}
-											</div>
-											<div className="lawyer-det">
-												<span className="det">
-													Number of cases won:{" "}
-												</span>
-												{lawyer.countWonCases}
-											</div>
-											<div className="lawyer-det">
-												{lawyer.description}
-											</div>
-										</div>
-										<div className="lawyer-details">
-											<div className="lawyer-det">
-												<span className="det">
-													Age:{" "}
-												</span>
-												{lawyer.age}
-											</div>
-											<div className="lawyer-det">
-												<span className="det">
-													No. of cases:{" "}
-												</span>
-												{lawyer.countPastCases}
-											</div>
-											<div className="lawyer-det">
-												<span className="det">
-													Experience:{" "}
-												</span>
-												{lawyer.experience}
-											</div>
-											<div className="lawyer-det">
-												{lawyer.city}, {lawyer.state},{" "}
-												{lawyer.country}
-											</div>
-										</div>
-									</div>
-									<div className="lawyer-buttons">
-										<button
-											className="btn btn-primary"
-											onClick={() =>
-												sendChatRequest(index)
-											}
-										>
-											Chat
-										</button>
-										<button
-											className="btn btn-primary"
-											onClick={() =>
-												sendHireRequest(index)
-											}
-										>
-											Book
-										</button>
-									</div>
-								</div>
-								{lawyer.takesProBono && (
-									<div className="free-tag">Pro Bono</div>
-								)}
-							</div>
-						);
-					})
-				)}
-			</div>
-		</div>
+		</>
 	);
 }
 
