@@ -16,6 +16,7 @@ import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
+import ProfileDashboard from "../pages/ProfileDashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faHome,
@@ -199,25 +200,25 @@ const routes = [
 		icon: <FontAwesomeIcon icon={faGavel} />,
 	},
 	{
-		path: "/chat",
-		component: <ChatPage />,
-		name: "Chat Page",
-		isPrivate: true,
-		isMenuLawyer: true,
-		isMenuUser: true,
-		isUtility: false,
-		icon: <FontAwesomeIcon icon={faComments} />,
+		path : "/chat",
+		component : <ChatPage />,
+		name : "Messages",
+		isPrivate : true,
+	    isMenuLawyer : true,
+		isMenuUser : true,
+	
 	},
 	{
-		path: "/logout",
-		component: <Logout token={localStorage.getItem("token")} />,
-		name: "Logout",
-		isPrivate: true,
-		isMenuUser: false,
-		isMenuLawyer: false,
-		isUtility: true,
-		icon: <FontAwesomeIcon icon={faRightFromBracket} />,
+		path : "/me",
+		component : <ProfileDashboard />,
+		name : "Profile",
+		isPrivate : true,
+	    isMenuLawyer : false,
+		isMenuUser : false,
+	
 	},
+
+
 ];
 
 export default routes;

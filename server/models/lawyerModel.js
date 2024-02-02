@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 
 
-const userSchema = new mongoose.Schema(
+const lawyerSchema = new mongoose.Schema(
     {
         name : {
             type : String,
@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema(
         },
         role : {
             type : String,
-            enum : ['user'],
-            default : 'user'
+            enum : ['lawyer'],
+            default : 'lawyer'
         },
         password : {
             type : String,
@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.methods.correctPassword = async function(
+lawyerSchema.methods.correctPassword = async function(
     candidatePassword,
     userPassword
   ) {
@@ -72,7 +72,7 @@ userSchema.methods.correctPassword = async function(
   };
 
 
-userSchema.methods.changedPasswordAfterToken = function(JWTTimeStamp) {
+lawyerSchema.methods.changedPasswordAfterToken = function(JWTTimeStamp) {
     if(this.passwordChangedAt){
         const changedTime = parseInt(this.passwordChangedAt.getTime()/1000, 10);
         return JWTTimeStamp < changedTime;
@@ -82,7 +82,7 @@ userSchema.methods.changedPasswordAfterToken = function(JWTTimeStamp) {
     return false;
 }
 
-userSchema.methods.createPasswordResetToken = function() {
+lawyerSchema.methods.createPasswordResetToken = function() {
     const resetToken = crypto.randomBytes(32).toString('hex');
   
     this.passwordResetToken = crypto
@@ -99,4 +99,4 @@ userSchema.methods.createPasswordResetToken = function() {
 
 
 
-export const User = mongoose.model('User', userSchema);
+export const Lawyer = mongoose.model('Lawyer', lawyerSchema);

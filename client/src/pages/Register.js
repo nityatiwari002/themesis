@@ -13,7 +13,7 @@ function Register() {
 	const [userName, setUserName] = useState('');
 	const [userPassword, setUserPassword] = useState('');
 	const [userCnfPass, setUserCnfPass] = useState('');
-	const [userRole, setUserRole] = useState('');
+	const [userRole, setUserRole] = useState('user');
 
 
 	const [unamefocus, setUnamefocus] = React.useState(false);
