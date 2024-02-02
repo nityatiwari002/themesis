@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema(
 	{
-		_id: {
-			type: mongoose.Schema.Types.ObjectId,
-			default: mongoose.Types.ObjectId,
-		},
+		// _id: {
+		// 	type: mongoose.Schema.Types.ObjectId,
+		// 	default: mongoose.Types.ObjectId,
+		// },
 		user_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
