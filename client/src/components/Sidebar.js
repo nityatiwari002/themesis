@@ -3,44 +3,24 @@ import { AuthData } from "../services/AuthService";
 import "../styles/Sidebar.css";
 import { NavLink } from "react-router-dom";
 import routes from "../routes/Routes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar() {
 	const { showSidebar } = AuthData();
 	const { user } = AuthData();
 	if (!showSidebar) return null;
 	return (
-		<div>
-			<div className="side-bar">
-				<ul>
-					{routes.map((route, index) => {
-						if (
-							!user.isAuthenticated &&
-							!route.isPrivate &&
-							!route.isUtility
-						) {
-							return (
-								<li key={index}>
-									<button className="side-bar-buttons">
-										<NavLink
-											to={route.path}
-											className={({ isActive }) => {
-												return isActive
-													? "menu-links active"
-													: "menu-links inactive";
-											}}
-										>
-											{/* <button>{route.name}</button> */}
-											{route.name}
-										</NavLink>
-									</button>
-								</li>
-							);
-						} else if (user.isAuthenticated) {
-							if (user.role == "user") {
+		<div className="side-bar-parent">
+			<div className={`side-bar ${showSidebar ? "open" : "close"}`}>
+				{showSidebar && (
+					<>
+						<ul>
+							{routes.map((route, index) => {
 								if (
-									user.isAuthenticated &&
-									route.isPrivate &&
-									route.isMenuUser
+									!user.isAuthenticated &&
+									!route.isPrivate &&
+									!route.isUtility
 								) {
 									return (
 										<li key={index}>
@@ -60,36 +40,84 @@ function Sidebar() {
 												</button>
 											</NavLink>
 										</li>
-                                        
 									);
-								}
-							}
+								} else if (user.isAuthenticated) {
+									if (user.role == "user") {
+										if (
+											user.isAuthenticated &&
+											route.isPrivate &&
+											route.isMenuUser
+										) {
+											return (
+												<li key={index}>
+													<NavLink
+														to={route.path}
+														className={({
+															isActive,
+														}) => {
+															return isActive
+																? "menu-links active"
+																: "menu-links inactive";
+														}}
+													>
+														<button className="side-bar-buttons">
+															<span className="side-bar-icon">
+																{route.icon}{" "}
+															</span>
+															{route.name}
+														</button>
+													</NavLink>
+												</li>
+											);
+										}
+									}
 
-							if (user.role == "lawyer") {
-								if (
-									user.isAuthenticated &&
-									route.isPrivate &&
-									route.isMenuLawyer
-								) {
-									return (
-										<li key={index}>
-											<NavLink
-												to={route.path}
-												className={({ isActive }) => {
-													return isActive
-														? "menu-links active"
-														: "menu-links inactive";
-												}}
-											>
-												{route.name}
-											</NavLink>
-										</li>
-									);
-								}
-							}
-						} else return false;
-					})}
-				</ul>
+									if (user.role == "lawyer") {
+										if (
+											user.isAuthenticated &&
+											route.isPrivate &&
+											route.isMenuLawyer
+										) {
+											return (
+												<li key={index}>
+													<NavLink
+														to={route.path}
+														className={({
+															isActive,
+														}) => {
+															return isActive
+																? "menu-links active"
+																: "menu-links inactive";
+														}}
+													>
+														<button className="side-bar-buttons">
+															<span className="side-bar-icon">
+																{route.icon}{" "}
+															</span>
+															{route.name}
+														</button>
+													</NavLink>
+												</li>
+											);
+										}
+									}
+								} else return false;
+							})}
+						</ul>
+						{user.isAuthenticated && <div className="side-bar-logout">
+							<NavLink to="/logout" className="side-bar-logout">
+								<button className="side-bar-buttons">
+									<span className="side-bar-icon">
+										<FontAwesomeIcon
+											icon={faArrowRightFromBracket}
+										/>
+									</span>
+									Logout
+								</button>
+							</NavLink>
+						</div>}
+					</>
+				)}
 			</div>
 		</div>
 	);

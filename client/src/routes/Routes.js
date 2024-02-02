@@ -17,7 +17,22 @@ import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faGavel} from "@fortawesome/free-solid-svg-icons";
+import {
+	faHome,
+	faGavel,
+	faChartPie,
+	faHandHoldingHand,
+	faPeopleGroup,
+	faRightToBracket,
+	faUserPlus,
+	faComments,
+	faIdCard,
+	faRightFromBracket,
+	faLandmarkDome,
+	faBook,
+	faClockRotateLeft,
+	faScaleBalanced
+} from "@fortawesome/free-solid-svg-icons";
 
 const routes = [
 	{
@@ -28,7 +43,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faHome} />,
+		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
 		path: "/dashboardLawyer",
@@ -38,7 +53,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faHome} />,
+		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
 		path: "/guide",
@@ -48,17 +63,17 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faHome} />,
+		icon: <FontAwesomeIcon icon={faHandHoldingHand} />,
 	},
 	{
 		path: "/Quick-fix-court",
 		component: <QuickFixCourt />,
 		name: "Quick Fix Court",
 		isPrivate: true,
-		isMenuUser: false,
+		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faLandmarkDome} />,
 	},
 	{
 		path: "/find-lawyer",
@@ -78,7 +93,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faBook} />,
 	},
 
 	{
@@ -89,7 +104,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faIdCard} />,
 	},
 	{
 		path: "/peer-connect",
@@ -99,7 +114,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faPeopleGroup} />,
 	},
 	{
 		path: "/trial-detainees",
@@ -109,7 +124,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon:<FontAwesomeIcon icon={faScaleBalanced} />,
 	},
 	{
 		path: "/pastcases",
@@ -119,17 +134,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
-	},
-	{
-		path: "/logout",
-		component: <Logout token={localStorage.getItem("token")} />,
-		name: "Logout",
-		isPrivate: true,
-		isMenuUser: false,
-		isMenuLawyer: false,
-		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
 	},
 
 	{
@@ -140,7 +145,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faHome} />,
 	},
 
 	{
@@ -151,7 +156,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faRightToBracket} />,
 	},
 	{
 		path: "/sign-up",
@@ -161,7 +166,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faUserPlus} />,
 	},
 	{
 		path: "/chat-bot",
@@ -201,7 +206,17 @@ const routes = [
 		isMenuLawyer: true,
 		isMenuUser: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faGavel} />,
+		icon: <FontAwesomeIcon icon={faComments} />,
+	},
+	{
+		path: "/logout",
+		component: <Logout token={localStorage.getItem("token")} />,
+		name: "Logout",
+		isPrivate: true,
+		isMenuUser: false,
+		isMenuLawyer: false,
+		isUtility: true,
+		icon: <FontAwesomeIcon icon={faRightFromBracket} />,
 	},
 ];
 
