@@ -49,12 +49,6 @@ export const AuthWrapper = () => {
 	const [selectedChat, setSelectedChat] = useState([]);
 	const [chats, setChats] = useState([]);
 
-	useEffect(() => {
-		checkProtected();
-		console.log("use effect", isProtected);
-	}, []);
-
-
 
 	const login = async (email, password) => {
 		let userData = {
@@ -81,8 +75,7 @@ export const AuthWrapper = () => {
 							removeCookies("jwt");
               localStorage.setItem("userInfo", JSON.stringify(data.data.user));
 							setUser({
-								user: email,
-								role: data.data.user.role,
+								user: localStorage.getItem("userInfo"),
 								isAuthenticated: true,
 							});
 							setCookies("jwt", tken);
@@ -112,7 +105,7 @@ export const AuthWrapper = () => {
 
 	const logout = () => {
 		removeCookies("jwt");
-		setUser({ user: "", role: "", isAuthenticated: false });
+		setUser({ user: "", isAuthenticated: false });
 	};
 
 	const [wasManuallyClosed, setWasManuallyClosed] = useState(() => {
@@ -139,9 +132,12 @@ export const AuthWrapper = () => {
 			return !prevShowSidebar;
 		});
 	};
+
+  
 	useEffect(() => {
 		// Save the state to localStorage whenever it changes
 		localStorage.setItem("showSidebar", JSON.stringify(showSidebar));
+    console.log(showSidebar);
 	}, [showSidebar]);
 
 	useEffect(() => {
@@ -185,7 +181,7 @@ export const AuthWrapper = () => {
 			<div className="outer-container">
 				<Sidebar />
 				<div className="right-container">
-					<Navbar />
+					{/* <Navbar /> */}
 					<RenderRoutes />
 					{user.isAuthenticated && <ChatIcon />}
 				</div>

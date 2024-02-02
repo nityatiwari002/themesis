@@ -9,7 +9,8 @@ import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 function Sidebar() {
 	const { showSidebar } = AuthData();
 	const { user } = AuthData();
-	if (!showSidebar) return null;
+	if (showSidebar !== true) return null;
+
 	return (
 		<div className="side-bar-parent">
 			<div className={`side-bar ${showSidebar ? "open" : "close"}`}>
@@ -42,7 +43,8 @@ function Sidebar() {
 										</li>
 									);
 								} else if (user.isAuthenticated) {
-									if (user.role == "user") {
+									if (JSON.parse(user.user).role == "user") {
+
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&
@@ -72,7 +74,7 @@ function Sidebar() {
 										}
 									}
 
-									if (user.role == "lawyer") {
+									if (JSON.parse(user.user).role.role == "lawyer") {
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&
