@@ -13,8 +13,8 @@ export const createRequest = async (req, res) => {
 				.json({ message: "User or lawyer not found" });
 		}
 		const existingRequest = await Request.findOne({
-			user_id: userObject._id,
-			lawyer_id: lawyerObject._id,
+			user_id: new mongoose.Types.ObjectId(userObject._id),
+			lawyer_id: new mongoose.Types.ObjectId(lawyerObject._id),
 			request_type: requestType,
 		});
 
@@ -23,9 +23,8 @@ export const createRequest = async (req, res) => {
 		}
 
 		const newRequest = await Request.create({
-			_id : new mongoose.Types.ObjectId(),
-			user_id: userObject._id,
-			lawyer_id: lawyerObject._id,
+			user_id: new mongoose.Types.ObjectId(userObject._id),
+			lawyer_id: new mongoose.Types.ObjectId(lawyerObject._id),
 			request_type: requestType,
 		});
 		res.status(201).json({
