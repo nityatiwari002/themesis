@@ -16,6 +16,7 @@ import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
+import ProfileDashboard from "../pages/ProfileDashboard";
 
 
 
@@ -163,12 +164,22 @@ const routes = [
 	{
 		path : "/chat",
 		component : <ChatPage />,
-		name : "Chat Page",
-		isPrivate : false,
+		name : "Messages",
+		isPrivate : true,
+	    isMenuLawyer : true,
+		isMenuUser : true,
+	
+	},
+	{
+		path : "/me",
+		component : <ProfileDashboard />,
+		name : "Profile",
+		isPrivate : true,
 	    isMenuLawyer : false,
 		isMenuUser : false,
 	
-	}
+	},
+
 
 ];
 

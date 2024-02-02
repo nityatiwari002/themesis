@@ -142,17 +142,19 @@ function Navbar() {
 						<span className="login-txt">uardian</span>
 					</div>
 					<div className="nav-but">
-						{/* <div className="profile_div" onClick={handleProfile}>
+						<div className="profile_div">
+						<Link to = "/me">
 						<div className = "profile_picture_holder">
 								<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhwaLDKaK49tsHmdMGOrmTdns5qiw080F2Yw&usqp=CAU" alt = "picture" className="profile_picture"/>
 							</div>
-						</div>  */}
+							</Link> 
+						</div> 
 					
-						<button className="nav-btn">
+						{/* <button className="nav-btn">
 							<Link to="/logout" className="nav-link links">
 								Logout
 							</Link>
-						</button>
+						</button> */}
 					</div>
 				</>
 			) : (

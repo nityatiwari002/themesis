@@ -85,8 +85,8 @@ const SideDrawer = () => {
     }  
     return (
       <>
-        <Button variant="primary"  onClick={handleShow}>
-          Search Users
+        <Button style={{width: "50%", height : "80%"}} variant="info"  onClick={handleShow}>
+        <i class="bi bi-search"></i> Search Users
         </Button>
   
         <Offcanvas show={show} onHide={handleClose} className="mb-0">
