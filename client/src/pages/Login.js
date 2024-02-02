@@ -11,10 +11,6 @@ function Login() {
 	const [errorMessage, setErrorMessage] = useState("");
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	if(localStorage.getItem('user-info'));
-	// 	navigate("/login");
-	// }, []);
 	
 	const handleEmail = (e) => {
 		setEmail(e.target.value);
@@ -24,26 +20,6 @@ function Login() {
 	};
 
 	
-	// async function handleSubmit (event){ 
-	// 	event.preventDefault();
-
-	//    let userData = {
-	// 		email: email,
-	// 		password: password
-	// 	}
-
-	// 	let response = await fetch('http://localhost:5001/api/v1/users/login',{
-	// 		method : 'post',
-	// 		headers:{
-	// 			"Content-Type":"application/json"
-	// 		},
-	// 		body:JSON.stringify(userData)
-	// 	});
-
-	// 	response = response.json();
-	// 	localStorage.setItem("user-info", JSON.stringify(response));
-	// 	navigate("/dashboard");
-	// }
 
 	const { login } = AuthData();
 

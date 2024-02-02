@@ -7,6 +7,7 @@ import catchAsync from "./../Utils/catchAsync.js";
 import AppError from "./../Utils/appError.js";
 import {sendEmail} from './../Utils/email.js'
 import dotenv from 'dotenv';
+import { Lawyer } from "../models/lawyerModel.js";
 dotenv.config();
 
 
@@ -42,14 +43,25 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 export const signup = catchAsync(async (req, res, next) => {
+  if(req.body.role === 'user'){
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
     username: req.body.username,
-    passwordConfirm: req.body.passwordConfirm,
-    role : req.body.role
+    passwordConfirm: req.body.passwordConfirm
   });
+}
+else{
+  const newLawyer = await Lawyer.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    username: req.body.username,
+    passwordConfirm: req.body.passwordConfirm
+  });
+
+}
 
   res.status(201).json({
     status : 'success'
@@ -58,6 +70,7 @@ export const signup = catchAsync(async (req, res, next) => {
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email, password);
 
   // 1) Check if email and password exist
   if (!email || !password) {
@@ -68,7 +81,15 @@ export const login = catchAsync(async (req, res, next) => {
   if(!user){
      user = await User.findOne({username : email}).select('+password');
   }
-  
+
+  if(!user){
+    user = await Lawyer.findOne({ email }).select('+password');
+    if(!user){
+       user = await Lawyer.findOne({username : email}).select('+password');
+    }
+  }
+
+
 
   if (!user || (user.password != password)) {
     return next(new AppError('Incorrect email or password', 401));
@@ -116,14 +137,13 @@ export const protect = catchAsync(async (req, res, next) => {
   const decoded = verify(token, 'i-am-shreya');
 
   // 3) Check if user still exists
-  const currentUser = await User.findById(decoded.id);
+  let currentUser = await User.findById(decoded.id);
+
+  if(!currentUser){
+       currentUser = await Lawyer.findById(decoded.id);
+  }
+
   if (!currentUser) {
-    // return next(
-    //   new AppError(
-    //     'The user belonging to this token does no longer exist.',
-    //     401
-    //   )
-    // );
     res.status(401).json({
       status : 'fail',
       message : 'We are unable to find the user!! Please login again.',
@@ -133,10 +153,6 @@ export const protect = catchAsync(async (req, res, next) => {
 
   // 4) Check if user changed password after the token was issued
   if (currentUser.changedPasswordAfterToken(decoded.iat)) {
-    // return next(
-    //   new AppError('User recently changed password! Please log in again.', 401)
-    // );
-    
     res.status(401).json({
       status: 'fail',
       message : 'User recently changed password! Please login again',
@@ -204,6 +220,14 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   if (!user) {
     user = await User.findOne({username : req.body.email});
     if(!user){
+      user = await Lawyer.findOne({email : req.body.email});
+    }
+
+    if(!user){
+      user = await Lawyer.findOne({username : req.body.email});
+    }
+
+    if(!user){
     return next(new AppError('There is no user with email address.', 404));
     }
   }
@@ -217,7 +241,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     'host'
   )}/api/v1/users/resetPasswordGet/${resetToken}`;
 
-  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\n\n\nIf you didn't forget your password, please ignore this email!`;
+  const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\n\n\n\nIf you didn't forget your password, please ignore this email!`;
 
   try {
     await sendEmail({
@@ -250,10 +274,19 @@ export const resetPasswordGet = catchAsync(async (req, res, next) => {
     .update(req.params.token)
     .digest('hex');
   
-  const user = await User.findOne({
+  let user = await User.findOne({
     passwordResetToken: hashedToken,
     PasswordResetTokenExpires: { $gt: Date.now() }
   });
+
+  if(!user){
+    user = await Lawyer.findOne({
+      passwordResetToken: hashedToken,
+      PasswordResetTokenExpires: { $gt: Date.now() }
+    });
+  }
+
+
 
   console.log(user);
 
@@ -299,11 +332,12 @@ export const resetPasswordGet = catchAsync(async (req, res, next) => {
 
 export const updatePassword = catchAsync(async (req, res, next) => {
   // 1) Get user from collection
-  const user = await User.findById(req.user.id).select('+password');
+  let user = await User.findById(req.user.id).select('+password');
+  if(!user){
+    user = await Lawyer.findById(req.user.id).select('+pssword');
+  }
 
   // 2) Check if POSTed current password is correct
-  console.log(user.password);
-  console.log(req.body.passwordCurrent);
   if (req.body.passwordCurrent != user.password) {
     return next(new AppError('Your current password is wrong.', 401));
   }

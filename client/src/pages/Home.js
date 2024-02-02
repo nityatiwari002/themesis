@@ -1,9 +1,12 @@
 import React from "react";
 import "../styles/Home.css";
 import description from "../assets/desc";
+import Navbar from "../components/Navbar";
 
 function Home() {
 	return (
+		<>
+		<Navbar />
 		<div className="home-card">
 			<div className="home-title-wrapper">
 				<div className="home-title-subwrapper">
@@ -47,6 +50,7 @@ function Home() {
 				})}
 			</div>
 		</div>
+		</>
 	);
 }
 
