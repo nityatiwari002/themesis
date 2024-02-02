@@ -1,0 +1,63 @@
+.lawyer-card {
+    position: relative;
+    background-color: var(--bgtransparentmax);
+    margin: 10px auto;
+    width: auto;
+    border-radius: 10px;
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vid-img {
+    min-width: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    min-height: 200px;
+    border-radius: 50%;
+    margin-right: 10px;
+    overflow: hidden;
+    background-color: brown;
+    background-image: url("/home/samriddhi/Desktop/solution challenge/themesis_guardian/client/src/pages/videoo.jpeg");
+    background-position: 0%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.vid-image {
+    width: 100%;
+    height: 100%;
+}
+
+
+#det {
+    color: var(--primary-brown);
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.port {
+    height: 100vh ;
+    width: 80vw auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.more {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
