@@ -1,12 +1,12 @@
 import { User } from "../models/userModel";
-// import { Lawyer } from "../models/lawyerModel";
+import { Lawyer } from "../models/lawyerModel";
 import { Request } from "../models/requestModel";
 
 export const createRequest = async (req, res) => {
 	try {
 		const { userId, lawyerId, requestType } = req.body;
 		const userObject = await User.findById(userId);
-		const lawyerObject = await User.findById(lawyerId);
+		const lawyerObject = await Lawyer.findById(lawyerId);
 
 		if (!userObject || !lawyerObject) {
 			return res
@@ -14,8 +14,8 @@ export const createRequest = async (req, res) => {
 				.json({ message: "User or lawyer not found" });
 		}
 		const existingRequest = await Request.findOne({
-			user: userObject._id,
-			lawyer: lawyerObject._id,
+			user_id: userObject._id,
+			lawyer_id: lawyerObject._id,
 			request_type: requestType,
 		});
 
@@ -42,7 +42,7 @@ export const createRequest = async (req, res) => {
 export const getUserRequests = async (req, res) => {
 	try {
 		const { userId } = req.params;
-		const userRequests = await Request.find({ user: userId });
+		const userRequests = await Request.find({ user_id: userId });
 
 		if (!userRequests.length) {
 			return res.status(200).json(null);
@@ -58,7 +58,7 @@ export const getUserRequests = async (req, res) => {
 export const getLawyerRequests = async (req, res) => {
 	try {
 		const { lawyerId } = req.params;
-		const lawyerRequests = await Request.find({ lawyer: lawyerId });
+		const lawyerRequests = await Request.find({ lawyer_id: lawyerId });
 
 		if (!lawyerRequests.length) {
 			return res.status(200).json(null);
