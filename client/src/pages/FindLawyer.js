@@ -147,6 +147,45 @@ function FindLawyer() {
 	const deleteHireRequest = async (index) => {
 		handleDeleteRequest(index, "Hire");
 	};
+
+	const findMatchingRequest = (index, type) => {
+		const lawyer = lawyers[index];
+		let reqStatus = {};
+		let request = requests.filter(
+			(request) =>
+				request.user_id === JSON.parse(user.user)._id &&
+				request.lawyer_id === lawyer._id &&
+				request.request_type === type &&
+				request.pending === true
+		)[0];
+		let req = requests.filter(
+			(request) =>
+				request.user_id === JSON.parse(user.user)._id &&
+				request.lawyer_id === lawyer._id &&
+				request.request_type === type &&
+				request.pending === false
+		)[0];
+		if (request) {
+			reqStatus = {
+				requested: true,
+				pending: true,
+			};
+		} else if (req) {
+			reqStatus = {
+				requested: true,
+				pending: false,
+				accepted: req.accepted,
+			};
+		} else {
+			reqStatus = {
+				requested: false,
+				pending: false,
+			};
+		}
+
+		return reqStatus;
+	};
+
 	return (
 		<>
 			<Navbar />
@@ -251,59 +290,119 @@ function FindLawyer() {
 											</div>
 										</div>
 										<div className="lawyer-buttons">
-											{requests &&
-											requests.filter(
-												(request) =>
-													request.lawyer_id ===
-														lawyer._id &&
-													request.request_type ===
-														"Chat" &&
-													request.pending === true
-											).length > 0 ? (
-												<button
-													className="btn-cancel"
-													onClick={() =>
-														deleteChatRequest(index)
-													}
-												>
-													Cancel Chat Request
-												</button>
+											{findMatchingRequest(index, "Chat")
+												.requested ? (
+												<>
+													{findMatchingRequest(
+														index,
+														"Chat"
+													).pending ? (
+														<button
+															className="request-button"
+															onClick={() =>
+																deleteChatRequest(
+																	index
+																)
+															}
+														>
+															Cancel Chat Request
+														</button>
+													) : (
+														<>
+															{findMatchingRequest(
+																index,
+																"Chat"
+															).accepted ? (
+																<button
+																	className="request-button"
+																	onClick={() =>
+																		console.log(
+																			"Will Redirect to chat"
+																		)
+																	}
+																>
+																	Start
+																	Chatting
+																</button>
+															) : (
+																<button
+																	className="request-button disabled-but"
+																	disabled={
+																		true
+																	}
+																>
+																	Chat
+																	Requested
+																</button>
+															)}
+														</>
+													)}
+												</>
 											) : (
 												<button
-													className="btn-apply"
+													className="request-button"
 													onClick={() =>
 														sendChatRequest(index)
 													}
 												>
-													Send Chat Request
+													Chat
 												</button>
 											)}
-
-											{requests &&
-											requests.filter(
-												(request) =>
-													request.lawyer_id ===
-														lawyer._id &&
-													request.request_type ===
-														"Hire" &&
-													request.pending === true
-											).length > 0 ? (
-												<button
-													className="btn-cancel"
-													onClick={() =>
-														deleteHireRequest(index)
-													}
-												>
-													Cancel Hire Request
-												</button>
+											{findMatchingRequest(index, "Hire")
+												.requested ? (
+												<>
+													{findMatchingRequest(
+														index,
+														"Hire"
+													).pending ? (
+														<button
+															className="request-button"
+															onClick={() =>
+																deleteHireRequest(
+																	index
+																)
+															}
+														>
+															Cancel Hire Request
+														</button>
+													) : (
+														<>
+															{findMatchingRequest(
+																index,
+																"Hire"
+															).accepted ? (
+																<button
+																	className="request-button"
+																	disabled={
+																		true
+																	}
+																>
+																	Hire Request
+																	Accepted
+																</button>
+															) : (
+																<button
+																	className="request-button disabled-but"
+																	disabled={
+																		true
+																	}
+																>
+																	Hire
+																	Requested
+																	Declined
+																</button>
+															)}
+														</>
+													)}
+												</>
 											) : (
 												<button
-													className="btn-apply"
+													className="request-button"
 													onClick={() =>
 														sendHireRequest(index)
 													}
 												>
-													Send Hire Request
+													Hire
 												</button>
 											)}
 										</div>
