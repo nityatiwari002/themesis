@@ -33,6 +33,7 @@ import {
 	faBook,
 	faClockRotateLeft,
 	faScaleBalanced,
+	faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
 const routes = [
@@ -163,11 +164,11 @@ const routes = [
 		path: "/logout",
 		component: <Logout />,
 		name: "Logout",
-		isPrivate: false,
+		isPrivate: true,
 		isMenuUser: true,
 		isMenuLawyer: true,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faRightToBracket} />,
+		icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
 	},
 	{
 		path: "/sign-up",

@@ -6,9 +6,9 @@ import {
 	faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/FindLawyer.css";
-// import lawyers from "../utilities/LawyerDetails";
 import { AuthData } from "../services/AuthService";
 import Navbar from "../components/Navbar";
+// import requests from "../assets/requests";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);
 	const [numLawyers, setNumLawyers] = useState(-1);
@@ -49,20 +49,23 @@ function FindLawyer() {
 	const [requests, setRequests] = useState([]);
 
 	const getAllRequests = async () => {
+		console.log(user.user);
+		console.log("calling", JSON.parse(user.user)._id);
 		const response = await fetch(
-			"http://127.0.0.1:5001/api/v1/requests/userRequests/" + user._id,
+			"http://127.0.0.1:5001/api/v1/requests/userRequests/" + JSON.parse(user.user)._id,
 			{
 				method: "get",
 				headers: {
 					"Content-Type": "application/json",
 				},
 			}
-		)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("requesss", data);
-				setRequests(data);
-			});
+		);
+		console.log("response", response);
+		if(response.ok){
+			const data = await response.json();
+			console.log("Requests:", data);
+			setRequests(data);
+		}
 	};
 
 	useEffect(() => {
@@ -71,9 +74,9 @@ function FindLawyer() {
 
 	const sendChatRequest = async (index) => {
 		const lawyer = lawyers[index];
-		console.log(user._id, lawyer._id);
+		console.log("ids", JSON.parse(user.user)._id, lawyer._id);
 		let requestData = {
-			userId: user._id,
+			userId: JSON.parse(user.user)._id,
 			lawyerId: lawyer._id,
 			requestType: "Chat",
 		};
@@ -193,13 +196,14 @@ function FindLawyer() {
 													sendChatRequest(index)
 												}
 											>
-												{requests.find(
+												{/* {requestss.find(
 													(req) =>
-														req.lawyerId ===
+														req.lawyer_id ===
 														lawyer._id
 												)
 													? "Chat Request Sent"
-													: "Chat"}
+													: "Chat"} */}
+													Chat
 											</button>
 											<button
 												className="btn btn-primary"
