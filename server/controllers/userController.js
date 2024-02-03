@@ -9,8 +9,7 @@ export const getMe = (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
 	const user = await User.findById(req.params.id);
-
-	res.send("Ho jaaega bhai!!");
+	res.send(user);
 };
 
 //api/v1/users?search=shreya

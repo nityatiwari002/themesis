@@ -52,7 +52,8 @@ function FindLawyer() {
 		console.log(user.user);
 		console.log("calling", JSON.parse(user.user)._id);
 		const response = await fetch(
-			"http://127.0.0.1:5001/api/v1/requests/userRequests/" + JSON.parse(user.user)._id,
+			"http://127.0.0.1:5001/api/v1/requests/userRequests/" +
+				JSON.parse(user.user)._id,
 			{
 				method: "get",
 				headers: {
@@ -61,7 +62,7 @@ function FindLawyer() {
 			}
 		);
 		console.log("response", response);
-		if(response.ok){
+		if (response.ok) {
 			const data = await response.json();
 			console.log("Requests:", data);
 			setRequests(data);
@@ -72,13 +73,13 @@ function FindLawyer() {
 		getAllRequests();
 	}, []);
 
-	const sendChatRequest = async (index) => {
+	const sendRequest = async (index, type) => {
 		const lawyer = lawyers[index];
 		console.log("ids", JSON.parse(user.user)._id, lawyer._id);
 		let requestData = {
 			userId: JSON.parse(user.user)._id,
 			lawyerId: lawyer._id,
-			requestType: "Chat",
+			requestType: type,
 		};
 		try {
 			const response = await fetch(
@@ -91,20 +92,60 @@ function FindLawyer() {
 					body: JSON.stringify(requestData),
 				}
 			);
-
 			if (!response.ok) {
 				console.log(response.message);
 				throw new Error("Network response was not ok");
 			}
-
 			const data = await response.json();
-			console.log("Chat request sent:", data);
+			console.log("Request sent:", data);
 		} catch (error) {
 			console.error("Error:", error);
 		}
+		getAllRequests();
 	};
-	const sendHireRequest = (lawyer) => {
-		// console.log("Hire request sent to " + lawyer.name);
+
+	const sendChatRequest = async (index) => {
+		sendRequest(index, "Chat");
+	};
+	const sendHireRequest = async (index) => {
+		sendRequest(index, "Hire");
+	};
+
+	const handleDeleteRequest = async (index, type) => {
+		const lawyer = lawyers[index];
+		const request = requests.filter(
+			(request) =>
+				request.user_id === JSON.parse(user.user)._id &&
+				request.lawyer_id === lawyer._id &&
+				request.request_type === type &&
+				request.pending === true
+		)[0];
+		try {
+			const response = await fetch(
+				`http://127.0.0.1:5001/api/v1/requests/deleteRequest/${request._id}`,
+				{
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			console.log("Request deleted:", request._id);
+		} catch (error) {
+			console.error("Error:", error);
+		}
+		getAllRequests();
+	};
+	const deleteChatRequest = async (index) => {
+		handleDeleteRequest(index, "Chat");
+	};
+	const deleteHireRequest = async (index) => {
+		handleDeleteRequest(index, "Hire");
 	};
 	return (
 		<>
@@ -127,16 +168,18 @@ function FindLawyer() {
 				</div>
 
 				<div className="search-results">
-					{numLawyers === -1 && <h1>Loading...</h1>}
+					{numLawyers === -1 && (
+						<div className="Loading-container">Loading...</div>
+					)}
 					{numLawyers === 0 ? (
 						<h1>No lawyers found</h1>
 					) : (
 						lawyers.map((lawyer, index) => {
 							return (
 								<div className="lawyer-card" key={index}>
-									<div className="lawyer-img">
+									<div className="lawyer-img-container">
 										<img
-											src={lawyer.img}
+											src={lawyer.image}
 											className="lawyer-image"
 										></img>
 									</div>
@@ -144,6 +187,10 @@ function FindLawyer() {
 										<div className="lawyer-details-wrapper">
 											<div className="lawyer-details">
 												<div className="lawyer-det">
+													<span className="det">
+														{" "}
+														Name:{" "}
+													</span>
 													{lawyer.name}
 												</div>
 												<div className="lawyer-det">
@@ -160,7 +207,19 @@ function FindLawyer() {
 													{lawyer.countWonCases}
 												</div>
 												<div className="lawyer-det">
+													<span className="det">
+														About:{" "}
+													</span>
 													{lawyer.description}
+													Lorem ipsum dolor sit amet.
+													Id perspiciatis repellat et
+													amet magnam qui libero
+													voluptatem ut provident illo
+													et reiciendis ratione aut
+													ipsam necessitatibus est
+													odio autem! Est aspernatur
+													galisum et nisi dolorum cum
+													tempore deleniti.
 												</div>
 											</div>
 											<div className="lawyer-details">
@@ -183,36 +242,70 @@ function FindLawyer() {
 													{lawyer.experience}
 												</div>
 												<div className="lawyer-det">
-													{lawyer.city},{" "}
-													{lawyer.state},{" "}
+													{lawyer.city}
+													{lawyer.city ? ", " : " "}
+													{lawyer.state}
+													{lawyer.state ? "," : " "}
 													{lawyer.country}
 												</div>
 											</div>
 										</div>
 										<div className="lawyer-buttons">
-											<button
-												className="btn btn-primary"
-												onClick={() =>
-													sendChatRequest(index)
-												}
-											>
-												{/* {requestss.find(
-													(req) =>
-														req.lawyer_id ===
-														lawyer._id
-												)
-													? "Chat Request Sent"
-													: "Chat"} */}
-													Chat
-											</button>
-											<button
-												className="btn btn-primary"
-												onClick={() =>
-													sendHireRequest(index)
-												}
-											>
-												Book
-											</button>
+											{requests &&
+											requests.filter(
+												(request) =>
+													request.lawyer_id ===
+														lawyer._id &&
+													request.request_type ===
+														"Chat" &&
+													request.pending === true
+											).length > 0 ? (
+												<button
+													className="btn-cancel"
+													onClick={() =>
+														deleteChatRequest(index)
+													}
+												>
+													Cancel Chat Request
+												</button>
+											) : (
+												<button
+													className="btn-apply"
+													onClick={() =>
+														sendChatRequest(index)
+													}
+												>
+													Send Chat Request
+												</button>
+											)}
+
+											{requests &&
+											requests.filter(
+												(request) =>
+													request.lawyer_id ===
+														lawyer._id &&
+													request.request_type ===
+														"Hire" &&
+													request.pending === true
+											).length > 0 ? (
+												<button
+													className="btn-cancel"
+													onClick={() =>
+														deleteHireRequest(index)
+													}
+												>
+													Cancel Hire Request
+												</button>
+											) : (
+												<button
+													className="btn-apply"
+													onClick={() =>
+														sendHireRequest(index)
+													}
+												>
+													Send Hire Request
+												</button>
+											)}
 										</div>
 									</div>
 									{lawyer.takesProBono && (

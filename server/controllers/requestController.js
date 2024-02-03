@@ -13,8 +13,8 @@ export const createRequest = async (req, res) => {
 
 		const userObject = await User.findById(userId);
 		const lawyerObject = await Lawyer.findById(lawyerId);
-    console.log("User Object:", userObject);
-    console.log("Lawyer Object:", lawyerObject);
+		console.log("User Object:", userObject);
+		console.log("Lawyer Object:", lawyerObject);
 		if (!lawyerObject) {
 			res.status(400).json(
 				"The User you want to send request to, no longer exists!!"
@@ -35,7 +35,6 @@ export const createRequest = async (req, res) => {
 			};
 
 			try {
-        console.log("Created Request:", "next");
 				const createdRequest = await Request.create(requestData);
 				const FullRequest = await Request.findOne({
 					_id: createdRequest._id,
@@ -55,15 +54,30 @@ export const createRequest = async (req, res) => {
 				console.log("Error", err);
 			}
 		} else {
-			return res
-				.status(400)
-				.json({
-					message:
-						"You have already made a request to this user....Please wait untill the user approves!!",
-				});
+			return res.status(400).json({
+				message:
+					"You have already made a request to this user....Please wait untill the user approves!!",
+			});
 		}
 	} catch (error) {
 		console.error("Error creating request:", error);
+		res.status(500).json({ message: "Internal server error" });
+	}
+};
+
+export const deleteRequest = async (req, res) => {
+	try {
+		const { requestId } = req.params;
+		const request = await Request.findById(requestId);
+
+		if (!request) {
+			return res.status(404).json({ message: "Request not found" });
+		}
+
+		await Request.findByIdAndDelete(requestId);
+		res.status(200).json({ message: "Request deleted successfully" });
+	} catch (error) {
+		console.error("Error deleting request:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 };
@@ -102,13 +116,20 @@ export const getLawyerRequests = async (req, res) => {
 };
 
 export const acceptRequest = async (req, res) => {
+	console.log("accp req", req.params);
+	console.log("hellll");
 	try {
-		const { requestId } = req.params;
+		console.log("accp req", req.params);
+		const requestId = req.params.requestId;
+		// console.log(requestId);
+		// const existingRequest = await Request.findById(requestId);
+		// console.log("ex", existingRequest);
 		const updatedRequest = await Request.findByIdAndUpdate(
 			requestId,
 			{ accepted: true, rejected: false, pending: false },
 			{ new: true }
 		);
+		console.log(updatedRequest);
 		res.status(200).json(updatedRequest);
 	} catch (error) {
 		console.error("Error accepting request:", error);
@@ -131,7 +152,6 @@ export const rejectRequest = async (req, res) => {
 	}
 };
 
-
 // async function clearCollection() {
 // 	try {
 // 		// Use the deleteMany method to remove all documents from the collection
@@ -149,4 +169,3 @@ export const rejectRequest = async (req, res) => {
 // }
 
 // clearCollection();
-

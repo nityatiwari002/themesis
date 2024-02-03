@@ -34,7 +34,9 @@ import {
 	faClockRotateLeft,
 	faScaleBalanced,
 	faArrowRightFromBracket,
+	faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
+import RequestsPage from "../pages/LawyerPages/RequestsPage";
 
 const routes = [
 	{
@@ -86,6 +88,16 @@ const routes = [
 		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faGavel} />,
+	},
+	{
+		path: "/requests",
+		component: <RequestsPage/>,
+		name: "Requests",
+		isPrivate: true,
+		isMenuUser: false,
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faUserGroup} />,
 	},
 	{
 		path: "/prep-and-pitch",
@@ -165,8 +177,8 @@ const routes = [
 		component: <Logout />,
 		name: "Logout",
 		isPrivate: true,
-		isMenuUser: true,
-		isMenuLawyer: true,
+		isMenuUser: false,
+		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
 	},

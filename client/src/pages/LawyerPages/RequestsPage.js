@@ -1,0 +1,274 @@
+import React, { useEffect } from "react";
+import Navbar from "../../components/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { AuthData } from "../../services/AuthService";
+import "../../styles/RequestsPage.css";
+
+function RequestsPage() {
+	const [searchInput, setSearchInput] = useState("");
+	const [formVisible, setFormVisible] = useState(false);
+	const handleSearch = (e) => {
+		setSearchInput(e.target.value);
+	};
+
+	const submitForm = () => {
+		console.log(searchInput);
+		setSearchInput("");
+	};
+	const { user } = AuthData();
+	const [requests, setRequests] = useState([]);
+	const [numRequests, setNumRequests] = useState(-1);
+	const getAllRequests = async () => {
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/requests/lawyerRequests/" +
+				JSON.parse(user.user)._id,
+			{
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				setRequests(data);
+				setNumRequests(data.length);
+			});
+	};
+	useEffect(() => {
+		getAllRequests();
+	}, []);
+	const getUser = async (id) => {
+		let user = {};
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/users/getUser/" + id,
+			{
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				user = data;
+			});
+		return user;
+	};
+	const [chatRequests, setChatRequests] = useState([]);
+	const getTypeRequests = async (type) => {
+		let typeReq = [];
+		for (let i = 0; i < requests.length; i++) {
+			if (requests[i].pending === false) continue;
+			if (requests[i].request_type !== type) continue;
+			let user = await getUser(requests[i].user_id);
+			let req = {
+				_id: requests[i]._id,
+				name: user.name,
+				email: user.email,
+				image: user.image,
+			};
+
+			typeReq.push(req);
+		}
+		return typeReq;
+	};
+	const getChatRequests = async () => {
+		let chatReq = await getTypeRequests("Chat");
+		setChatRequests(chatReq);
+	};
+	const [hireRequests, setHireRequests] = useState([]);
+	const getHireRequests = async () => {
+		let hireReq = await getTypeRequests("Hire");
+		setHireRequests(hireReq);
+	};
+	useEffect(() => {
+		getChatRequests();
+	}, [requests]);
+	useEffect(() => {
+		getHireRequests();
+	}, [requests]);
+
+	const acceptRequest = async (id) => {
+		console.log("acp:", id);
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/requests/acceptRequest/" + id,
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
+		getAllRequests();
+		// getChatRequests();
+		// getHireRequests();
+		console.log(chatRequests);
+		// console.log(requests);
+	};
+	const rejectRequest = async (id) => {
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/requests/rejectRequest/" + id,
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
+		// getAllRequests();
+		getAllRequests();
+		// getChatRequests();
+		// getHireRequests();
+	};
+
+	return (
+		<>
+			<Navbar />
+			<div className="requests-page-body">
+				<div className="search-section">
+					{/* <div className="filter-text"></div> */}
+					<div className="filter">
+						<FontAwesomeIcon
+							icon={faFilter}
+							className="filter-icon"
+							onClick={() => setFormVisible(!formVisible)}
+						/>
+						<div
+							className={
+								formVisible ? "filter-form" : "hide-element"
+							}
+						></div>
+					</div>
+				</div>
+				<div className="request-search-results">
+					{numRequests === -1 && (
+						<div className="Loading-container">Loading...</div>
+					)}
+					{chatRequests.length !== 0 && (
+						<div className="requests-container">
+							<div className="requests-tile-header">
+								Chat Requests
+							</div>
+							<div className="requests-tile-body">
+								{chatRequests.map((chatRequest, index) => {
+									return (
+										<div
+											className="request-request"
+											key={index}
+										>
+											<div className="request-request-img">
+												<img
+													src={chatRequest.image}
+													alt="profile"
+													className="request-request-img-img"
+												/>
+											</div>
+											<div className="request-request-details">
+												<div className="request-user-name">
+													{chatRequest.name}
+												</div>
+												<div className="request-user-email">
+													{chatRequest.email}
+												</div>
+												<div className="request-buttons">
+													<button
+														className="request-button"
+														onClick={() =>
+															acceptRequest(
+																chatRequest._id
+															)
+														}
+													>
+														Accept
+													</button>
+													<button
+														className="request-button"
+														onClick={() =>
+															rejectRequest(
+																chatRequest._id
+															)
+														}
+													>
+														Reject
+													</button>
+												</div>
+											</div>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					)}
+					{hireRequests.length !== 0 && (
+						<div className="requests-container">
+							<div className="requests-tile-header">
+								Hire Requests
+							</div>
+							<div className="requests-tile-body">
+								{hireRequests.map((hireRequest, index) => {
+									return (
+										<div
+											className="request-request"
+											key={index}
+										>
+											<div className="request-request-img">
+												<img
+													src={hireRequest.image}
+													alt="profile"
+													className="request-request-img-img"
+												/>
+											</div>
+											<div className="request-request-details">
+												<div className="request-user-name">
+													{hireRequest.name}
+												</div>
+												<div className="request-user-email">
+													{hireRequest.email}
+												</div>
+												<div className="request-buttons">
+													<button
+														className="request-button"
+														onClick={() =>
+															acceptRequest(
+																hireRequest._id
+															)
+														}
+													>
+														Accept
+													</button>
+													<button
+														className="request-button"
+														onClick={() =>
+															rejectRequest(
+																hireRequest._id
+															)
+														}
+													>
+														Reject
+													</button>
+												</div>
+											</div>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</>
+	);
+}
+
+export default RequestsPage;
