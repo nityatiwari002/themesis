@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema(
 	{
-		// _id: {
-		// 	type: mongoose.Schema.Types.ObjectId,
-		// 	default: mongoose.Types.ObjectId,
-		// },
 		user_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
@@ -38,5 +34,7 @@ const requestSchema = new mongoose.Schema(
 		timestamps: true,
 	}
 );
+
+
 
 export const Request = mongoose.model("Request", requestSchema);

@@ -34,10 +34,13 @@ import {
 	faBook,
 	faClockRotateLeft,
 	faScaleBalanced,
+	faArrowRightFromBracket,
+	faUserGroup,
 	faUser,
 	faUnlockKeyhole,
 	faFilePen
 } from "@fortawesome/free-solid-svg-icons";
+import RequestsPage from "../pages/LawyerPages/RequestsPage";
 
 const routes = [
 	{
@@ -91,6 +94,16 @@ const routes = [
 		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faGavel} />,
+	},
+	{
+		path: "/requests",
+		component: <RequestsPage/>,
+		name: "Requests",
+		isPrivate: true,
+		isMenuUser: false,
+		isMenuLawyer: true,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faUserGroup} />,
 	},
 	{
 		path: "/prep-and-pitch",
@@ -169,11 +182,11 @@ const routes = [
 		path: "/logout",
 		component: <Logout />,
 		name: "Logout",
-		isPrivate: false,
-		isMenuUser: true,
-		isMenuLawyer: true,
+		isPrivate: true,
+		isMenuUser: false,
+		isMenuLawyer: false,
 		isUtility: false,
-		icon: <FontAwesomeIcon icon={faRightToBracket} />,
+		icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
 	},
 	{
 		path: "/sign-up",

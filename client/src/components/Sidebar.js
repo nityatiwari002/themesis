@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthData } from "../services/AuthService";
 import "../styles/Sidebar.css";
 import { NavLink } from "react-router-dom";
@@ -10,7 +10,6 @@ function Sidebar() {
 	const { showSidebar } = AuthData();
 	const { user } = AuthData();
 	if (showSidebar !== true) return null;
-
 	return (
 		<div className="side-bar-parent">
 			<div className={`side-bar ${showSidebar ? "open" : "close"}`}>
@@ -43,8 +42,8 @@ function Sidebar() {
 										</li>
 									);
 								} else if (user.isAuthenticated) {
-									if (JSON.parse(user.user).role == "user") {
-
+									// JSON.parse(user.user).role == "user"
+									if (JSON.parse(user.user).role === "user") {
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&
@@ -73,8 +72,10 @@ function Sidebar() {
 											);
 										}
 									}
-
-									if (JSON.parse(user.user).role.role == "lawyer") {
+									// JSON.parse(user.user).role.role == "lawyer"
+									if (
+										JSON.parse(user.user).role === "lawyer"
+									) {
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&
@@ -106,18 +107,23 @@ function Sidebar() {
 								} else return false;
 							})}
 						</ul>
-						{user.isAuthenticated && <div className="side-bar-logout">
-							<NavLink to="/logout" className="side-bar-logout">
-								<button className="side-bar-buttons">
-									<span className="side-bar-icon">
-										<FontAwesomeIcon
-											icon={faArrowRightFromBracket}
-										/>
-									</span>
-									Logout
-								</button>
-							</NavLink>
-						</div>}
+						{user.isAuthenticated && (
+							<div className="side-bar-logout">
+								<NavLink
+									to="/logout"
+									className="side-bar-logout"
+								>
+									<button className="side-bar-buttons">
+										<span className="side-bar-icon">
+											<FontAwesomeIcon
+												icon={faArrowRightFromBracket}
+											/>
+										</span>
+										Logout
+									</button>
+								</NavLink>
+							</div>
+						)}
 					</>
 				)}
 			</div>
