@@ -17,6 +17,7 @@ import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
 import ProfileDashboard from "../pages/ProfileDashboard";
+import EditDetails from "../pages/EditDetails.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faHome,
@@ -33,6 +34,9 @@ import {
 	faBook,
 	faClockRotateLeft,
 	faScaleBalanced,
+	faUser,
+	faUnlockKeyhole,
+	faFilePen
 } from "@fortawesome/free-solid-svg-icons";
 
 const routes = [
@@ -44,6 +48,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		isMenuProfile : true,
 		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
@@ -54,6 +59,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: true,
 		isUtility: false,
+		isMenuProfile: false,
 		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
@@ -216,14 +222,19 @@ const routes = [
 		isPrivate: true,
 		isMenuLawyer: true,
 		isMenuUser: true,
+
 	},
 	{
 		path: "/me",
 		component: <ProfileDashboard />,
 		name: "Profile",
 		isPrivate: true,
+		isUtility: false,
 		isMenuLawyer: false,
+		isMenuProfile: true,
 		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faUser} />,
+
 	},
 	{
 		path: "/logout",
@@ -233,6 +244,31 @@ const routes = [
 		isMenuLawyer: false,
 		isMenuUser: false,
 	},
+	{
+		path: "/edit_details",
+		component: <EditDetails/>,
+		name: "Edit Details",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faFilePen} />,
+
+	},
+	{
+		path: "/reset_password",
+		component: <EditDetails/>,
+		name: "Reset Password",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faUnlockKeyhole} />,
+
+	},
+
 ];
 
 export default routes;

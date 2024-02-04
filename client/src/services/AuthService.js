@@ -176,6 +176,7 @@ export const AuthWrapper = () => {
 				setChats,
 				showSidebar,
 				toggleSidebar,
+				setShowSidebar
 			}}
 		>
 			<div className="outer-container">
