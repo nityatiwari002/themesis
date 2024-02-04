@@ -28,6 +28,7 @@ router.get("/resetPasswordGet/:token", resetPasswordGet);
 router.post("/protect", protect);
 router.get("/getUsers", getAllUsers);
 router.get("/getLawyers", getAllLawyers);
+router.get("/getUser/:id", getUser);
 
 router.post("/resetPasswordGet/:token", async (req, res) => {
 	const hashedToken = crypto

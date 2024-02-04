@@ -1,75 +1,81 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import path from 'path';
-import { Server } from 'socket.io';
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import cors from "cors";
+import path from "path";
+import { Server } from "socket.io";
 dotenv.config();
 
 const app = express();
-import userRoutes from './routes/userRouter.js';
-import chatRoutes from './routes/chatRoutes.js';
-import messageRoutes from './routes/messageRoutes.js'
+import userRoutes from "./routes/userRouter.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import requestRoutes from './routes/requestRoutes.js';
 
-app.use(bodyParser.json({limit : "30mb", extended : true}));
-app.use(bodyParser.urlencoded({limit : "30mb", extended: true}));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 // app.get('/api', function(req, res) {
 //     res.render('pages/loginRedirection');
 //   });
 
-app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/chats', chatRoutes);
-app.use('/api/v1/messages', messageRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/chats", chatRoutes);
+app.use("/api/v1/messages", messageRoutes);
 app.use('/api/v1/requests', requestRoutes);
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-const CONNECTION_URL = 'mongodb+srv://singhshreya0511:shreya1234@themesis.39cw6yy.mongodb.net/';
+const CONNECTION_URL =
+	"mongodb+srv://singhshreya0511:shreya1234@themesis.39cw6yy.mongodb.net/";
 const PORT = 5001;
 
-mongoose.connect(CONNECTION_URL)
-.then(() => (console.log("Successfully Connected to Database!!")))
-.catch((error) => {console.log(error.message)});
+mongoose
+	.connect(CONNECTION_URL)
+	.then(() => console.log("Successfully Connected to Database!!"))
+	.catch((error) => {
+		console.log(error.message);
+	});
 
-const server = app.listen(PORT, () => {console.log(`Server is Running on Port : ${PORT}`)});
+
+
+const server = app.listen(PORT, () => {
+	console.log(`Server is Running on Port : ${PORT}`);
+});
 
 const io = new Server(server, {
-    pingTimeout : 60000,
-    cors : {
-        origin : "http://localhost:3000",
-    },
+	pingTimeout: 60000,
+	cors: {
+		origin: "http://localhost:3000",
+	},
 });
 
 io.on("connection", (socket) => {
-    console.log("connected to socket.io");
+	console.log("connected to socket.io");
 
-    socket.on("setup", (userData) => {
-        socket.join(userData._id);
-        socket.emit("connected");
-    });
+	socket.on("setup", (userData) => {
+		socket.join(userData._id);
+		socket.emit("connected");
+	});
 
-    socket.on("join chat", (room) => {
-        socket.join(room);
-        console.log("user joined the room", room);
-    });
+	socket.on("join chat", (room) => {
+		socket.join(room);
+		console.log("user joined the room", room);
+	});
 
-    socket.on("new message", (newMessageReceived) => {
-        var chat = newMessageReceived.chat;
+	socket.on("new message", (newMessageReceived) => {
+		var chat = newMessageReceived.chat;
 
-        if(!chat.users) return console.log("chat.users not defined!!");
+		if (!chat.users) return console.log("chat.users not defined!!");
 
-        chat.users.forEach((user) => {
-            if(user._id === newMessageReceived.sender._id) return;
+		chat.users.forEach((user) => {
+			if (user._id === newMessageReceived.sender._id) return;
 
-            socket.in(user._id).emit("Message Received", newMessageReceived);
-        })
-
-    })
+			socket.in(user._id).emit("Message Received", newMessageReceived);
+		});
+	});
 });
-

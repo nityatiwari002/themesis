@@ -39,7 +39,7 @@
     margin: 0;
     
     width: 100%;
-    color: white;
+    color: white; 
     border: none;
     border-radius: 2px;
     justify-content: left;
@@ -52,7 +52,7 @@
     margin-right: 15px;
 }
 .inactive button{
-    color: #685e5e;
+    color: #8f8585;
 }
 .active button{
     background-color: var(--bgtransparentmax);
@@ -72,8 +72,8 @@
 .side-bar-logout {
     text-decoration: none;
     padding: 0 4px;
-    color: #685e5e;
+    color:#8f8585;
 }
 .side-bar-logout button{
-    color: #685e5e;
+    color: #8f8585;
 }

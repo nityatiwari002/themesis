@@ -6,9 +6,9 @@ import {
 	faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/FindLawyer.css";
-// import lawyers from "../utilities/LawyerDetails";
 import { AuthData } from "../services/AuthService";
 import Navbar from "../components/Navbar";
+// import requests from "../assets/requests";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);
 	const [numLawyers, setNumLawyers] = useState(-1);
@@ -49,33 +49,37 @@ function FindLawyer() {
 	const [requests, setRequests] = useState([]);
 
 	const getAllRequests = async () => {
+		console.log(user.user);
+		console.log("calling", JSON.parse(user.user)._id);
 		const response = await fetch(
-			"http://127.0.0.1:5001/api/v1/requests/userRequests/" + user._id,
+			"http://127.0.0.1:5001/api/v1/requests/userRequests/" +
+				JSON.parse(user.user)._id,
 			{
 				method: "get",
 				headers: {
 					"Content-Type": "application/json",
 				},
 			}
-		)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("requesss", data);
-				setRequests(data);
-			});
+		);
+		console.log("response", response);
+		if (response.ok) {
+			const data = await response.json();
+			console.log("Requests:", data);
+			setRequests(data);
+		}
 	};
 
 	useEffect(() => {
 		getAllRequests();
 	}, []);
 
-	const sendChatRequest = async (index) => {
+	const sendRequest = async (index, type) => {
 		const lawyer = lawyers[index];
-		console.log(user._id, lawyer._id);
+		console.log("ids", JSON.parse(user.user)._id, lawyer._id);
 		let requestData = {
-			userId: user._id,
+			userId: JSON.parse(user.user)._id,
 			lawyerId: lawyer._id,
-			requestType: "Chat",
+			requestType: type,
 		};
 		try {
 			const response = await fetch(
@@ -88,21 +92,100 @@ function FindLawyer() {
 					body: JSON.stringify(requestData),
 				}
 			);
-
 			if (!response.ok) {
 				console.log(response.message);
 				throw new Error("Network response was not ok");
 			}
-
 			const data = await response.json();
-			console.log("Chat request sent:", data);
+			console.log("Request sent:", data);
 		} catch (error) {
 			console.error("Error:", error);
 		}
+		getAllRequests();
 	};
-	const sendHireRequest = (lawyer) => {
-		// console.log("Hire request sent to " + lawyer.name);
+
+	const sendChatRequest = async (index) => {
+		sendRequest(index, "Chat");
 	};
+	const sendHireRequest = async (index) => {
+		sendRequest(index, "Hire");
+	};
+
+	const handleDeleteRequest = async (index, type) => {
+		const lawyer = lawyers[index];
+		const request = requests.filter(
+			(request) =>
+				request.user_id === JSON.parse(user.user)._id &&
+				request.lawyer_id === lawyer._id &&
+				request.request_type === type &&
+				request.pending === true
+		)[0];
+		try {
+			const response = await fetch(
+				`http://127.0.0.1:5001/api/v1/requests/deleteRequest/${request._id}`,
+				{
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			console.log("Request deleted:", request._id);
+		} catch (error) {
+			console.error("Error:", error);
+		}
+		getAllRequests();
+	};
+	const deleteChatRequest = async (index) => {
+		handleDeleteRequest(index, "Chat");
+	};
+	const deleteHireRequest = async (index) => {
+		handleDeleteRequest(index, "Hire");
+	};
+
+	const findMatchingRequest = (index, type) => {
+		const lawyer = lawyers[index];
+		let reqStatus = {};
+		let request = requests.filter(
+			(request) =>
+				request.user_id === JSON.parse(user.user)._id &&
+				request.lawyer_id === lawyer._id &&
+				request.request_type === type &&
+				request.pending === true
+		)[0];
+		let req = requests.filter(
+			(request) =>
+				request.user_id === JSON.parse(user.user)._id &&
+				request.lawyer_id === lawyer._id &&
+				request.request_type === type &&
+				request.pending === false
+		)[0];
+		if (request) {
+			reqStatus = {
+				requested: true,
+				pending: true,
+			};
+		} else if (req) {
+			reqStatus = {
+				requested: true,
+				pending: false,
+				accepted: req.accepted,
+			};
+		} else {
+			reqStatus = {
+				requested: false,
+				pending: false,
+			};
+		}
+
+		return reqStatus;
+	};
+
 	return (
 		<>
 			<Navbar />
@@ -124,16 +207,18 @@ function FindLawyer() {
 				</div>
 
 				<div className="search-results">
-					{numLawyers === -1 && <h1>Loading...</h1>}
+					{numLawyers === -1 && (
+						<div className="Loading-container">Loading...</div>
+					)}
 					{numLawyers === 0 ? (
 						<h1>No lawyers found</h1>
 					) : (
 						lawyers.map((lawyer, index) => {
 							return (
 								<div className="lawyer-card" key={index}>
-									<div className="lawyer-img">
+									<div className="lawyer-img-container">
 										<img
-											src={lawyer.img}
+											src={lawyer.image}
 											className="lawyer-image"
 										></img>
 									</div>
@@ -141,6 +226,10 @@ function FindLawyer() {
 										<div className="lawyer-details-wrapper">
 											<div className="lawyer-details">
 												<div className="lawyer-det">
+													<span className="det">
+														{" "}
+														Name:{" "}
+													</span>
 													{lawyer.name}
 												</div>
 												<div className="lawyer-det">
@@ -157,7 +246,19 @@ function FindLawyer() {
 													{lawyer.countWonCases}
 												</div>
 												<div className="lawyer-det">
+													<span className="det">
+														About:{" "}
+													</span>
 													{lawyer.description}
+													Lorem ipsum dolor sit amet.
+													Id perspiciatis repellat et
+													amet magnam qui libero
+													voluptatem ut provident illo
+													et reiciendis ratione aut
+													ipsam necessitatibus est
+													odio autem! Est aspernatur
+													galisum et nisi dolorum cum
+													tempore deleniti.
 												</div>
 											</div>
 											<div className="lawyer-details">
@@ -180,35 +281,130 @@ function FindLawyer() {
 													{lawyer.experience}
 												</div>
 												<div className="lawyer-det">
-													{lawyer.city},{" "}
-													{lawyer.state},{" "}
+													{lawyer.city}
+													{lawyer.city ? ", " : " "}
+													{lawyer.state}
+													{lawyer.state ? "," : " "}
 													{lawyer.country}
 												</div>
 											</div>
 										</div>
 										<div className="lawyer-buttons">
-											<button
-												className="btn btn-primary"
-												onClick={() =>
-													sendChatRequest(index)
-												}
-											>
-												{requests.find(
-													(req) =>
-														req.lawyerId ===
-														lawyer._id
-												)
-													? "Chat Request Sent"
-													: "Chat"}
-											</button>
-											<button
-												className="btn btn-primary"
-												onClick={() =>
-													sendHireRequest(index)
-												}
-											>
-												Book
-											</button>
+											{findMatchingRequest(index, "Chat")
+												.requested ? (
+												<>
+													{findMatchingRequest(
+														index,
+														"Chat"
+													).pending ? (
+														<button
+															className="request-button"
+															onClick={() =>
+																deleteChatRequest(
+																	index
+																)
+															}
+														>
+															Cancel Chat Request
+														</button>
+													) : (
+														<>
+															{findMatchingRequest(
+																index,
+																"Chat"
+															).accepted ? (
+																<button
+																	className="request-button"
+																	onClick={() =>
+																		console.log(
+																			"Will Redirect to chat"
+																		)
+																	}
+																>
+																	Start
+																	Chatting
+																</button>
+															) : (
+																<button
+																	className="request-button disabled-but"
+																	disabled={
+																		true
+																	}
+																>
+																	Chat
+																	Requested
+																</button>
+															)}
+														</>
+													)}
+												</>
+											) : (
+												<button
+													className="request-button"
+													onClick={() =>
+														sendChatRequest(index)
+													}
+												>
+													Chat
+												</button>
+											)}
+											{findMatchingRequest(index, "Hire")
+												.requested ? (
+												<>
+													{findMatchingRequest(
+														index,
+														"Hire"
+													).pending ? (
+														<button
+															className="request-button"
+															onClick={() =>
+																deleteHireRequest(
+																	index
+																)
+															}
+														>
+															Cancel Hire Request
+														</button>
+													) : (
+														<>
+															{findMatchingRequest(
+																index,
+																"Hire"
+															).accepted ? (
+																<button
+																	className="request-button"
+																	disabled={
+																		true
+																	}
+																>
+																	Hire Request
+																	Accepted
+																</button>
+															) : (
+																<button
+																	className="request-button disabled-but"
+																	disabled={
+																		true
+																	}
+																>
+																	Hire
+																	Requested
+																	Declined
+																</button>
+															)}
+														</>
+													)}
+												</>
+											) : (
+												<button
+													className="request-button"
+													onClick={() =>
+														sendHireRequest(index)
+													}
+												>
+													Hire
+												</button>
+											)}
 										</div>
 									</div>
 									{lawyer.takesProBono && (
