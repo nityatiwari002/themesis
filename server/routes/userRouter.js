@@ -1,6 +1,8 @@
 import express from "express";
 import crypto from "crypto";
 import { User } from "../models/userModel.js";
+import multer from "multer";
+// import imagee from './../../client/src/images'
 
 import {
 	login,
@@ -18,6 +20,7 @@ import {
 	getAllUsers,
 	getAllLawyers,
 	updateMe,
+	updtateProfileImage,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -32,6 +35,36 @@ router.get("/getLawyers", getAllLawyers);
 router.get("/getUser/:id", getUser);
 router.patch("/updateMe", protect, updateMe);
 router.patch("/updatePassword", protect, updatePassword);
+
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+	  cb(null, 'uploads/')
+	},
+	filename: function (req, file, cb) {
+	  const uniqueSuffix = Date.now();
+	  cb(null, uniqueSuffix + file.originalname);
+	}
+  })
+  
+  const upload = multer({ storage: storage })
+
+
+router.patch("/updateProfileImage", protect, upload.single("image"), async (req, res) => {
+	const imagename = req.file.filename;
+	req.body.image = imagename;
+
+	const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+		new: true,
+		runValidators: true,
+	  });
+
+	  res.status(200).json({
+		status: "success",
+		data: {
+		  User: updatedUser,
+		},
+	  });
+});
 
 
 

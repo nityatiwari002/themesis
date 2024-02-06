@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import { Server } from "socket.io";
+import multer from "multer";
+const upload = multer({ dest: 'uploads/' })
 dotenv.config();
 
 const app = express();
@@ -16,9 +18,11 @@ import requestRoutes from "./routes/requestRoutes.js";
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+app.use('/public', express.static('public'));
 app.options("*", cors());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
+app.use("/uploads",express.static("uploads"));
 // app.get('/api', function(req, res) {
 //     res.render('pages/loginRedirection');
 //   });
