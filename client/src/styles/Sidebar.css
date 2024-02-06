@@ -1,5 +1,7 @@
 .side-bar-parent{
     height: 100%;
+    padding : 1rem;
+    padding-right : 1.5rem;
 }
 
 .side-bar{
@@ -24,11 +26,12 @@
     padding: 10px 4px;
     margin-top: 15%;
     list-style: none;
+    /* margin : auto; */
+    margin-right : 1.1rem;
 }
 
 .side-bar ul li{
     margin: 0;
-    margin: 1px;
 
 }
 

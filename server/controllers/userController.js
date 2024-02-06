@@ -1,8 +1,17 @@
 import { Lawyer } from "../models/lawyerModel.js";
 import { User } from "../models/userModel.js";
 
+const filterObj = (obj, ...allowedFields) => {
+	const newObj = {};
+	Object.keys(obj).forEach((el) => {
+	  if (allowedFields.includes(el)) {
+		newObj[el] = obj[el];
+	  }
+	});
+	return newObj;
+  };
+
 export const getMe = (req, res, next) => {
-	// req.params.id = "65a21a3b524058ab467f4d7d";
 	req.params.id = req.user.id;
 	next();
 };
@@ -40,3 +49,26 @@ export const getAllLawyers = async (req, res, next) => {
 	const lawyers = await Lawyer.find(keyword);
 	res.send(lawyers);
 };
+
+export const updateMe = async (req, res, next) => {
+	if (req.body.password || req.body.passwordConfirm) {
+	   res.send("You are not allowed to change the password without validation!!");
+	}
+	console.log(req.body);
+  
+	const filteredBody = filterObj(req.body, 'name', 'email', 'username', 'image');
+  
+	//3. Update User document.
+	const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+	  new: true,
+	  runValidators: true,
+	});
+      
+	res.status(200).json({
+	  status: 'success',
+	  data: {
+		User: updatedUser,
+	  },
+	});
+  };
+  

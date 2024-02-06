@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 import { AuthData } from "../services/AuthService";
+import Navbar from "../components/Navbar";
 
 function Login() {
 	const [unamefocus, setUnamefocus] = useState(false);
@@ -34,6 +35,8 @@ function Login() {
 	};
 
 	return (
+		<>
+		<Navbar />
 		<div className="login-card">
 			<div className="login-title">
 				<span className="initial login-txt">L</span>
@@ -121,6 +124,7 @@ function Login() {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 }
 

@@ -17,6 +17,7 @@ import {
 	getUser,
 	getAllUsers,
 	getAllLawyers,
+	updateMe,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -29,6 +30,10 @@ router.post("/protect", protect);
 router.get("/getUsers", getAllUsers);
 router.get("/getLawyers", getAllLawyers);
 router.get("/getUser/:id", getUser);
+router.patch("/updateMe", protect, updateMe);
+router.patch("/updatePassword", protect, updatePassword);
+
+
 
 router.post("/resetPasswordGet/:token", async (req, res) => {
 	const hashedToken = crypto
@@ -43,7 +48,6 @@ router.post("/resetPasswordGet/:token", async (req, res) => {
 
 	if (!user) {
 		res.send("Token is Invalid or has expired.");
-		// return next(new AppError('Token is invalid or has expired', 400));
 	}
 	console.log(user);
 	user.password = req.body.password;
@@ -52,14 +56,12 @@ router.post("/resetPasswordGet/:token", async (req, res) => {
 	user.passwordResetExpires = undefined;
 	await user.save();
 
-	// 3) Update changedPasswordAt property for the user
-	// 4) Log the user in, send JWT
 	const loginLink = "http://localhost:3000/login";
 	res.render("pages/loginRedirection");
-	// createSendToken(user, 200, res);
 });
 
-router.patch("/updatePassword", protect, updatePassword);
+// router.patch("/updatePassword", protect, updatePassword);
 router.get("/me/:id", getMe, getUser);
+// router.patch("/updateMe", protect, updateMe);
 
 export default router;

@@ -9,7 +9,7 @@ import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 function ProfileSidebar() {
 	const { showSidebar } = AuthData();
 	const { user } = AuthData();
-	// if (showSidebar !== true) return null;
+	if (showSidebar !== true) return null;
 
 	return (
 		<div className="side-bar-parent">

@@ -18,6 +18,7 @@ import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
 import ProfileDashboard from "../pages/ProfileDashboard";
 import EditDetails from "../pages/EditDetails.js";
+import ChangePassword from "../pages/ChangePassword.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faHome,
@@ -43,6 +44,18 @@ import {
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 
 const routes = [
+	{
+		path: "/me",
+		component: <ProfileDashboard />,
+		name: "Profile",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faUser} />,
+
+	},
 	{
 		path: "/dashboard",
 		component: <Dashboard />,
@@ -237,18 +250,18 @@ const routes = [
 		isMenuUser: true,
 
 	},
-	{
-		path: "/me",
-		component: <ProfileDashboard />,
-		name: "Profile",
-		isPrivate: true,
-		isUtility: false,
-		isMenuLawyer: false,
-		isMenuProfile: true,
-		isMenuUser: false,
-		icon: <FontAwesomeIcon icon={faUser} />,
+	// {
+	// 	path: "/me",
+	// 	component: <ProfileDashboard />,
+	// 	name: "Profile",
+	// 	isPrivate: true,
+	// 	isUtility: false,
+	// 	isMenuLawyer: false,
+	// 	isMenuProfile: true,
+	// 	isMenuUser: false,
+	// 	icon: <FontAwesomeIcon icon={faUser} />,
 
-	},
+	// },
 	{
 		path: "/logout",
 		component: <Logout />,
@@ -270,9 +283,9 @@ const routes = [
 
 	},
 	{
-		path: "/reset_password",
-		component: <EditDetails/>,
-		name: "Reset Password",
+		path: "/update_password",
+		component: <ChangePassword/>,
+		name: "Change Password",
 		isPrivate: true,
 		isUtility: false,
 		isMenuLawyer: false,
