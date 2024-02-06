@@ -1,24 +1,24 @@
-import Dashboard from "../pages/Dashboard";
-import DashboardLawyer from "../pages/DashboardLawyer";
+import Dashboard from "../pages/UserPages/Dashboard.js";
+import DashboardLawyer from "../pages/LawyerPages/DashboardLawyer";
 import Logout from "../services/Logout";
-import Pastcases from "../pages/Pastcases";
-import Efiling from "../pages/Efiling";
-import FindLawyer from "../pages/FindLawyer";
-import LegalGuide from "../pages/LegalGuide";
-import PrepAndPitch from "../pages/PrepAndPitch";
-import Peerconnect from "../pages/Peerconnect";
-import TrialDetainees from "../pages/TrialDetainees";
-import QuickFixCourt from "../pages/QuickFixCourt";
-import ChatPage from "../pages/ChatPage";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import NotFound from "../pages/NotFound";
-import ChatBot from "../pages/ChatBot";
-import ForgotPw from "../pages/ForgotPw";
-import ProfileDashboard from "../pages/ProfileDashboard";
-import EditDetails from "../pages/EditDetails.js";
-import ChangePassword from "../pages/ChangePassword.js";
+import Pastcases from "../pages/SharedPages/Pastcases.js";
+import Efiling from "../pages/SharedPages/Efiling.js";
+import FindLawyer from "../pages/UserPages/FindLawyer.js";
+import LegalGuide from "../pages/SharedPages/LegalGuide.js";
+import PrepAndPitch from "../pages/UserPages/PrepAndPitch.js";
+import Peerconnect from "../pages/SharedPages/Peerconnect.js";
+import TrialDetainees from "../pages/UserPages/TrialDetainees.js";
+import QuickFixCourt from "../pages/SharedPages/QuickFixCourt.js";
+import ChatPage from "../pages/SharedPages/ChatPage.js";
+import Home from "../pages/Account/Home.js";
+import Login from "../pages/Account/Login.js";
+import Register from "../pages/Account/Register.js";
+import NotFound from "../pages/Error/NotFound.js";
+import ChatBot from "../pages/SharedPages/ChatBot.js";
+import ForgotPw from "../pages/SharedPages/ProfileDashboard/ForgotPw.js";
+import ProfileDashboard from "../pages/SharedPages/ProfileDashboard/ProfileDashboard.js";
+import EditDetails from "../pages/SharedPages/ProfileDashboard/EditDetails.js";
+import ChangePassword from "../pages/SharedPages/ProfileDashboard/ChangePassword.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faHome,
@@ -39,7 +39,7 @@ import {
 	faUserGroup,
 	faUser,
 	faUnlockKeyhole,
-	faFilePen
+	faFilePen,
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 
@@ -54,7 +54,6 @@ const routes = [
 		isMenuProfile: true,
 		isMenuUser: false,
 		icon: <FontAwesomeIcon icon={faUser} />,
-
 	},
 	{
 		path: "/dashboard",
@@ -64,7 +63,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
-		isMenuProfile : true,
+		isMenuProfile: true,
 		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
@@ -110,7 +109,7 @@ const routes = [
 	},
 	{
 		path: "/requests",
-		component: <RequestsPage/>,
+		component: <RequestsPage />,
 		name: "Requests",
 		isPrivate: true,
 		isMenuUser: false,
@@ -248,7 +247,6 @@ const routes = [
 		isPrivate: true,
 		isMenuLawyer: true,
 		isMenuUser: true,
-
 	},
 	// {
 	// 	path: "/me",
@@ -272,7 +270,7 @@ const routes = [
 	},
 	{
 		path: "/edit_details",
-		component: <EditDetails/>,
+		component: <EditDetails />,
 		name: "Edit Details",
 		isPrivate: true,
 		isUtility: false,
@@ -280,11 +278,10 @@ const routes = [
 		isMenuProfile: true,
 		isMenuUser: false,
 		icon: <FontAwesomeIcon icon={faFilePen} />,
-
 	},
 	{
 		path: "/update_password",
-		component: <ChangePassword/>,
+		component: <ChangePassword />,
 		name: "Change Password",
 		isPrivate: true,
 		isUtility: false,
@@ -292,9 +289,7 @@ const routes = [
 		isMenuProfile: true,
 		isMenuUser: false,
 		icon: <FontAwesomeIcon icon={faUnlockKeyhole} />,
-
 	},
-
 ];
 
 export default routes;

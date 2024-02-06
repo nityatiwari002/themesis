@@ -1,16 +1,13 @@
-
 import React, { useEffect, useState } from "react";
-import "../styles/Login.css";
+import "../../../styles/Login.css";
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../services/AuthService";
+import { AuthData } from "../../../services/AuthService";
 
 function ForgotPw() {
 	const [email, setEmail] = useState("");
 	const [unamefocus, setUnamefocus] = useState(false);
 	const navigate = useNavigate();
 
-
-	
 	const handleEmail = (e) => {
 		setEmail(e.target.value);
 	};
@@ -20,22 +17,30 @@ function ForgotPw() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-        let userData = {
-			email: email
-		}
+		let userData = {
+			email: email,
+		};
 
-      try{
-		const response = await fetch('http://localhost:5001/api/v1/users/forgotPassword',{
-			method : 'post',
-			headers:{
-				"Content-Type":"application/json"
-			},
-			body:JSON.stringify(userData)
-		}).then(response => response.json()).then(data => {
-			console.log("data", data);
-			alert('We have sent you an email with a link to change your password. Please check your email and use that link to continue.')
-		})}catch(err){
-			alert('Wrong Credentaials!!');
+		try {
+			const response = await fetch(
+				"http://localhost:5001/api/v1/users/forgotPassword",
+				{
+					method: "post",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(userData),
+				}
+			)
+				.then((response) => response.json())
+				.then((data) => {
+					console.log("data", data);
+					alert(
+						"We have sent you an email with a link to change your password. Please check your email and use that link to continue."
+					);
+				});
+		} catch (err) {
+			alert("Wrong Credentaials!!");
 		}
 
 		// try {
@@ -95,4 +100,3 @@ function ForgotPw() {
 }
 
 export default ForgotPw;
-

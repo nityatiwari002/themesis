@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/ChatBot.css";
+import "../../styles/ChatBot.css";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import botChats from "../utilities/BotChats";
+import botChats from "../../utilities/BotChats";
 import MarkdownIt from "markdown-it";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 // import Markdown from "markdown-to-jsx";
-import Markdown from 'react-markdown'
+import Markdown from "react-markdown";
 const md = new MarkdownIt();
 function ChatBot() {
 	const dummy = useRef(null);

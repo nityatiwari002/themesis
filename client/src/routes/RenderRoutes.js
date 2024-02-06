@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthData } from "../services/AuthService";
 import routes from "./Routes";
-import Dashboard from "../pages/Dashboard";
-import Home from "../pages/Home";
+import Dashboard from "../pages/UserPages/Dashboard";
+import Home from "../pages/Account/Home";
 
 const RenderRoutes = () => {
 	const { user } = AuthData();

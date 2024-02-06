@@ -1,11 +1,11 @@
 import React from "react";
-import Home from "./Home";
-import Navbar from "../components/Navbar";
+import Home from "../Account/Home";
+import Navbar from "../../components/Navbar";
 
 function Dashboard() {
 	return (
 		<>
-		<Navbar/>
+		<Navbar />
 		<Home/>
 		</>
 	);

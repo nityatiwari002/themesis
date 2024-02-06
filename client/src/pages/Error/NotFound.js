@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { AuthData } from "../services/AuthService";
+import { AuthData } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import routes from "../routes/Routes";
-import getCookies from "../hooks/getCookies";
-import removeCookies from "../hooks/removeCookies";
-import setCookies from "../hooks/setCookies";
+import routes from "../../routes/Routes";
+import getCookies from "../../hooks/getCookies";
+import removeCookies from "../../hooks/removeCookies";
+import setCookies from "../../hooks/setCookies";
 
 function NotFound() {
 	const privateRoutes = [];
@@ -15,14 +15,16 @@ function NotFound() {
 		return null;
 	});
 
-
 	const [errorMsg, setErrorMsg] = useState("");
 	const [redirectMsg, setRedirectMsg] = useState("");
 	const { user } = AuthData();
 	const navigate = useNavigate();
 	const [timer, setTimer] = useState(3);
 	useEffect(() => {
-		if (privateRoutes.includes(window.location.pathname) && !user.isAuthenticated) {
+		if (
+			privateRoutes.includes(window.location.pathname) &&
+			!user.isAuthenticated
+		) {
 			setErrorMsg("You are not authorized to view this page");
 			setRedirectMsg(
 				`Redirecting you to the login page in ${timer} seconds...`
@@ -41,7 +43,6 @@ function NotFound() {
 		return () => clearInterval(timer);
 	}, []);
 
-
 	useEffect(() => {
 		setTimeout(function () {
 			// console.log("user", isprotected);
@@ -54,7 +55,6 @@ function NotFound() {
 			}
 		}, 3000);
 	}, [user, navigate]);
-
 
 	return (
 		<div className="not-found-container">
