@@ -36,6 +36,7 @@ export const getAllUsers = async (req, res, next) => {
 	res.send(users);
 };
 
+//api/v1/lawyers?search=shreya
 export const getAllLawyers = async (req, res, next) => {
 	const keyword = req.query.search
 		? {
@@ -49,6 +50,8 @@ export const getAllLawyers = async (req, res, next) => {
 	const lawyers = await Lawyer.find(keyword);
 	res.send(lawyers);
 };
+
+
 
 export const updateMe = async (req, res, next) => {
 	if (req.body.password || req.body.passwordConfirm) {
