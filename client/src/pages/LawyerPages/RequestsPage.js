@@ -69,11 +69,30 @@ function RequestsPage() {
 				name: user.name,
 				email: user.email,
 				image: user.image,
+				type: requests[i].request_type,
 			};
 
 			typeReq.push(req);
 		}
 		return typeReq;
+	};
+	const [deletedRequests, setDeletedRequests] = useState([]);
+	const getDeletedRequests = async () => {
+		let deletedReq = [];
+		for (let i = 0; i < requests.length; i++) {
+			if (requests[i].pending === true) continue;
+			if (requests[i].accepted === true) continue;
+			let user = await getUser(requests[i].user_id);
+			let req = {
+				_id: requests[i]._id,
+				name: user.name,
+				email: user.email,
+				image: user.image,
+				type: requests[i].request_type,
+			};
+			deletedReq.push(req);
+		}
+		setDeletedRequests(deletedReq);
 	};
 	const getChatRequests = async () => {
 		let chatReq = await getTypeRequests("Chat");
@@ -86,9 +105,8 @@ function RequestsPage() {
 	};
 	useEffect(() => {
 		getChatRequests();
-	}, [requests]);
-	useEffect(() => {
 		getHireRequests();
+		getDeletedRequests();
 	}, [requests]);
 
 	const acceptRequest = async (id) => {
@@ -107,10 +125,6 @@ function RequestsPage() {
 				console.log(data);
 			});
 		getAllRequests();
-		// getChatRequests();
-		// getHireRequests();
-		console.log(chatRequests);
-		// console.log(requests);
 	};
 	const rejectRequest = async (id) => {
 		const response = await fetch(
@@ -126,10 +140,111 @@ function RequestsPage() {
 			.then((data) => {
 				console.log(data);
 			});
-		// getAllRequests();
 		getAllRequests();
-		// getChatRequests();
-		// getHireRequests();
+	};
+
+	const deleteRequest = async (id) => {
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/requests/deleteRequest/" + id,
+			{
+				method: "delete",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
+		getAllRequests();
+	};
+
+	const revokeRequest = async (id) => {
+		const response = await fetch(
+			"http://127.0.0.1:5001/api/v1/requests/revokeRequest/" + id,
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
+		getAllRequests();
+	};
+
+	const renderComponent = (dataArr, title, del) => {
+		return (
+			<div className="requests-container">
+				<div className="requests-tile-header">{title}</div>
+				{dataArr.length === 0 && (
+					<div className="requests-tile-body-desc">No {title}</div>
+				)}
+				{dataArr && (
+					<div className="requests-tile-body">
+						{dataArr.map((data, index) => {
+							return (
+								<div className="request-request" key={index}>
+									<div className="request-request-img">
+										<img
+											src={data.image}
+											alt="profile"
+											className="request-request-img-img"
+										/>
+									</div>
+									<div className="request-request-details">
+										<div className="request-user-name">
+											{data.name}
+										</div>
+										<div className="request-user-email">
+											{data.email}
+										</div>
+										<div className="request-buttons">
+											<button
+												className="request-button-accept"
+												onClick={() => {
+													del
+														? revokeRequest(
+																data._id
+														  )
+														: acceptRequest(
+																data._id
+														  );
+												}}
+											>
+												{del
+													? `Revoke ${data.type} request`
+													: "Accept"}
+											</button>
+											<button
+												className="request-button-decline"
+												onClick={() => {
+													del
+														? deleteRequest(
+																data._id
+														  )
+														: rejectRequest(
+																data._id
+														  );
+												}}
+											>
+												{del
+													? "Delete permanently"
+													: "Reject"}
+											</button>
+										</div>
+									</div>
+								</div>
+							);
+						})}
+					</div>
+				)}
+			</div>
+		);
 	};
 
 	return (
@@ -155,116 +270,9 @@ function RequestsPage() {
 					{numRequests === -1 && (
 						<div className="Loading-container">Loading...</div>
 					)}
-					{chatRequests.length !== 0 && (
-						<div className="requests-container">
-							<div className="requests-tile-header">
-								Chat Requests
-							</div>
-							<div className="requests-tile-body">
-								{chatRequests.map((chatRequest, index) => {
-									return (
-										<div
-											className="request-request"
-											key={index}
-										>
-											<div className="request-request-img">
-												<img
-													src={chatRequest.image}
-													alt="profile"
-													className="request-request-img-img"
-												/>
-											</div>
-											<div className="request-request-details">
-												<div className="request-user-name">
-													{chatRequest.name}
-												</div>
-												<div className="request-user-email">
-													{chatRequest.email}
-												</div>
-												<div className="request-buttons">
-													<button
-														className="request-button"
-														onClick={() =>
-															acceptRequest(
-																chatRequest._id
-															)
-														}
-													>
-														Accept
-													</button>
-													<button
-														className="request-button"
-														onClick={() =>
-															rejectRequest(
-																chatRequest._id
-															)
-														}
-													>
-														Reject
-													</button>
-												</div>
-											</div>
-										</div>
-									);
-								})}
-							</div>
-						</div>
-					)}
-					{hireRequests.length !== 0 && (
-						<div className="requests-container">
-							<div className="requests-tile-header">
-								Hire Requests
-							</div>
-							<div className="requests-tile-body">
-								{hireRequests.map((hireRequest, index) => {
-									return (
-										<div
-											className="request-request"
-											key={index}
-										>
-											<div className="request-request-img">
-												<img
-													src={hireRequest.image}
-													alt="profile"
-													className="request-request-img-img"
-												/>
-											</div>
-											<div className="request-request-details">
-												<div className="request-user-name">
-													{hireRequest.name}
-												</div>
-												<div className="request-user-email">
-													{hireRequest.email}
-												</div>
-												<div className="request-buttons">
-													<button
-														className="request-button"
-														onClick={() =>
-															acceptRequest(
-																hireRequest._id
-															)
-														}
-													>
-														Accept
-													</button>
-													<button
-														className="request-button"
-														onClick={() =>
-															rejectRequest(
-																hireRequest._id
-															)
-														}
-													>
-														Reject
-													</button>
-												</div>
-											</div>
-										</div>
-									);
-								})}
-							</div>
-						</div>
-					)}
+					{renderComponent(chatRequests, "Chat Requests", false)}
+					{renderComponent(hireRequests, "Hire Requests", false)}
+					{renderComponent(deletedRequests, "Rejected Requests", true)}
 				</div>
 			</div>
 		</>

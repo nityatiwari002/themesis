@@ -7,6 +7,7 @@ import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import usersChats from "../utilities/GroupChats";
 import { AuthData } from "../services/AuthService";
+import Navbar from "../components/Navbar";
 
 function Peerconnect() {
 	const dummy = useRef(null);
@@ -80,7 +81,8 @@ function Peerconnect() {
 	};
 
 	return (
-		<div>
+		<div className="chat-bot-wrapper">
+			<Navbar/>
 			{pickerVisible && (
 				<div className="emoji-picker-dialog">
 					<Picker data={data} onEmojiSelect={addEmoji} />

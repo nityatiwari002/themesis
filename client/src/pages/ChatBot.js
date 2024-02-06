@@ -7,6 +7,7 @@ import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import botChats from "../utilities/BotChats";
 import MarkdownIt from "markdown-it";
+import Navbar from "../components/Navbar";
 // import Markdown from "markdown-to-jsx";
 import Markdown from 'react-markdown'
 const md = new MarkdownIt();
@@ -66,8 +67,6 @@ function ChatBot() {
 
 	const renderContent = (index) => {
 		const content = botChats.bot.messages[index];
-		// const formattedResponse = md.render(content);
-		// console.log(content);
 		return content;
 	};
 	const chat = (entity, index) => {
@@ -112,7 +111,8 @@ function ChatBot() {
 	const [landing, setLanding] = useState(true);
 
 	return (
-		<div>
+		<div className="chat-bot-wrapper">
+			<Navbar />
 			{pickerVisible && (
 				<div className="emoji-picker-dialog">
 					<Picker data={data} onEmojiSelect={addEmoji} />

@@ -129,9 +129,6 @@ export const acceptRequest = async (req, res) => {
 	try {
 		console.log("accp req", req.params);
 		const requestId = req.params.requestId;
-		// console.log(requestId);
-		// const existingRequest = await Request.findById(requestId);
-		// console.log("ex", existingRequest);
 		const updatedRequest = await Request.findByIdAndUpdate(
 			requestId,
 			{ accepted: true, rejected: false, pending: false },
@@ -144,6 +141,7 @@ export const acceptRequest = async (req, res) => {
 		res.status(500).json({ message: "Internal server error" });
 	}
 };
+
 export const rejectRequest = async (req, res) => {
 	try {
 		const { requestId } = req.params;
@@ -156,6 +154,21 @@ export const rejectRequest = async (req, res) => {
 		res.status(200).json(updatedRequest);
 	} catch (error) {
 		console.error("Error rejecting request:", error);
+		res.status(500).json({ message: "Internal server error" });
+	}
+};
+
+export const revokeRequest = async (req, res) => {
+	try {
+		const { requestId } = req.params;
+		const updatedRequest = await Request.findByIdAndUpdate(
+			requestId,
+			{ accepted: false, rejected: false, pending: true },
+			{ new: true }
+		);
+		res.status(200).json(updatedRequest);
+	} catch (error) {
+		console.error("Error revoking request:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 };

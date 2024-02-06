@@ -11,9 +11,9 @@
   
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .initial {
   color: var(--primary-brown);

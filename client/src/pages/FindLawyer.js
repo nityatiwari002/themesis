@@ -8,6 +8,9 @@ import {
 import "../styles/FindLawyer.css";
 import { AuthData } from "../services/AuthService";
 import Navbar from "../components/Navbar";
+import LawyerDetails from "../components/LawyerDetails";
+import ProfileImg from "./ProfileImg";
+import "../styles/RequestsPage.css";
 // import requests from "../assets/requests";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);
@@ -151,6 +154,7 @@ function FindLawyer() {
 	const findMatchingRequest = (index, type) => {
 		const lawyer = lawyers[index];
 		let reqStatus = {};
+		if (requests == null) return reqStatus;
 		let request = requests.filter(
 			(request) =>
 				request.user_id === JSON.parse(user.user)._id &&
@@ -186,6 +190,53 @@ function FindLawyer() {
 		return reqStatus;
 	};
 
+	const renderMatchingRequest = (index, type) => {
+		const matchingRequest = findMatchingRequest(index, type);
+		const deleteFunction =
+			type === "Chat" ? deleteChatRequest : deleteHireRequest;
+		const sendFunction =
+			type === "Chat" ? sendChatRequest : sendHireRequest;
+		return matchingRequest.requested ? (
+			<>
+				{matchingRequest.pending ? (
+					<button
+						className="request-button cancel-request-button"
+						onClick={() => deleteFunction(index)}
+					>
+						Cancel {type} Request
+					</button>
+				) : (
+					<>
+						{matchingRequest.accepted ? (
+							<button
+								className="request-button request-acc-button"
+								onClick={console.log("redirect to chat")}
+							>
+								{type === "Chat"
+									? "Start Chatting"
+									: "Hire Request Accepted"}
+							</button>
+						) : (
+							<button
+								className="request-button request-dec-button"
+								disabled={true}
+							>
+								{type} Requested Declined
+							</button>
+						)}
+					</>
+				)}
+			</>
+		) : (
+			<button
+				className="request-button"
+				onClick={() => sendFunction(index)}
+			>
+				Send {type} Request
+			</button>
+		);
+	};
+
 	return (
 		<>
 			<Navbar />
@@ -217,193 +268,20 @@ function FindLawyer() {
 							return (
 								<div className="lawyer-card" key={index}>
 									<div className="lawyer-img-container">
-										<img
-											src={lawyer.image}
-											className="lawyer-image"
-										></img>
+										<ProfileImg person={lawyer} />
 									</div>
 									<div className="lawyer-info">
 										<div className="lawyer-details-wrapper">
-											<div className="lawyer-details">
-												<div className="lawyer-det">
-													<span className="det">
-														{" "}
-														Name:{" "}
-													</span>
-													{lawyer.name}
-												</div>
-												<div className="lawyer-det">
-													<span className="det">
-														{" "}
-														Type:{" "}
-													</span>
-													{lawyer.tag}
-												</div>
-												<div className="lawyer-det">
-													<span className="det">
-														Number of cases won:{" "}
-													</span>
-													{lawyer.countWonCases}
-												</div>
-												<div className="lawyer-det">
-													<span className="det">
-														About:{" "}
-													</span>
-													{lawyer.description}
-													Lorem ipsum dolor sit amet.
-													Id perspiciatis repellat et
-													amet magnam qui libero
-													voluptatem ut provident illo
-													et reiciendis ratione aut
-													ipsam necessitatibus est
-													odio autem! Est aspernatur
-													galisum et nisi dolorum cum
-													tempore deleniti.
-												</div>
-											</div>
-											<div className="lawyer-details">
-												<div className="lawyer-det">
-													<span className="det">
-														Age:{" "}
-													</span>
-													{lawyer.age}
-												</div>
-												<div className="lawyer-det">
-													<span className="det">
-														No. of cases:{" "}
-													</span>
-													{lawyer.countPastCases}
-												</div>
-												<div className="lawyer-det">
-													<span className="det">
-														Experience:{" "}
-													</span>
-													{lawyer.experience}
-												</div>
-												<div className="lawyer-det">
-													{lawyer.city}
-													{lawyer.city ? ", " : " "}
-													{lawyer.state}
-													{lawyer.state ? "," : " "}
-													{lawyer.country}
-												</div>
-											</div>
+											<LawyerDetails lawyer={lawyer} />
 										</div>
 										<div className="lawyer-buttons">
-											{findMatchingRequest(index, "Chat")
-												.requested ? (
-												<>
-													{findMatchingRequest(
-														index,
-														"Chat"
-													).pending ? (
-														<button
-															className="request-button"
-															onClick={() =>
-																deleteChatRequest(
-																	index
-																)
-															}
-														>
-															Cancel Chat Request
-														</button>
-													) : (
-														<>
-															{findMatchingRequest(
-																index,
-																"Chat"
-															).accepted ? (
-																<button
-																	className="request-button"
-																	onClick={() =>
-																		console.log(
-																			"Will Redirect to chat"
-																		)
-																	}
-																>
-																	Start
-																	Chatting
-																</button>
-															) : (
-																<button
-																	className="request-button disabled-but"
-																	disabled={
-																		true
-																	}
-																>
-																	Chat
-																	Requested
-																</button>
-															)}
-														</>
-													)}
-												</>
-											) : (
-												<button
-													className="request-button"
-													onClick={() =>
-														sendChatRequest(index)
-													}
-												>
-													Chat
-												</button>
+											{renderMatchingRequest(
+												index,
+												"Chat"
 											)}
-											{findMatchingRequest(index, "Hire")
-												.requested ? (
-												<>
-													{findMatchingRequest(
-														index,
-														"Hire"
-													).pending ? (
-														<button
-															className="request-button"
-															onClick={() =>
-																deleteHireRequest(
-																	index
-																)
-															}
-														>
-															Cancel Hire Request
-														</button>
-													) : (
-														<>
-															{findMatchingRequest(
-																index,
-																"Hire"
-															).accepted ? (
-																<button
-																	className="request-button"
-																	disabled={
-																		true
-																	}
-																>
-																	Hire Request
-																	Accepted
-																</button>
-															) : (
-																<button
-																	className="request-button disabled-but"
-																	disabled={
-																		true
-																	}
-																>
-																	Hire
-																	Requested
-																	Declined
-																</button>
-															)}
-														</>
-													)}
-												</>
-											) : (
-												<button
-													className="request-button"
-													onClick={() =>
-														sendHireRequest(index)
-													}
-												>
-													Hire
-												</button>
+											{renderMatchingRequest(
+												index,
+												"Hire"
 											)}
 										</div>
 									</div>
