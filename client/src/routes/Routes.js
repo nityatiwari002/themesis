@@ -17,6 +17,8 @@ import NotFound from "../pages/NotFound";
 import ChatBot from "../pages/ChatBot";
 import ForgotPw from "../pages/ForgotPw";
 import ProfileDashboard from "../pages/ProfileDashboard";
+import EditDetails from "../pages/EditDetails.js";
+import ChangePassword from "../pages/ChangePassword.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faHome,
@@ -35,10 +37,25 @@ import {
 	faScaleBalanced,
 	faArrowRightFromBracket,
 	faUserGroup,
+	faUser,
+	faUnlockKeyhole,
+	faFilePen
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 
 const routes = [
+	{
+		path: "/me",
+		component: <ProfileDashboard />,
+		name: "Profile",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faUser} />,
+
+	},
 	{
 		path: "/dashboard",
 		component: <Dashboard />,
@@ -47,6 +64,7 @@ const routes = [
 		isMenuUser: true,
 		isMenuLawyer: false,
 		isUtility: false,
+		isMenuProfile : true,
 		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
@@ -57,6 +75,7 @@ const routes = [
 		isMenuUser: false,
 		isMenuLawyer: true,
 		isUtility: false,
+		isMenuProfile: false,
 		icon: <FontAwesomeIcon icon={faChartPie} />,
 	},
 	{
@@ -229,15 +248,20 @@ const routes = [
 		isPrivate: true,
 		isMenuLawyer: true,
 		isMenuUser: true,
+
 	},
-	{
-		path: "/me",
-		component: <ProfileDashboard />,
-		name: "Profile",
-		isPrivate: true,
-		isMenuLawyer: false,
-		isMenuUser: false,
-	},
+	// {
+	// 	path: "/me",
+	// 	component: <ProfileDashboard />,
+	// 	name: "Profile",
+	// 	isPrivate: true,
+	// 	isUtility: false,
+	// 	isMenuLawyer: false,
+	// 	isMenuProfile: true,
+	// 	isMenuUser: false,
+	// 	icon: <FontAwesomeIcon icon={faUser} />,
+
+	// },
 	{
 		path: "/logout",
 		component: <Logout />,
@@ -246,6 +270,31 @@ const routes = [
 		isMenuLawyer: false,
 		isMenuUser: false,
 	},
+	{
+		path: "/edit_details",
+		component: <EditDetails/>,
+		name: "Edit Details",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faFilePen} />,
+
+	},
+	{
+		path: "/update_password",
+		component: <ChangePassword/>,
+		name: "Change Password",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faUnlockKeyhole} />,
+
+	},
+
 ];
 
 export default routes;

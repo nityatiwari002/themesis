@@ -9,7 +9,7 @@ function ChatIcon() {
         navigate("/chat-bot");
     };
 	return (
-		<div className="chat-bot-icon-container" onClick={navigateToChat}>
+		<div style = {{margin : "0px"}}className="chat-bot-icon-container" onClick={navigateToChat}>
 			<FontAwesomeIcon icon={faBars} className="chat-icon" onClick={navigateToChat} />
 		</div>
 	);

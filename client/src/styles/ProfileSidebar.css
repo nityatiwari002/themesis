@@ -1,37 +1,29 @@
 .side-bar-parent{
-    height: 100%;
-    padding : 1rem;
-    padding-right : 1.5rem;
-}
-
-.side-bar{
     background-color: #141414;
     height: 100%;
-    min-width: 200px;
-    z-index: 50;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-top: 4%;
     border-right: 1px solid #685e5e;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 
-.side-bar ul{
-    /* padding: ; */
-    margin: 0;
-    /* padding-left: 0; */
-    padding: 10px 4px;
-    margin-top: 15%;
+
+.side-bar-parent ul {
     list-style: none;
-    /* margin : auto; */
-    margin-right : 1.1rem;
+    padding-left: 0px;
+
 }
 
-.side-bar ul li{
+
+
+li{
     margin: 0;
+    width : 200%;
+    margin : auto;
+    margin-bottom : 0.8rem;
+    /* margin: 1pxrem; */
 
 }
 
@@ -42,7 +34,7 @@
     margin: 0;
     
     width: 100%;
-    color: white; 
+    color: white;
     border: none;
     border-radius: 2px;
     justify-content: left;
@@ -55,7 +47,7 @@
     margin-right: 15px;
 }
 .inactive button{
-    color: #8f8585;
+    color: #685e5e;
 }
 .active button{
     background-color: var(--bgtransparentmax);
@@ -75,8 +67,21 @@
 .side-bar-logout {
     text-decoration: none;
     padding: 0 4px;
-    color:#8f8585;
+    color: #685e5e;
 }
 .side-bar-logout button{
-    color: #8f8585;
+    color: #685e5e;
+}
+
+.profile-dashboard-heading{
+    /* margin : auto; */
+    padding-top : 1.5rem;
+    padding-bottom: 2rem;
+    padding-left : 2.5rem;
+    font-size: 1.2rem;
+    font-weight:200;
+}
+
+.prominent_letter{
+   color : #c47741;
 }

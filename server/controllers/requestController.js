@@ -26,6 +26,8 @@ export const createRequest = async (req, res) => {
 			lawyer_id: lawyerObject._id,
 			request_type: requestType,
 		});
+	console.log(isRequest);
+
 
 		if (!isRequest) {
 			var requestData = {
@@ -33,9 +35,15 @@ export const createRequest = async (req, res) => {
 				lawyer_id: lawyerId,
 				request_type: requestType,
 			};
+	console.log(requestData);
+
+
 
 			try {
 				const createdRequest = await Request.create(requestData);
+	  console.log(createdRequest);
+
+
 				const FullRequest = await Request.findOne({
 					_id: createdRequest._id,
 				})

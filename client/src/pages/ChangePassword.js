@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,19 +12,15 @@ import { createContext, useContext, useEffect, useState } from "react";
 import ProfileNavbar from "../components/ProfileNavbar";
 import ImageContainer from "../components/ImageContainer";
 import UserInfo from "../components/UserInfo";
+import ChangePasswordFrom from '../components/ChangePasswordFrom';
 
-const ProfileDashboard = () => {
-  const { user, setShowSidebar } = AuthData();
 
-  // useEffect(() => {
-  //   setShowSidebar(false);
-  //   localStorage.setItem("showSidebar", true);
-
-  // }, [])
+const ChangePassword = () => {
+    const { user, setShowSidebar } = AuthData();
 
   return (
-
-    <div
+    <div>
+          <div
       style={{
         backgroundColor: "",
         width: "100vw",
@@ -47,17 +43,18 @@ const ProfileDashboard = () => {
               <ProfileNavbar />
             </Row>
             <div style ={{paddingRight: "0rem"}}>
-            <Row style = {{display : "flex",paddingLeft: "1rem", margin : "auto", marginTop: "1rem", fontSize : "1.5rem", color : "#dda676"}}> user profile </Row>
+            <Row style = {{display : "flex",paddingLeft: "1rem", margin : "auto", marginTop: "1rem", fontSize : "1.5rem", color : "#dda676"}}> Change Password </Row>
             <Row style ={{paddingLeft : "0rem", display : "flex",  paddingRight : "0rem", justifyContent : "space-around"}}>
-              <Col style ={{flex : "1", marginLeft: "1rem"}}> <ImageContainer /> </Col>
-              <Col style ={{marginLeft : "0px", flex : "3", marginRight: "7.5rem"}}> <UserInfo /> </Col>
+              <Col style ={{marginLeft : "0px", flex : "1", marginRight: "7.5rem", paddingLeft : "2rem"}}> <ChangePasswordFrom /> </Col>
             </Row>
         </div>
           </Col>
         </Row>
       </Container>
     </div>
-  );
-};
 
-export default ProfileDashboard;
+    </div>
+  )
+}
+
+export default ChangePassword

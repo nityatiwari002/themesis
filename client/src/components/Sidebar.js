@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import routes from "../routes/Routes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import ProfileSidebar from "./ProfileSidebar";
 
 function Sidebar() {
 	const { showSidebar } = AuthData();
@@ -42,8 +43,7 @@ function Sidebar() {
 										</li>
 									);
 								} else if (user.isAuthenticated) {
-									// JSON.parse(user.user).role == "user"
-									if (JSON.parse(user.user).role === "user") {
+									if (JSON.parse(user.user).role === "user" && route.path !== '/me') {
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&

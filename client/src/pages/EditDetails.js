@@ -11,29 +11,27 @@ import { AuthData } from "../services/AuthService";
 import { createContext, useContext, useEffect, useState } from "react";
 import ProfileNavbar from "../components/ProfileNavbar";
 import ImageContainer from "../components/ImageContainer";
+import ImageEditController from "../components/ImageEditController";
 import UserInfo from "../components/UserInfo";
+import UserInfoEdit from "./../components/UserInfoEdit";
 
 const ProfileDashboard = () => {
   const { user, setShowSidebar } = AuthData();
 
-  // useEffect(() => {
-  //   setShowSidebar(false);
-  //   localStorage.setItem("showSidebar", true);
-
-  // }, [])
 
   return (
 
     <div
       style={{
         backgroundColor: "",
+        padding: "0px",
+        margin: "0px",
         width: "100vw",
-        boxsizing : "border-box"
       }}
     >
       <Container
         style={{
-          overflow: "hiding",
+          overflow: "auto",
           backgroundColor: "",
           height: "100%",
           width: "100vw",
@@ -42,17 +40,15 @@ const ProfileDashboard = () => {
       >
         <Row>
           <Col style={{ backgroundColor: "black", margin: "0px", height : "100vh"}}>
-            <Row style ={{}}>
+            <Row>
               {" "}
               <ProfileNavbar />
             </Row>
-            <div style ={{paddingRight: "0rem"}}>
-            <Row style = {{display : "flex",paddingLeft: "1rem", margin : "auto", marginTop: "1rem", fontSize : "1.5rem", color : "#dda676"}}> user profile </Row>
-            <Row style ={{paddingLeft : "0rem", display : "flex",  paddingRight : "0rem", justifyContent : "space-around"}}>
-              <Col style ={{flex : "1", marginLeft: "1rem"}}> <ImageContainer /> </Col>
-              <Col style ={{marginLeft : "0px", flex : "3", marginRight: "7.5rem"}}> <UserInfo /> </Col>
+            <Row style = {{display : "flex",paddingLeft : "1rem",margin : "auto", marginTop: "1rem", fontSize : "1.5rem", color : "#dda676"}}> Edit Details </Row>
+            <Row style ={{paddingLeft : "1rem", display : "flex", paddingRight : "1rem"}}>
+              <Col style ={{flex : "1"}}> <ImageEditController /> </Col>
+              <Col style ={{marginLeft : "0px", flex : "3", marginRight: "7rem"}}> <UserInfoEdit /></Col>
             </Row>
-        </div>
           </Col>
         </Row>
       </Container>

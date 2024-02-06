@@ -1,0 +1,89 @@
+import React from "react";
+import Figure from "react-bootstrap/Figure";
+import { AuthData } from "../services/AuthService";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import { useState } from "react";
+
+const ImageContainer = () => {
+  const [image, setImage] = useState("");
+
+  const { user, updateMe } = AuthData();
+
+  const handleImage = async (e) => {
+    setImage(e.target.value);
+    e.preventDefault();
+    const userDetails = {};
+    try{
+      if(image != ""){
+        userDetails.image = image;
+      }
+      console.log(userDetails);
+
+      await updateMe(userDetails);
+    }
+    catch(err){
+      console.log(err);
+        alert("Error in updating the Profile Photo!!");
+    }
+
+  }
+
+
+  return (
+    <div
+      style={{
+        backgroundColor: "#5b5653",
+        marginTop: "3rem",
+        height: "21rem",
+        width: "21rem",
+        borderRadius: "0.5rem",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          paddingTop: "0.8rem",
+        }}
+      >
+        <div
+          style={{ margin: "auto", fontSize: "1.3rem", marginBotton: "1rem" }}
+        >
+          Profile Picture
+        </div>
+        <div style={{ border: "0.01rem solid white" }}></div>
+      </div>
+      <Figure
+        style={{ display: "flex", flexDirection: "column", margin: "auto" }}
+      >
+        <Figure.Image
+          style={{ margin: "auto", borderRadius: "50%", marginTop: "1.5rem" }}
+          width={171}
+          height={180}
+          alt="171x180"
+          src={JSON.parse(user.user).image}
+        />
+        <Figure.Caption
+          style={{
+            marginTop: "1rem",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ margin: "auto", fontSize: "1rem", color: "white", paddingBottom : "0.3rem" }}>
+            JPG or PNG no larger than 5 MB
+          </div>
+          <Form.Group style ={{width : "34%", margin : "auto"}} controlId="formFile" className="mb-3">
+            <Form.Control type="file" style ={{backgroundColor : "blue"}} onChange = {handleImage}/>
+          </Form.Group>
+        </Figure.Caption>
+      </Figure>
+    </div>
+  );
+};
+
+export default ImageContainer;
