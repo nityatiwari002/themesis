@@ -43,6 +43,8 @@ function Sidebar() {
 										</li>
 									);
 								} else if (user.isAuthenticated) {
+									// if(true){
+
 									if (JSON.parse(user.user).role === "user" && route.path !== '/me') {
 										if (
 											user.isAuthenticated &&
@@ -73,9 +75,8 @@ function Sidebar() {
 										}
 									}
 									// JSON.parse(user.user).role.role == "lawyer"
-									if (
-										JSON.parse(user.user).role === "lawyer"
-									) {
+									if (JSON.parse(user.user).role === "lawyer") {
+										// if(true){
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&

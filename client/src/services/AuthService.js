@@ -254,6 +254,7 @@ export const AuthWrapper = () => {
           setShowSidebar,
           updateMe,
           updatePassword,
+          setUser,
         }}
       >
         <div className="outer-container">
@@ -282,6 +283,7 @@ export const AuthWrapper = () => {
           setShowSidebar,
           updateMe,
           updatePassword,
+          setUser,
         }}
       >
         <div className="outer-container">

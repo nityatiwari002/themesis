@@ -70,7 +70,6 @@ else{
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password);
 
   // 1) Check if email and password exist
   if (!email || !password) {
@@ -111,7 +110,6 @@ export const logout = (req, res) => {
 
 export const protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
-  console.log("here in protect", req.body);
   let token;
   if (
     req.headers.authorization &&
