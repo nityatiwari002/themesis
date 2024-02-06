@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AuthData } from "../../services/AuthService";
 import "../../styles/RequestsPage.css";
 
+
 function RequestsPage() {
 	const [searchInput, setSearchInput] = useState("");
 	const [formVisible, setFormVisible] = useState(false);

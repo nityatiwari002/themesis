@@ -5,12 +5,12 @@ import {
 	faFilter,
 	faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import "../styles/FindLawyer.css";
-import { AuthData } from "../services/AuthService";
-import Navbar from "../components/Navbar";
-import LawyerDetails from "../components/LawyerDetails";
-import ProfileImg from "./ProfileImg";
-import "../styles/RequestsPage.css";
+import "../../styles/FindLawyer.css";
+import { AuthData } from "../../services/AuthService";
+import Navbar from "../../components/Navbar";
+import LawyerDetails from "../../components/LawyerDetails";
+import ProfileImg from "../../components/ProfileImg";
+import "../../styles/RequestsPage.css";
 // import requests from "../assets/requests";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);

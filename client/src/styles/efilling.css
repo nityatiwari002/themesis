@@ -20,7 +20,7 @@
     margin-right: 10px;
     overflow: hidden;
     background-color: brown;
-    background-image: url("./../pages/videoo.jpeg");
+    background-image: url("../assets/videoo.jpeg");
     background-position: 0%;
     background-repeat: no-repeat;
     background-size: cover;

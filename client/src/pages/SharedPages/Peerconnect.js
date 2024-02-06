@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/ChatBot.css";
+import "../../styles/ChatBot.css";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import usersChats from "../utilities/GroupChats";
-import { AuthData } from "../services/AuthService";
-import Navbar from "../components/Navbar";
+import usersChats from "../../utilities/GroupChats";
+import { AuthData } from "../../services/AuthService";
+import Navbar from "../../components/Navbar";
 
 function Peerconnect() {
 	const dummy = useRef(null);
@@ -26,7 +26,9 @@ function Peerconnect() {
 			name: user.name,
 			img: "https://www.w3schools.com/howto/img_avatar.png",
 			message: message,
-			time: new Date().toLocaleTimeString([], { hour12: true }).toUpperCase(),
+			time: new Date()
+				.toLocaleTimeString([], { hour12: true })
+				.toUpperCase(),
 		};
 		usersChats.push(newChat);
 		setMessage("");
@@ -82,7 +84,7 @@ function Peerconnect() {
 
 	return (
 		<div className="chat-bot-wrapper">
-			<Navbar/>
+			<Navbar />
 			{pickerVisible && (
 				<div className="emoji-picker-dialog">
 					<Picker data={data} onEmojiSelect={addEmoji} />
