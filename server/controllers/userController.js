@@ -28,14 +28,18 @@ export const getUser = async (req, res, next) => {
 
 //api/v1/users?search=shreya
 export const getAllUsers = async (req, res, next) => {
+  console.log("kuch toh");
   const keyword = req.query.search
     ? {
         $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
+          { name: { $regex: /${req.query.search}/, $options: 'i', } },
+          { email: { $regex: req.query.search, $options: 'i', } },
         ],
       }
     : {};
+  
+    console.log(req.query.search);
+    console.log(keyword);
 
   const users = await User.find(keyword);
   res.send(users);

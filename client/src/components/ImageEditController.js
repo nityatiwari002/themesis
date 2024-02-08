@@ -115,7 +115,7 @@ const ImageContainer = () => {
             JPG or PNG no larger than 5 MB
           </div>
           <Form.Group
-            style={{ width: "31%", margin: "auto" }}
+            style={{ width: "29%", margin: "auto" }}
             controlId="formFile"
             className="mb-3"
           >

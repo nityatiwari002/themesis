@@ -16,10 +16,10 @@ const ProfileNavbar = () => {
       >
         <Container style={{ display: "flex", boxSizing: "border-box" }}>
           <Navbar.Brand href="/me" style={{ display: "flex", width: "100%", zIndex : "1000" }}>
-            <div style={{ width: "80%" }}></div>
-            <div style={{ display: "flex", widht: "20%" }}>
+            <div style={{ flex: 7 }}></div>
+            <div style={{ display: "flex", flex : 2 }}>
               <div
-                style={{ heigth: "2rem", width: "2rem", borderRadius: "50%" }}
+                style={{ heigth: "2rem", width: "2rem", borderRadius: "50%"}}
               >
                 <img
         src = {JSON.parse(user.user).image === "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg" ? JSON.parse(user.user).image : `http://localhost:5001/uploads/${JSON.parse(user.user).image}`}
