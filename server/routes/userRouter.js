@@ -36,6 +36,7 @@ router.get("/getUser/:id", getUser);
 router.patch("/updateMe", protect, updateMe);
 router.patch("/updatePassword", protect, updatePassword);
 
+
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 	  cb(null, 'uploads/')

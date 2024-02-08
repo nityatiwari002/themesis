@@ -38,7 +38,7 @@ const GroupChatModel = ({children}) => {
             },
         }
 
-        const {data} = await axios.get(`http://127.0.0.1:5001/api/v1/users?search=${search}`, config);
+        const {data} = await axios.get(`http://127.0.0.1:5001/api/v1/users/getUsers?search=${search}`, config);
         setSearchResult(data);
         setLoading(false);
         console.log(data);
