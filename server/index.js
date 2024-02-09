@@ -14,6 +14,7 @@ import userRoutes from "./routes/userRouter.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import requestRoutes from "./routes/requestRoutes.js";
+import discordRoutes from "./routes/discordRoutes.js";
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -43,6 +44,7 @@ app.use(
 app.use("/api/v1/chats", chatRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/requests", requestRoutes);
+app.use("/api/v1/discord", discordRoutes);
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "public")));

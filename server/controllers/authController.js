@@ -9,6 +9,9 @@ import {sendEmail} from './../Utils/email.js'
 import dotenv from 'dotenv';
 import { Lawyer } from "../models/lawyerModel.js";
 dotenv.config();
+import { Chat } from "../models/chatModel.js";
+import {addToGroup} from './chatController.js';
+
 
 
 const signToken = id => {
