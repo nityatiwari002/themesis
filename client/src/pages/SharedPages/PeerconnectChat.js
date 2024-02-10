@@ -12,10 +12,13 @@ import getCookies from "../../hooks/getCookies";
 import { getUser } from "../../utilities/getUser";
 import io from "socket.io-client";
 import ChatMsg from "../../components/Discord/ChatMsg";
+import fetchDiscord from "../../components/Discord/getDiscord";
+
 
 function PeerconnectChat() {
 	const dummy = useRef(null);
 	const { user } = AuthData();
+
 	const [message, setMessage] = useState("");
 	const [pickerVisible, setPickerVisible] = useState(false);
 	const [usersChats, setUsersChats] = useState([]);
@@ -70,37 +73,45 @@ function PeerconnectChat() {
 				newmsgRec.sender = data;
 			})
 			.then(() => {
-				setUsersChats([...usersChats, newmsgRec]);
+				getMsgs();
 			});
 	};
+	
+
 	const handleNewMessage = async (newMessageReceived) => {
 		console.log("Message Received");
-		await fetch("http://localhost:5001/api/v1/discord", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				authorization: `Bearer ${getCookies("jwt")}`,
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				newMessageReceived.chat = data;
-				console.log("after everything", newMessageReceived);
-				setUsersChats([...usersChats, newMessageReceived]);
-				const socket = io("http://localhost:5001");
-				socket.emit("new message", newMessageReceived);
-			})
-			.catch((error) => {
-				console.error(
-					"There was a problem with the fetch operation:",
-					error
-				);
-			});
+		newMessageReceived.chat = await fetchDiscord();
+		console.log("after everything", newMessageReceived);
+		const socket = io("http://localhost:5001");
+		socket.emit("new message", newMessageReceived);
+		getMsgs();
+		// await fetch("http://localhost:5001/api/v1/discord", {
+		// 	method: "GET",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		authorization: `Bearer ${getCookies("jwt")}`,
+		// 	},
+		// })
+		// 	.then((response) => {
+		// 		if (!response.ok) {
+		// 			throw new Error("Network response was not ok");
+		// 		}
+		// 		return response.json();
+		// 	})
+		// 	.then((data) => {
+		// 		newMessageReceived.chat = data;
+		// 		console.log("after everything", newMessageReceived);
+		// 		// setUsersChats([...usersChats, newMessageReceived]);
+		// 		getMsgs();
+		// 		const socket = io("http://localhost:5001");
+		// 		socket.emit("new message", newMessageReceived);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error(
+		// 			"There was a problem with the fetch operation:",
+		// 			error
+		// 		);
+		// 	});
 	};
 	const submitForm = async () => {
 		await fetch("http://localhost:5001/api/v1/discord/sendMessage", {
@@ -118,11 +129,11 @@ function PeerconnectChat() {
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
-
 				return response.json();
 			})
 			.then((data) => {
 				console.log(data);
+				// getMsgs();
 				handleNewMessage(data);
 			})
 			.catch((error) => {
@@ -151,7 +162,14 @@ function PeerconnectChat() {
 
 	const chat = (index) => {
 		const chatMsg = usersChats[index];
-		return <ChatMsg key={index} chatMsg={chatMsg} />;
+		const sender = chatMsg.sender;
+		if (sender._id === JSON.parse(user.user)._id) {
+			// console.log("sender", sender, "user", JSON.parse(user.user)._id);
+			return <ChatMsg key={index} chatMsg={chatMsg} position="right" />;
+		} else {
+			// console.log("sender", sender, "user", user.user);
+			return <ChatMsg key={index} chatMsg={chatMsg} position="left" />;
+		}
 	};
 
 	const chats = () => {

@@ -42,7 +42,7 @@ function Peerconnect() {
 			<Navbar />
 
 			<div className="chat-bot-wrapper">
-				<div className="title-bar">Peerconnect</div>
+				<div className="title-bar">Peerconnectx</div>
 				{hasAccess ? <PeerconnectChat /> : <AddtoDiscord />}
 			</div>
 		</>

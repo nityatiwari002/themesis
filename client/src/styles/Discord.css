@@ -35,8 +35,12 @@
 }
 
 
-.chat-msg-wrapper {
+.chat-msg-wrapper-left {
     margin-left: 3px;
+}
+
+.chat-msg-wrapper-right {
+    margin-right: 3px;
 }
 
 .chat-message {
@@ -79,9 +83,21 @@
 
 }
 
-.message-txt-- {
+.message-txt--left {
     background-color: var(--black);
     border-radius: 0 10px 10px 10px;
+    /* padding: 5px 10px; */
+    border: 1px solid rgb(81, 77, 77);
+    font-size: 1rem;
+    color: var(--white);
+    max-width: 100%;
+    word-wrap: break-word;
+
+}
+
+.message-txt--right {
+    background-color: var(--black);
+    border-radius: 10px 0 10px 10px;
     /* padding: 5px 10px; */
     border: 1px solid rgb(81, 77, 77);
     font-size: 1rem;
@@ -116,4 +132,22 @@
 .chat-icon-- {
     width: 100%;
     height: 100%;
+}
+
+.chat-container-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.chat-container-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    /* padding: 10px; */
+    width: 100%;
+    /* margin: 10px 0; */
 }
