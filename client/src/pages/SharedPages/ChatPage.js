@@ -23,26 +23,27 @@ function ChatPage() {
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(255, 255, 255, 0.3)",
-        padding: "2rem",
+		backgroundColor : "rgb(63, 61, 61, 0.8)",
+        // backgroundColor: "rgba(255, 255, 255, 0.5)",
+        padding: "1.5rem",
+		// paddingTop : "0px",
       }}
     >
       <Container style={{ width: "100%", height: "100%" }}>
-        <Row>
+        <Row style ={{display : "flex" }} >
           <Col
             style={{
               width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              height: "100vh",
+			//   backgroundColor:"red",
+			  flex : 2,
+			//   borderRadius:"2rem"
             }}
           >
             {" "}
-            <Row>{user.isAuthenticated && <SideDrawer />}</Row>
-            <Row>
               {user.isAuthenticated && <MyChats fetchAgain={fetchAgain} />}
-            </Row>
           </Col>
-          <Col style={{ width: "100%", height: "100%" }}>
+          <Col style={{ width: "100%", height: "100vh", flex : 5, backgroundColor:"black" }}>
             {" "}
             {user.isAuthenticated && (
               <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
