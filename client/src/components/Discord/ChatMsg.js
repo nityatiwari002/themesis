@@ -1,0 +1,34 @@
+import React from "react";
+
+function ChatMsg(props) {
+	const { chatMsg } = props;
+	return (
+		<>
+			<div className={"chat-message---"}>
+				<div className="chat-icon-container">
+					<img
+						src={chatMsg.sender.image}
+						alt="chat-icon"
+						className="chat-icon--"
+					/>
+				</div>
+
+				<div className="chat-msg-wrapper">
+					<div className="chat-message message-txt--">
+						<div className="message-details">
+							<div className="message-details-name">
+								{chatMsg.sender.name}
+							</div>
+							<div className="message-details-time">
+								{chatMsg.createdAt}
+							</div>
+						</div>
+						<p className="msg">{chatMsg.content}</p>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+}
+
+export default ChatMsg;
