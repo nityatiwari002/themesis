@@ -23,7 +23,7 @@ function Navbar() {
   const { showSidebar, toggleSidebar } = AuthData();
   const { user } = AuthData();
   console.log(showSidebar);
-
+  // console.log(JSON.parse(user.user));
   return (
     <div className="Navbar">
       <div className={showSidebar ? "top-nav" : "top-nav"}>

@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import { AuthData } from "../../services/AuthService";
 import getCookies from "../../hooks/getCookies";
 import PeerconnectChat from "./PeerconnectChat";
-import AddtoDiscord from "./AddtoDiscord";
+import AddtoDiscord from "../../components/Discord/AddtoDiscord";
 function Peerconnect() {
 	const { user } = AuthData();
 	const [hasAccess, setHasAccess] = useState(false);
@@ -38,10 +38,14 @@ function Peerconnect() {
 	}, [hasAccess, checkAccess]);
 
 	return (
-		<div className="chat-bot-wrapper">
+		<>
 			<Navbar />
-			{hasAccess ? <PeerconnectChat /> : <AddtoDiscord />}
-		</div>
+
+			<div className="chat-bot-wrapper">
+				<div className="title-bar">Peerconnectx</div>
+				{hasAccess ? <PeerconnectChat /> : <AddtoDiscord />}
+			</div>
+		</>
 	);
 }
 

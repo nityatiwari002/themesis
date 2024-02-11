@@ -18,7 +18,7 @@ export const addToDiscord = asyncHandler(async (req, res) => {
 	)
 		.populate("users", "-populate")
 		.populate("groupAdmin", "-populate");
-
+	
 	if (!added) {
 		res.status(404);
 	} else {
@@ -56,9 +56,9 @@ export const hasAccessToDiscord = asyncHandler(async (req, res) => {
 export const getMessages = asyncHandler(async (req, res) => {
 	const chatId = process.env.discordChatId;
 	try {
-		console.log("fetching messages");
+		// console.log("fetching messages");
 		const message = await Message.find({ chat: chatId })
-			.populate("sender", "name pic email")
+			.populate("sender", "name image email")
 			.populate("chat");
 		// console.log(message);
 		res.send(message);
@@ -83,3 +83,21 @@ export const sendMessage = asyncHandler(async (req, res) => {
         res.status(200).json(savedMessage);
     }
 });
+
+
+export const getDiscord = async (req, res) => {
+	try{
+		const chatId = process.env.discordChatId;
+		const chat = await Chat.findById(chatId)
+			.populate("users", "-populate")
+			.populate("groupAdmin", "-populate");
+		if (!chat) {
+			res.status(404).json({ error: "Chat not found" });
+		} else {
+			res.status(200).json(chat);
+		}
+	}
+	catch(err){
+		res.status(404).json({ error: err.message });
+	}
+}

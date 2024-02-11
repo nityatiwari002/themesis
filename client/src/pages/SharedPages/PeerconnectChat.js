@@ -10,16 +10,22 @@ import { AuthData } from "../../services/AuthService";
 import Navbar from "../../components/Navbar";
 import getCookies from "../../hooks/getCookies";
 import { getUser } from "../../utilities/getUser";
+import io from "socket.io-client";
+import ChatMsg from "../../components/Discord/ChatMsg";
+import fetchDiscord from "../../components/Discord/getDiscord";
+
 
 function PeerconnectChat() {
 	const dummy = useRef(null);
 	const { user } = AuthData();
+
 	const [message, setMessage] = useState("");
 	const [pickerVisible, setPickerVisible] = useState(false);
 	const [usersChats, setUsersChats] = useState([]);
 	useEffect(() => {
 		dummy.current.scrollIntoView();
 	}, [usersChats, message]);
+
 	const getMsgs = async () => {
 		fetch("http://localhost:5001/api/v1/discord/getMessages", {
 			method: "GET",
@@ -35,7 +41,6 @@ function PeerconnectChat() {
 				return response.json();
 			})
 			.then((data) => {
-				console.log(data);
 				setUsersChats(data);
 			})
 			.catch((error) => {
@@ -48,7 +53,66 @@ function PeerconnectChat() {
 	useEffect(() => {
 		getMsgs();
 	}, []);
+	var socket;
+	useEffect(() => {
+		socket = io("http://localhost:5001");
+		socket.emit("setup", {
+			_id: JSON.parse(user.user)._id,
+		});
+		socket.emit("join discord");
+		socket.on("Message Received", (newmsgRec) =>
+			handleNewMessageReceived(newmsgRec)
+		);
+		return () => {
+			socket.disconnect();
+		};
+	}, []);
+	const handleNewMessageReceived = async (newmsgRec) => {
+		await getUser(newmsgRec.sender)
+			.then((data) => {
+				newmsgRec.sender = data;
+			})
+			.then(() => {
+				getMsgs();
+			});
+	};
+	
 
+	const handleNewMessage = async (newMessageReceived) => {
+		console.log("Message Received");
+		newMessageReceived.chat = await fetchDiscord();
+		console.log("after everything", newMessageReceived);
+		const socket = io("http://localhost:5001");
+		socket.emit("new message", newMessageReceived);
+		getMsgs();
+		// await fetch("http://localhost:5001/api/v1/discord", {
+		// 	method: "GET",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		authorization: `Bearer ${getCookies("jwt")}`,
+		// 	},
+		// })
+		// 	.then((response) => {
+		// 		if (!response.ok) {
+		// 			throw new Error("Network response was not ok");
+		// 		}
+		// 		return response.json();
+		// 	})
+		// 	.then((data) => {
+		// 		newMessageReceived.chat = data;
+		// 		console.log("after everything", newMessageReceived);
+		// 		// setUsersChats([...usersChats, newMessageReceived]);
+		// 		getMsgs();
+		// 		const socket = io("http://localhost:5001");
+		// 		socket.emit("new message", newMessageReceived);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error(
+		// 			"There was a problem with the fetch operation:",
+		// 			error
+		// 		);
+		// 	});
+	};
 	const submitForm = async () => {
 		await fetch("http://localhost:5001/api/v1/discord/sendMessage", {
 			method: "POST",
@@ -69,7 +133,8 @@ function PeerconnectChat() {
 			})
 			.then((data) => {
 				console.log(data);
-				getMsgs();
+				// getMsgs();
+				handleNewMessage(data);
 			})
 			.catch((error) => {
 				console.error(
@@ -95,39 +160,16 @@ function PeerconnectChat() {
 		setMessage(message + emoji);
 	};
 
-	const getInfo = async (index) => {
-		const user = await getUser(usersChats[index].sender);
-		const usname = user.name;
-		const img = user.pic;
-		const time = usersChats[index].createdAt;
-		return { usname, img, time };
-	};
-
 	const chat = (index) => {
-		// const { usname, img, time } = getInfo(index);
-		// const usname = "User";
-		// const img = "https://via.placeholder.com/150";
-		// const time = "time";
-        console.log(usersChats[index]);
-		return (
-			<div className={"bot-message---"}>
-				<div className="bot-icon-container">
-					<img
-						src={"https://via.placeholder.com/150"}
-						alt="bot-icon"
-						className="bot-icon--"
-					/>
-				</div>
-
-				<div className="bot-message message-txt--">
-					<div className="message-details">
-						<div className="message-details-name">{usersChats[index].sender.name}</div>
-						<div className="message-details-time">{usersChats[index].createdAt}</div>
-					</div>
-					<p className="msg">{usersChats[index].content}</p>
-				</div>
-			</div>
-		);
+		const chatMsg = usersChats[index];
+		const sender = chatMsg.sender;
+		if (sender._id === JSON.parse(user.user)._id) {
+			// console.log("sender", sender, "user", JSON.parse(user.user)._id);
+			return <ChatMsg key={index} chatMsg={chatMsg} position="right" />;
+		} else {
+			// console.log("sender", sender, "user", user.user);
+			return <ChatMsg key={index} chatMsg={chatMsg} position="left" />;
+		}
 	};
 
 	const chats = () => {
@@ -139,8 +181,7 @@ function PeerconnectChat() {
 	};
 
 	return (
-		<div className="chat-bot-wrapper">
-			<Navbar />
+		<>
 			{pickerVisible && (
 				<div className="emoji-picker-dialog">
 					<Picker data={data} onEmojiSelect={addEmoji} />
@@ -177,7 +218,7 @@ function PeerconnectChat() {
 					<FontAwesomeIcon icon={faArrowRight} />
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 
