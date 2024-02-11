@@ -2,6 +2,7 @@ import { User } from "../models/userModel.js";
 import { Lawyer } from "../models/lawyerModel.js";
 import { Request } from "../models/requestModel.js";
 import mongoose from "mongoose";
+import { accessChat } from "./chatController.js";
 export const createRequest = async (req, res) => {
 	const { userId, lawyerId, requestType } = req.body;
 	try {
@@ -12,7 +13,7 @@ export const createRequest = async (req, res) => {
 		}
 
 		const userObject = await User.findById(userId);
-		const lawyerObject = await Lawyer.findById(lawyerId);
+		const lawyerObject = await User.findById(lawyerId);
 		console.log("User Object:", userObject);
 		console.log("Lawyer Object:", lawyerObject);
 		if (!lawyerObject) {
@@ -124,10 +125,10 @@ export const getLawyerRequests = async (req, res) => {
 };
 
 export const acceptRequest = async (req, res) => {
-	console.log("accp req", req.params);
-	console.log("hellll");
+	// console.log("accp req", req.params);
+	// console.log("hellll");
 	try {
-		console.log("accp req", req.params);
+		// console.log("accp req", req.params);
 		const requestId = req.params.requestId;
 		const updatedRequest = await Request.findByIdAndUpdate(
 			requestId,
@@ -135,7 +136,10 @@ export const acceptRequest = async (req, res) => {
 			{ new: true }
 		);
 		console.log(updatedRequest);
+		// req.userId = updatedRequest.lawyer_id;
+		accessChat(req.user._id, updatedRequest.user_id);
 		res.status(200).json(updatedRequest);
+
 	} catch (error) {
 		console.error("Error accepting request:", error);
 		res.status(500).json({ message: "Internal server error" });

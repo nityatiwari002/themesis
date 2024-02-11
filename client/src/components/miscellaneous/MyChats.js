@@ -109,7 +109,7 @@ const MyChats = ({ fetchAgain }) => {
                       selectedChat={selectedChat}
                     />
                   ) : (
-                    <></>
+                    <> </>
                   )
                   // <div
                   //   className="p-2"
@@ -121,7 +121,8 @@ const MyChats = ({ fetchAgain }) => {
                 )}
               </Stack>
             ) : (
-              <ChatLoading />
+              // <ChatLoading />
+              <div style ={{backgroundColor : "rgba(63, 61, 61, 0.8)", padding: "1rem", display : "flex", justifyContent: "center", alignContent: "center", borderRadius : "1rem"}}>Oops!! No conversations to show..Do send connection requests to lawyers to start chatting.</div>
             )}
           </Col>
         </Row>

@@ -3,6 +3,7 @@ import Image from "react-bootstrap/Image";
 import { AuthData } from "../../services/AuthService";
 import { useState } from "react";
 import "../../styles/UserStackItem.css";
+import { getSender } from "../../services/ChatLogics";
 
 const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
   const { user } = AuthData();
@@ -20,7 +21,7 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
             return `${Math.floor(temp)} m`;
          }
          else{
-            return `${Math.floor(temp) * 60} s`;
+            return `${Math.floor(temp) * 60}s`;
          }
     }
 
@@ -51,18 +52,21 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
         <div>
           <Image
             style={{ height: "2.5rem", width: "2.5rem" }}
+            // src = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+            // src = {getSender(JSON.parse(user.user).name, selectedChat.users).image}
             src={
-              chat.users[1].image ===
+              getSender(JSON.parse(user.user).name, chat.users).image ===
               "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                ? chat.users[1].image
-                : `http://localhost:5001/uploads/${chat.users[1].image}`
+                ? getSender(JSON.parse(user.user).name, chat.users).image
+                : `http://localhost:5001/uploads/${getSender(JSON.parse(user.user).name, chat.users).image}`
             }
+            // src = {imageSrc(getSender(JSON.parse(user.user).name, selectedChat.users).image)}
             roundedCircle
           />
         </div>
       </div>
       <div style={{ flex: 3 }}>
-        <div style={{ color: "white" }}>{chat.users[1].username}</div>
+        <div style={{ color: "white" }}>{getSender(JSON.parse(user.user).name, chat.users).username}</div>
         <div
           style={{
             color: "white",
@@ -71,7 +75,7 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
             overflowY: "hidden",
           }}
         >
-          {chat.latestMessage.content}...
+          {chat.latestMessage ? chat.latestMessage.content : " "}
         </div>
       </div>
       <div
@@ -80,7 +84,7 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
           alignItems: "flex-start",
           justifyContent: "flex-end",
           marginLeft: "4rem",
-          flex: 1,
+          flex: 2,
         }}
       >
         {handleTime(chat)}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AuthData } from "../../services/AuthService";
 import "../../styles/RequestsPage.css";
 import { getUser } from "../../utilities/getUser";
+import getCookies from "../../hooks/getCookies";
 
 function RequestsPage() {
 	const [searchInput, setSearchInput] = useState("");
@@ -101,6 +102,7 @@ function RequestsPage() {
 			{
 				method: "PATCH",
 				headers: {
+					authorization: `Bearer ${getCookies("jwt")}`,
 					"Content-Type": "application/json",
 				},
 			}

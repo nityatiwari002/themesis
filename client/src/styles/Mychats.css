@@ -3,8 +3,9 @@
 }
 
 .mainMyChats{
-    height : 100%;
-    overflow-y : auto;
+    height : 90vh;
+    overflow-y :  scroll;
+    /* color : rgb(245, 203, 141); */
 }
 
 .mainMyChats::-webkit-scrollbar{

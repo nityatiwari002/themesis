@@ -1,37 +1,43 @@
 import { Chat } from "./../models/chatModel.js";
 import asyncHandler from "express-async-handler";
 import { User } from "../models/userModel.js";
+import { Lawyer } from "../models/lawyerModel.js";
 
-export const accessChat = asyncHandler(async (req, res) => {
-	const { userId } = req.body;
+export const accessChat = asyncHandler(async (lawyerid, userid) => {
+	// const { userId } = req.body;
 
-	if (!userId) {
+	if (!userid) {
 		console.log("userId Param not sent with request!!");
 		return res.statusCode(400);
 	}
 
+
 	var isChat = await Chat.find({
 		isGroupChat: false,
 		$and: [
-			{ users: { $elemMatch: { $eq: req.user._id } } },
-			{ users: { $elemMatch: { $eq: userId } } },
+			{ users : { $elemMatch: { $eq: userid } } },
+			{ users : { $elemMatch: { $eq: lawyerid } } },
 		],
 	})
 		.populate("users", "-password")
 		.populate("latestMessage");
 
-	isChat = User.populate(isChat, {
-		path: "latestMessage.sender",
-		select: "name image email",
-	});
+		
+		isChat = await User.populate(isChat, {
+			path: "latestMessage.sender",
+			select: "name image email",
+		});
+		
 
 	if (isChat.length > 0) {
-		res.send(isChat[0]);
-	} else {
+		// console.log(isChat[0]);
+	} 
+	
+	else {
 		var chatData = {
 			chatName: "sender",
 			isGroupChat: false,
-			users: [req.user._id, userId],
+			users: [userid, lawyerid],
 		};
 
 		try {
@@ -41,17 +47,18 @@ export const accessChat = asyncHandler(async (req, res) => {
 				_id: createdChat._id,
 			}).populate("users", "-password");
 
-			res.status(200).json(FullChat);
+			// res.status(200).json(FullChat);
 		} catch (err) {
-			res.status(400);
+			// res.status(400);
 			console.log("Error", err);
 		}
 	}
 });
 
+
 export const fetchChats = asyncHandler(async (req, res) => {
 	try {
-		const user = Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+		let user = await Chat.find({ users : { $elemMatch: { $eq: req.user._id } } })
 			.populate("users", "-password")
 			.populate("groupAdmin", "-password")
 			.populate("latestMessage")
@@ -64,6 +71,7 @@ export const fetchChats = asyncHandler(async (req, res) => {
 
 				res.status(200).send(results);
 			});
+
 	} catch (err) {
 		res.status(400);
 		console.log("Error", err);

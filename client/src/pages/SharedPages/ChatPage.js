@@ -43,7 +43,7 @@ function ChatPage() {
             {" "}
               {user.isAuthenticated && <MyChats fetchAgain={fetchAgain} />}
           </Col>
-          <Col style={{ width: "100%", height: "100vh", flex : 5, backgroundColor:"black" }}>
+          <Col style={{ width: "100%", height: "100vh", flex : 5, backgroundColor:"black", borderRadius : "1rem" }}>
             {" "}
             {user.isAuthenticated && (
               <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
