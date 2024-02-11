@@ -1,11 +1,12 @@
 import React from 'react'
 import { AuthData } from '../../services/AuthService';
 import SingleChat from '../SingleChat';
+import "./../../styles/ChatBox.css";
 
 const ChatBox = ({fetchAgain, setFetchAgain}) => {
   const {selectedChat} = AuthData();
   return (
-    <div className = "bg-secondary">
+    <div className = "chatbox">
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
     </div>
   )

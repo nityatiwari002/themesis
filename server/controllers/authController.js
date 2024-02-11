@@ -46,25 +46,15 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 export const signup = catchAsync(async (req, res, next) => {
-  if(req.body.role === 'user'){
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password,
-    username: req.body.username,
-    passwordConfirm: req.body.passwordConfirm
-  });
-}
-else{
-  const newLawyer = await Lawyer.create({
-    name: req.body.name,
-    email: req.body.email,
+    role : req.body.role,
     password: req.body.password,
     username: req.body.username,
     passwordConfirm: req.body.passwordConfirm
   });
 
-}
 
   res.status(201).json({
     status : 'success'
@@ -84,12 +74,7 @@ export const login = catchAsync(async (req, res, next) => {
      user = await User.findOne({username : email}).select('+password');
   }
 
-  if(!user){
-    user = await Lawyer.findOne({ email }).select('+password');
-    if(!user){
-       user = await Lawyer.findOne({username : email}).select('+password');
-    }
-  }
+
 
 
 
@@ -141,9 +126,6 @@ export const protect = catchAsync(async (req, res, next) => {
   // 3) Check if user still exists
   let currentUser = await User.findById(decoded.id);
 
-  if(!currentUser){
-       currentUser = await Lawyer.findById(decoded.id);
-  }
 
   if (!currentUser) {
     res.status(401).json({
@@ -221,13 +203,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   let user = await User.findOne({ email: req.body.email });
   if (!user) {
     user = await User.findOne({username : req.body.email});
-    if(!user){
-      user = await Lawyer.findOne({email : req.body.email});
-    }
-
-    if(!user){
-      user = await Lawyer.findOne({username : req.body.email});
-    }
+ 
 
     if(!user){
     return next(new AppError('There is no user with email address.', 404));
@@ -281,12 +257,6 @@ export const resetPasswordGet = catchAsync(async (req, res, next) => {
     PasswordResetTokenExpires: { $gt: Date.now() }
   });
 
-  if(!user){
-    user = await Lawyer.findOne({
-      passwordResetToken: hashedToken,
-      PasswordResetTokenExpires: { $gt: Date.now() }
-    });
-  }
 
 
 

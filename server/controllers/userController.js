@@ -28,7 +28,6 @@ export const getUser = async (req, res, next) => {
 
 //api/v1/users?search=shreya
 export const getAllUsers = async (req, res, next) => {
-  console.log("kuch toh");
   const keyword = req.query.search
     ? {
         $or: [
@@ -47,16 +46,20 @@ export const getAllUsers = async (req, res, next) => {
 
 //api/v1/lawyers?search=shreya
 export const getAllLawyers = async (req, res, next) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
-      }
-    : {};
+  const lawyers = await User.find({role : "lawyer"});
+  // const keyword = req.query.search
+  //   ? {
+  //     $and: [
+  //       {$or: [
+  //         { name: { $regex: req.query.search, $options: "i" } },
+  //         { email: { $regex: req.query.search, $options: "i" } }
+  //       ]},
+  //       {role : "lawyer"}
+  //     ]
+  //     }
+  //   : { };
 
-  const lawyers = await Lawyer.find(keyword);
+  // const lawyers = await User.find(keyword);
   res.send(lawyers);
 };
 
