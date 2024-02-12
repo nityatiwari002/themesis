@@ -5,7 +5,7 @@ import { useState } from "react";
 import "../../styles/UserStackItem.css";
 import { getSender } from "../../services/ChatLogics";
 
-const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
+const GroupStackItem = ({ setSelectedChat, chat, selectedChat }) => {
   const { user } = AuthData();
   console.log("chat", chat);
 
@@ -30,8 +30,6 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
     }
  
     return total < 1 ? "now" : Math.floor(total); 
-    // return (date.toLocaleString('en-GB', {day:'numeric', month: 'long',  year:'numeric'}));
-
   };
 
   return (
@@ -52,21 +50,13 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
         <div>
           <Image
             style={{ height: "2.5rem", width: "2.5rem" }}
-            // src = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-            // src = {getSender(JSON.parse(user.user).name, selectedChat.users).image}
-            src={
-              getSender(JSON.parse(user.user).name, chat.users).image ===
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                ? getSender(JSON.parse(user.user).name, chat.users).image
-                : `http://localhost:5001/uploads/${getSender(JSON.parse(user.user).name, chat.users).image}`
-            }
-            // src = {imageSrc(getSender(JSON.parse(user.user).name, selectedChat.users).image)}
+            src = "https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-group-icon-png-image_1796653.jpg"
             roundedCircle
           />
         </div>
       </div>
       <div style={{ flex: 3 }}>
-        <div style={{fontSize : "1rem", color : "#eec7a0", fontWeight: "550" }}>{getSender(JSON.parse(user.user).name, chat.users).username}</div>
+        <div style={{fontSize : "1rem", color : "#eec7a0", fontWeight: "550" }}>{chat.chatName}</div>
         <div
           style={{
             color: "white",
@@ -93,4 +83,4 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
   );
 };
 
-export default UserStackItem;
+export default GroupStackItem;

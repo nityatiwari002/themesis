@@ -104,14 +104,14 @@ const GroupChatModel = ({children}) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Group Chat</Modal.Title>
+          <Modal.Title>Create Chat Room</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Chat Name</Form.Label>
+              <Form.Label>Room Name</Form.Label>
               <Form.Control
-                placeholder="Chat Name"
+                placeholder="Room name"
                 autoFocus
                 onChange = {(e) => setGroupChatName(e.target.value)}
               />

@@ -23,10 +23,10 @@ const ScrollableChat = ({ messages }) => {
                   <Image
                     style={{ height: "2.5rem", width: "2.5rem" }}
                     src={
-                      selectedChat.users[1].image ===
+                      m.sender.image ===
                       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                        ? selectedChat.users[1].image
-                        : `http://localhost:5001/uploads/${selectedChat.users[1].image}`
+                        ? m.sender.image
+                        : `http://localhost:5001/uploads/${m.sender.image}`
                     }
                     roundedCircle
                   />

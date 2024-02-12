@@ -13,13 +13,17 @@ import UserListItem from '../userAvator/UserListItem';
 import { AuthData } from '../../services/AuthService';
 import getCookies from '../../hooks/getCookies';
 import Spinner from 'react-bootstrap/Spinner';
+import "../../styles/SideDrawer.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+
 
 
 
 const SideDrawer = () => {
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
     const [search, setSearch] = useState("");
-    const handleClose = () => setShow(false);
+    // const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [loading, setLoading] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
@@ -75,13 +79,19 @@ const SideDrawer = () => {
              alert("Error loading the chats!!");
              console.log("Error", err);
         }
-    }  
+    }
+    
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const toggleShow = () => setShow((s) => !s);
+
     return (
       <>
-        <Button style={{width: "50%", height : "80%"}} variant="info"  onClick={handleShow}>
-        <i class="bi bi-search"></i> Search Users
-        </Button>
-  
+        <div className = "SidedrawerButton" onClick={handleShow}>
+        <FontAwesomeIcon icon={faMagnifyingGlass} /> <div style ={{marginLeft : "0.6rem"}}>Search Rooms</div>
+        </div>
+
         <Offcanvas show={show} onHide={handleClose} className="mb-0">
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Search Users</Offcanvas.Title>
@@ -104,12 +114,14 @@ const SideDrawer = () => {
             )
           )}
 
-          {chatLoading &&  <Spinner animation="border" role="status">
+           {chatLoading &&  <Spinner animation="border" role="status">
       <span className="visually-hidden">Loading...</span>
-    </Spinner>}
+    </Spinner>} 
         </Offcanvas>
       </>
     );
 }
 
 export default SideDrawer
+
+

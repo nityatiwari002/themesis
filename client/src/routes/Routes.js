@@ -40,6 +40,7 @@ import {
 	faUser,
 	faUnlockKeyhole,
 	faFilePen,
+	faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 
@@ -247,6 +248,7 @@ const routes = [
 		isPrivate: true,
 		isMenuLawyer: true,
 		isMenuUser: true,
+		icon: <FontAwesomeIcon icon={faMessage} />,
 	},
 	// {
 	// 	path: "/me",
