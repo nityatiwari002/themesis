@@ -127,10 +127,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         <>
           <div className = "chat_user">
           <div className= "imageHolder">
+          {!selectedChat.isGroupChat ? 
           <Image
             style={{ height: "2.5rem", width: "2.5rem" }}
             // src= "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-            src = {getSender(JSON.parse(user.user).name,selectedChat.users).image}
+            // src = {getSender(JSON.parse(user.user).name,selectedChat.users).image}
             src = 
             {
               selectedChat ? 
@@ -143,18 +144,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
             }
             roundedCircle
-          />
+          /> :  <Image
+          style={{ height: "2.5rem", width: "2.5rem" }}
+          src= "https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-group-icon-png-image_1796653.jpg"
+          roundedCircle
+        /> }
         </div>            
         <div className = "username">
             {selectedChat ? (
-              <>{getSender(JSON.parse(user.user).name,selectedChat.users).name}</>
+              <>{!selectedChat.isGroupChat ? getSender(JSON.parse(user.user).name,selectedChat.users).name : selectedChat.chatName}</>
             ) : (
               "Select a chat"
             )}
             </div>
           </div>
           <div>
-            {/* {" "} */}
             {loading ? (
               <Spinner
                 className="mx-auto mb-9
@@ -183,8 +187,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           </div>
         </>
       ) : (
-        <div style ={{display : "flex", padding : "2rem", justifyContent: "center", alignItems: "center"}}>Welcome Themesian....Select an User to Start Chatting!!</div>
-      )}
+        <div style ={{display : "flex", padding : "2rem", justifyContent: "center", alignItems: "center"}}>Welcome Themesian....Select a Chat to start the Conversation!!</div>)
+}
     </>
   );
 };
