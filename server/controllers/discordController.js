@@ -87,6 +87,7 @@ export const sendMessage = asyncHandler(async (req, res) => {
 
 export const getDiscord = async (req, res) => {
 	try{
+		console.log("getDiscord");
 		const chatId = process.env.discordChatId;
 		const chat = await Chat.findById(chatId)
 			.populate("users", "-populate")

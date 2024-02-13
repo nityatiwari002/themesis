@@ -24,4 +24,4 @@ function DashboardLawyer() {
 	);
 }
 
-export default App;
+export default DashboardLawyer;

@@ -14,11 +14,10 @@ import io from "socket.io-client";
 import ChatMsg from "../../components/Discord/ChatMsg";
 import fetchDiscord from "../../components/Discord/getDiscord";
 
-
 function PeerconnectChat() {
 	const dummy = useRef(null);
 	const { user } = AuthData();
-
+	const [discordChat, setDiscordChat] = useState(null);
 	const [message, setMessage] = useState("");
 	const [pickerVisible, setPickerVisible] = useState(false);
 	const [usersChats, setUsersChats] = useState([]);
@@ -51,6 +50,10 @@ function PeerconnectChat() {
 			});
 	};
 	useEffect(() => {
+		fetchDiscord().then((data) => {
+			console.log("data", data);
+			setDiscordChat(data);
+		});
 		getMsgs();
 	}, []);
 	var socket;
@@ -60,7 +63,7 @@ function PeerconnectChat() {
 			_id: JSON.parse(user.user)._id,
 		});
 		socket.emit("join discord");
-		socket.on("Message Received", (newmsgRec) =>
+		socket.on("message received", (newmsgRec) =>
 			handleNewMessageReceived(newmsgRec)
 		);
 		return () => {
@@ -76,7 +79,6 @@ function PeerconnectChat() {
 				getMsgs();
 			});
 	};
-	
 
 	const handleNewMessage = async (newMessageReceived) => {
 		console.log("Message Received");
