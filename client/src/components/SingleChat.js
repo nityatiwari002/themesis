@@ -131,7 +131,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           <Image
             style={{ height: "2.5rem", width: "2.5rem" }}
             // src= "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-            // src = {getSender(JSON.parse(user.user).name,selectedChat.users).image}
             src = 
             {
               selectedChat ? 
