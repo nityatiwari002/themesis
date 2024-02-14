@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 function RotatingScales() {
-	const [data, setData] = useState("");
 	const [mount, setMount] = useState(useRef(null));
 	useLayoutEffect(() => {
 		const width = window.innerWidth;

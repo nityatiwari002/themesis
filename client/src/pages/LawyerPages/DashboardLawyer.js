@@ -1,6 +1,9 @@
+import ImageSlider from "../../components/Dashboard/ImageSlider.js";
 import Navbar from "../../components/Navbar.js";
 import RotatingScales from "../../components/RotatingScales.js";
+import { AuthData } from "../../services/AuthService.js";
 function DashboardLawyer() {
+	const { user } = AuthData();
 	return (
 		<>
 			<Navbar />
@@ -10,15 +13,26 @@ function DashboardLawyer() {
 				style={{
 					position: "relative",
 					display: "flex",
-					justifyContent: "center",
+					flexDirection: "column",
+					// justifyContent: "center",
 					alignItems: "center",
 					height: "90vh",
-					width: "100vw",
-
+					width: "100%",
+					overflow: "scroll",
+					scrollBehavior: "smooth",
+					// backgroundColor: "white",
 					// zIndex: "10",
 				}}
 			>
-				<h1>Ahhhh</h1>
+				<h1>Welcome {JSON.parse(user.user).name}!! 👋🏻</h1>
+				<ImageSlider />
+				<h2>ijsdncsd</h2>
+				<h2>ijsdncsd</h2>
+				<h2>ijsdncsd</h2>
+				<h2>ijsdncsd</h2>
+				<h2>ijsdncsd</h2>
+				<h2>ijsdncsd</h2>
+				<h2>ijsdncsd</h2>
 			</div>
 		</>
 	);

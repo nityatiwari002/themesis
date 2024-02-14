@@ -87,33 +87,6 @@ function PeerconnectChat() {
 		const socket = io("http://localhost:5001");
 		socket.emit("new message", newMessageReceived);
 		getMsgs();
-		// await fetch("http://localhost:5001/api/v1/discord", {
-		// 	method: "GET",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		authorization: `Bearer ${getCookies("jwt")}`,
-		// 	},
-		// })
-		// 	.then((response) => {
-		// 		if (!response.ok) {
-		// 			throw new Error("Network response was not ok");
-		// 		}
-		// 		return response.json();
-		// 	})
-		// 	.then((data) => {
-		// 		newMessageReceived.chat = data;
-		// 		console.log("after everything", newMessageReceived);
-		// 		// setUsersChats([...usersChats, newMessageReceived]);
-		// 		getMsgs();
-		// 		const socket = io("http://localhost:5001");
-		// 		socket.emit("new message", newMessageReceived);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.error(
-		// 			"There was a problem with the fetch operation:",
-		// 			error
-		// 		);
-		// 	});
 	};
 	const submitForm = async () => {
 		await fetch("http://localhost:5001/api/v1/discord/sendMessage", {
@@ -135,7 +108,6 @@ function PeerconnectChat() {
 			})
 			.then((data) => {
 				console.log(data);
-				// getMsgs();
 				handleNewMessage(data);
 			})
 			.catch((error) => {
@@ -144,7 +116,6 @@ function PeerconnectChat() {
 					error
 				);
 			});
-
 		setMessage("");
 	};
 

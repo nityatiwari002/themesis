@@ -2,6 +2,7 @@ import React from "react";
 
 function ChatMsg(props) {
 	const { chatMsg, position } = props;
+	console.log(chatMsg.sender.image);
 	if (position === "left") {
 		return (
 			<div className="chat-container-left">
