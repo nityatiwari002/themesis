@@ -287,7 +287,7 @@ export const AuthWrapper = () => {
         }}
       >
         <div className="outer-container">
-          <Sidebar />
+          {window.location.pathname !== "/Video_Room" ? <Sidebar /> : <></>}
           <div className="right-container">
             {/* <Navbar /> */}
             <RenderRoutes />

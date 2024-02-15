@@ -1,6 +1,6 @@
 import express from 'express';
 import { protect } from '../controllers/authController.js';
-import { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup } from '../controllers/chatController.js';
+import { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup, deleteGroup } from '../controllers/chatController.js';
 
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.route("/group").post(protect, createGroupChat);
 router.route("/rename").put(protect, renameGroup);
 router.route("/groupremove").put(protect, removeFromGroup);
 router.route("/groupadd").put(protect, addToGroup);
+router.route("/deleteGroup/:id").delete(protect, deleteGroup);
 
 export default router;

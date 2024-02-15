@@ -43,6 +43,7 @@ import {
 	faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
+import VideoConference from "../pages/VideoConferencing.js";
 
 const routes = [
 	{
@@ -55,6 +56,16 @@ const routes = [
 		isMenuProfile: true,
 		isMenuUser: false,
 		icon: <FontAwesomeIcon icon={faUser} />,
+	},
+	{
+		path: "/Video_Room",
+		component: <VideoConference />,
+		name: "Video Call",
+		isPrivate: true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: true,
+		isMenuUser: false,
 	},
 	{
 		path: "/dashboard",
