@@ -6,6 +6,7 @@ import routes from "../routes/Routes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import ProfileSidebar from "./ProfileSidebar";
+import RotatingScales from "./RotatingScales";
 
 function Sidebar() {
 	const { showSidebar } = AuthData();
@@ -14,6 +15,7 @@ function Sidebar() {
 	return (
 		<div className="side-bar-parent">
 			<div className={`side-bar ${showSidebar ? "open" : "close"}`}>
+				{/* <RotatingScales /> */}
 				{showSidebar && (
 					<>
 						<ul>
@@ -45,7 +47,10 @@ function Sidebar() {
 								} else if (user.isAuthenticated) {
 									// if(true){
 
-									if (JSON.parse(user.user).role === "user" && route.path !== '/me') {
+									if (
+										JSON.parse(user.user).role === "user" &&
+										route.path !== "/me"
+									) {
 										if (
 											user.isAuthenticated &&
 											route.isPrivate &&
@@ -75,7 +80,9 @@ function Sidebar() {
 										}
 									}
 									// JSON.parse(user.user).role.role == "lawyer"
-									if (JSON.parse(user.user).role === "lawyer") {
+									if (
+										JSON.parse(user.user).role === "lawyer"
+									) {
 										// if(true){
 										if (
 											user.isAuthenticated &&

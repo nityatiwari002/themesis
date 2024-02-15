@@ -42,7 +42,7 @@ function RequestsPage() {
 	useEffect(() => {
 		getAllRequests();
 	}, []);
-	
+
 	const [chatRequests, setChatRequests] = useState([]);
 	const getTypeRequests = async (type) => {
 		let typeReq = [];
@@ -257,9 +257,16 @@ function RequestsPage() {
 					{numRequests === -1 && (
 						<div className="Loading-container">Loading...</div>
 					)}
-					{renderComponent(chatRequests, "Chat Requests", false)}
-					{renderComponent(hireRequests, "Hire Requests", false)}
-					{renderComponent(deletedRequests, "Rejected Requests", true)}
+					{numRequests !== -1 &&
+						renderComponent(chatRequests, "Chat Requests", false)}
+					{numRequests !== -1 &&
+						renderComponent(hireRequests, "Hire Requests", false)}
+					{numRequests !== -1 &&
+						renderComponent(
+							deletedRequests,
+							"Rejected Requests",
+							true
+						)}
 				</div>
 			</div>
 		</>
