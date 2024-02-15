@@ -114,7 +114,7 @@ const MyGroupChats = ({ fetchAgain }) => {
               <Stack direction="vertical" gap={3}>
                 {chats.map(
                   (chat) =>
-                    chat.isGroupChat ? (
+                    chat.isGroupChat && chat.chatName !== "discord" ? (
                
                       <GroupStackItem
                         key={chat._id}

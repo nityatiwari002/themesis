@@ -47,19 +47,6 @@ export const getAllUsers = async (req, res, next) => {
 //api/v1/lawyers?search=shreya
 export const getAllLawyers = async (req, res, next) => {
   const lawyers = await User.find({role : "lawyer"});
-  // const keyword = req.query.search
-  //   ? {
-  //     $and: [
-  //       {$or: [
-  //         { name: { $regex: req.query.search, $options: "i" } },
-  //         { email: { $regex: req.query.search, $options: "i" } }
-  //       ]},
-  //       {role : "lawyer"}
-  //     ]
-  //     }
-  //   : { };
-
-  // const lawyers = await User.find(keyword);
   res.send(lawyers);
 };
 

@@ -176,3 +176,20 @@ export const removeFromGroup = asyncHandler(async (req, res) => {
 	}
 });
 
+export const deleteGroup = asyncHandler(async(req, res) => {
+	const chatId = req.params.id;
+	if(!chatId){
+		res.send("Please do select the chat to delete!!");
+	}
+
+	const chat = await Chat.findByIdAndDelete(chatId);
+
+	if(!chat){
+		res.send("No Chat with this id is found!!");
+	}
+
+	res.status(204).json({
+		status : 'success',
+	})
+})
+
