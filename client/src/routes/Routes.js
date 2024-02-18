@@ -64,7 +64,7 @@ const routes = [
 		isPrivate: true,
 		isUtility: false,
 		isMenuLawyer: false,
-		isMenuProfile: true,
+		isMenuProfile: false,
 		isMenuUser: false,
 	},
 	{

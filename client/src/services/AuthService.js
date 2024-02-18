@@ -8,6 +8,7 @@ import getCookies from "../hooks/getCookies";
 import removeCookies from "../hooks/removeCookies";
 import Sidebar from "../components/Sidebar";
 import ProfileSidebar from "../components/ProfileSidebar";
+import DashboardLawyer from "../pages/LawyerPages/DashboardLawyer";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
@@ -17,6 +18,7 @@ export const AuthWrapper = () => {
   const navigate = useNavigate();
   let role = "user";
   const [isProtected, setProtected] = useState(false);
+
 
   async function checkProtected() {
     let userData = {
@@ -39,6 +41,7 @@ export const AuthWrapper = () => {
         }
       });
   }
+
 
   const [user, setUser] = useState({
     user: localStorage.getItem("userInfo"),

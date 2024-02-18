@@ -191,5 +191,11 @@ export const deleteGroup = asyncHandler(async(req, res) => {
 	res.status(204).json({
 		status : 'success',
 	})
-})
+});
+
+
+export const getChats = async (req, res) => {
+	const chats = await Chat.findById(req.params.id);
+	res.send(chats);
+  }
 
