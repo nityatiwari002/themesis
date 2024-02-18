@@ -1,4 +1,4 @@
-import Dashboard from "../pages/UserPages/Dashboard.js";
+import DashboardUser from "../pages/UserPages/DashboardUser.js";
 import DashboardLawyer from "../pages/LawyerPages/DashboardLawyer";
 import Logout from "../services/Logout";
 import Pastcases from "../pages/SharedPages/Pastcases.js";
@@ -69,7 +69,7 @@ const routes = [
 	},
 	{
 		path: "/dashboard",
-		component: <Dashboard />,
+		component: <DashboardUser />,
 		name: "Dashboard",
 		isPrivate: true,
 		isMenuUser: true,
