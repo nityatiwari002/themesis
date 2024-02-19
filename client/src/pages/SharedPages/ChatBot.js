@@ -6,12 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile } from "@fortawesome/free-regular-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import botChats from "../../utilities/BotChats";
-import MarkdownIt from "markdown-it";
+// import MarkdownIt from "markdown-it";
 import Navbar from "../../components/Navbar";
+// import img from "../../assets/bot-icon.svg";
 // import Markdown from "markdown-to-jsx";
 import Markdown from "react-markdown";
-const md = new MarkdownIt();
+// import Footer from "../../components/Dashboard/Footer";
+import { AuthData } from "../../services/AuthService";
+// const md = new MarkdownIt();
 function ChatBot() {
+	const { user } = AuthData();
 	const dummy = useRef(null);
 	const [message, setMessage] = useState("");
 	const [isInputDisabled, setIsInputDisabled] = useState(false);
@@ -19,12 +23,13 @@ function ChatBot() {
 	useEffect(() => {
 		dummy.current.scrollIntoView({ behavior: "smooth" });
 	}, [botChats, message]);
-
+	const [loading, setLoading] = useState(false);
 	async function submitForm() {
+		setLoading(true);
 		botChats.user.messages.push(message);
 		setIsInputDisabled(true);
 
-		setMessage("...");
+		setMessage("");
 
 		let userMessage = {
 			userInput: message,
@@ -39,13 +44,14 @@ function ChatBot() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				const formattedResponse = md.render(data.response);
-				console.log("response" + data.response);
-				console.log("formattedResponse" + formattedResponse);
+				// const formattedResponse = md.render(data.response);
+				// console.log("response" + data.response);
+
+				// console.log("formattedResponse" + formattedResponse);
 				botChats.bot.messages.push(data.response);
 				// botChats.bot.messages.push(data.response);
 			});
-
+		setLoading(false);
 		setMessage("");
 		setIsInputDisabled(false);
 	}
@@ -65,11 +71,12 @@ function ChatBot() {
 		setMessage(message + emoji);
 	};
 
-	const renderContent = (index) => {
-		const content = botChats.bot.messages[index];
-		return content;
-	};
+	// const renderContent = (index) => {
+	// 	const content = botChats.bot.messages[index];
+	// 	return content;
+	// };
 	const chat = (entity, index) => {
+		// console.log("eee", botChats[entity]);
 		return (
 			<div>
 				<div className={entity + "-message---"}>
@@ -79,10 +86,18 @@ function ChatBot() {
 						</div>
 					)}
 					<div className="bot-icon-container">
+						{console.log("jspn",JSON.parse(user.user).image)}
 						<img
-							src={botChats[entity].icon}
+							src={
+								entity === "user"
+									? `http://localhost:5001/uploads/${JSON.parse(user.user).image}`
+									: botChats[entity].icon
+							}
 							alt="bot-icon"
 							className="bot-icon--"
+							style={{
+								backgroundColor: "white",
+							}}
 						/>
 					</div>
 					{entity === "bot" && (
@@ -102,13 +117,12 @@ function ChatBot() {
 		for (let i = 0; i < botChats.user.messages.length; i++) {
 			html.push(chat("user", i));
 			html.push(chat("bot", i));
+			// console.log(typingDiv());
 			html.push(<br />);
 			// html.push(<hr/>);
 		}
 		return html;
 	};
-
-	const [landing, setLanding] = useState(true);
 
 	return (
 		<div className="chat-bot-wrapper">
@@ -122,6 +136,13 @@ function ChatBot() {
 				<div className="bot-message-container">
 					{chats()}
 					<div ref={dummy} />
+					{loading && (
+						<div className="typing-indicator">
+							<span className="typing-dot"></span>
+							<span className="typing-dot"></span>
+							<span className="typing-dot"></span>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="chat-text-box">

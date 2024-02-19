@@ -1,12 +1,12 @@
 import React from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 
-function dashboardLawyer() {
+function DashboardUser() {
 	return (
 		<>
-			<Dashboard links={true}/>
+			<Dashboard links={true} />
 		</>
 	);
 }
 
-export default dashboardLawyer;
+export default DashboardUser;

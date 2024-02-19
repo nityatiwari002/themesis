@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthData } from "../services/AuthService";
 import routes from "./Routes";
-import Dashboard from "../pages/UserPages/Dashboard";
+import DashboardUser from "../pages/UserPages/DashboardUser";
 import Home from "../pages/Account/Home";
 
 const RenderRoutes = () => {
@@ -13,7 +13,7 @@ const RenderRoutes = () => {
 			<Route
 				index={true}
 				path="/"
-				element={user.isAuthenticated ? <Dashboard /> : <Home />}
+				element={user.isAuthenticated ? <DashboardUser /> : <Home />}
 			/>
 			{routes.map((r, i) => {
 				if (r.isPrivate && user.isAuthenticated) {
