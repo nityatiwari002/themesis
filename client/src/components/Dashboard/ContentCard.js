@@ -15,7 +15,7 @@ function ContentCard(props) {
 		}
 	};
 	const content = props.content;
-	console.log(props.pos);
+	// console.log(props.pos);
 	if (props.pos === 1) {
 		return (
 			<div
@@ -23,6 +23,7 @@ function ContentCard(props) {
 				onClick={() => handleClick(content)}
 			>
 				<div className="content-img">
+					{/* {console.log(content.img)} */}
 					<img src={content.img} alt={content.title} />
 				</div>
 				<div className="content-desc">
@@ -46,6 +47,7 @@ function ContentCard(props) {
 					</div>
 				</div>
 				<div className="content-img">
+					
 					<img src={content.img} alt={content.title} />
 				</div>
 			</div>

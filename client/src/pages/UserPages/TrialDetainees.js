@@ -4,7 +4,7 @@ import TDCard from "../../components/TrialDetainees/TDCard";
 import data from "../../components/TrialDetainees/TrialDetaineesContent.js";
 
 function TrialDetainees() {
-	console.log(data);
+	// console.log(data);
 	return (
 		<>
 			<Navbar />

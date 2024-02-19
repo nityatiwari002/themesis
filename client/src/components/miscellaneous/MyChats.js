@@ -56,6 +56,7 @@ const MyChats = ({ fetchAgain }) => {
         backgroundColor: "black",
         borderRadius: "1rem",
         overflowX: "hidden",
+        height: "100%",
       }}
     >
       <Container className="p-3 mb-2 text-white">

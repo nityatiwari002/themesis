@@ -1,13 +1,18 @@
 import React from "react";
-import ScrollableFeed from "react-scrollable-feed";
-import { isSameSender, isLastMessage, isSameSenderMargin, isSameUser } from "../services/ChatLogics";
+// import ScrollableFeed from "react-scrollable-feed";
+import { isSameSender, isSameSenderMargin, isSameUser } from "../services/ChatLogics";
 import { AuthData } from "../services/AuthService";
 import Image from "react-bootstrap/Image";
 import "../styles/ScrollableChat.css";
+import { useRef, useEffect } from "react";
+
 const ScrollableChat = ({ messages }) => {
 
   const { user, selectedChat } = AuthData();
-
+  const dummy = useRef(null);
+  useEffect(() => {
+    dummy.current.scrollIntoView();
+  }, []);
   return (
     <div className = "messageBox">
       {messages &&
@@ -51,6 +56,8 @@ const ScrollableChat = ({ messages }) => {
             </span>
           </div>
         ))}
+        {/* dummy here */}
+        <div ref={dummy} />
     </div>
   );
 };
