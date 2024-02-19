@@ -1,11 +1,20 @@
-import ImageSlider from "./ImageSlider.js";
+// import ImageSlider from "./ImageSlider.js";
 import Navbar from "../Navbar.js";
-import RotatingScales from "../RotatingScales.js";
+// import RotatingScales from "../RotatingScales.js";
 import { AuthData } from "../../services/AuthService.js";
-import content from "./DashboardContent.js";
+import displaycontent from "./DashboardContent.js";
 import ContentCard from "./ContentCard.js";
-function Dashboard() {
+import Footer from "./Footer.js";
+function Dashboard({ links }) {
 	const { user } = AuthData();
+	const content = displaycontent.filter((cont) => {
+		// console.log(JSON.parse(user.user).role);
+		if (user.isAuthenticated && JSON.parse(user.user).role === "lawyer") {
+			return cont.lawyer;
+		} else {
+			return cont.user;
+		}
+	});
 	return (
 		<>
 			<Navbar home={true} />
@@ -34,9 +43,11 @@ function Dashboard() {
 							pos={index % 2}
 							key={index}
 							index={index}
+							links={links}
 						/>
 					);
 				})}
+				<Footer />
 			</div>
 		</>
 	);

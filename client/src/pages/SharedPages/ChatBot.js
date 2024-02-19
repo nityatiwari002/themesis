@@ -10,6 +10,7 @@ import MarkdownIt from "markdown-it";
 import Navbar from "../../components/Navbar";
 // import Markdown from "markdown-to-jsx";
 import Markdown from "react-markdown";
+import Footer from "../../components/Dashboard/Footer";
 const md = new MarkdownIt();
 function ChatBot() {
 	const dummy = useRef(null);

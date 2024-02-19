@@ -1,16 +1,3 @@
-.lawyer-cards {
-    position: relative;
-    background-color: var(--bgtransparentmax);
-    margin: 10px auto;
-    width: auto;
-    border-radius: 10px;
-    padding: 2%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .vid-img {
     min-width: 200px;
     max-width: 200px;
@@ -44,14 +31,8 @@
 }
 
 .port {
-    height: 100vh;
-    /* padding-top : 10rem; */
-    /* width: 80vw auto; */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    overflow-y: scroll;
+    height: 90%;
+    overflow: scroll;
 }
 
 .more {
@@ -61,5 +42,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   
+
 }

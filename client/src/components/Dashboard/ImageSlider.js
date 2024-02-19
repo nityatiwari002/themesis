@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/Dashboard/Slider.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { AuthData } from "../../services/AuthService";
+// import { AuthData } from "../../services/AuthService";
 
 const images = [
 	"https://images.unsplash.com/photo-1642714883398-dc313be9c4c6?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -11,7 +11,7 @@ const images = [
 ];
 
 const ImageSlider = () => {
-	const {user} = AuthData();
+	// const {user} = AuthData();
 	const [index, setIndex] = useState(0);
 	const max = images.length;
 	const nextSlide = () => {
@@ -39,7 +39,7 @@ const ImageSlider = () => {
 				</button>
 			</div>
 			<div className="slider-slide-wrapper">
-				
+
 				<img src={images[index]}></img>
 			</div>
 			<div className="slider-button">

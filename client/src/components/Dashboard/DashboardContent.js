@@ -1,12 +1,30 @@
 import quickFix from "../../assets/quickFix.svg";
+import chatbot from "../../assets/chatbot.svg";
+// import guide from "../../assets/guide.svg";
+import chat from "../../assets/chat.svg";
+import forum from "../../assets/forum.svg";
+import guide from "../../assets/guidetemp.svg";
+import steps from "../../assets/steps.svg";
+import efile from "../../assets/eflie.svg";
+import pastcases from "../../assets/pastcases.svg";
+import findlawyer from "../../assets/findlawyer.svg";
 const content = [
+	{
+		title: "ChatBot",
+		description:
+			"This section allows users to interact with a chatbot that can answer their legal queries and provide them with the necessary information.",
+		img: chatbot,
+		lawyer: true,
+		user: true,
+		path: "/chat-bot",
+	},
 	{
 		title: "Legal Guide",
 		description:
 			"Your comprehensive legal knowledge base. Access articles on family law, business law, and more to navigate legal matters effectively.",
 		lawyer: true,
 		user: true,
-		img: quickFix,
+		img: guide,
 		path: "/guide",
 	},
 	{
@@ -24,7 +42,7 @@ const content = [
 			"Easily find the right lawyer for your needs. Browse our database, filter by practice areas, and connect directly with skilled legal professionals. Whether it's advice or representation, LawyerFinder streamlines communication and the hiring process.",
 		lawyer: false,
 		user: true,
-		img: quickFix,
+		img: findlawyer,
 		path: "/find-lawyer",
 	},
 	{
@@ -33,7 +51,7 @@ const content = [
 			" Your ultimate resource for case preparation. Access detailed guides for approaching lawyers online or offline. From initial consultation to case preparation, CasePrep Pro equips you with the knowledge and tools needed for effective communication. Whether it's personal injury claims, contract disputes, or family law matters, CasePrep Pro ensures you're ready to engage confidently with legal professionals.",
 		lawyer: false,
 		user: true,
-		img: quickFix,
+		img: steps,
 		path: "/prep-and-pitch",
 	},
 	{
@@ -42,7 +60,7 @@ const content = [
 			"Securely file your cases online with ease. Access authorized links for submitting legal documents and initiating proceedings. Whether it's a civil lawsuit, divorce application, or complaint submission, E-FileNow streamlines the process, saving time and ensuring compliance.",
 		lawyer: true,
 		user: true,
-		img: quickFix,
+		img: efile,
 		path: "/efilling",
 	},
 	{
@@ -51,7 +69,7 @@ const content = [
 			"Join a dynamic forum to connect with peers and legal experts. Engage in discussions, seek advice, and share experiences on various legal topics. Whether it's employment law, real estate transactions, or intellectual property rights, LegalConnect fosters a supportive community for sharing insights and seeking support.",
 		lawyer: true,
 		user: true,
-		img: quickFix,
+		img: forum,
 		path: "/peer-connect",
 	},
 	{
@@ -69,7 +87,7 @@ const content = [
 			"Gain valuable insights and precedents from a database of similar legal cases. Strengthen your arguments by exploring past rulings and outcomes, empowering you to build a stronger case, negotiate settlements, or seek legal advice confidently.",
 		lawyer: true,
 		user: true,
-		img: quickFix,
+		img: pastcases,
 		path: "/pastcases",
 	},
 	{
@@ -78,7 +96,7 @@ const content = [
 			"Instantly connect with lawyers for confidential discussions, advice, and updates on your case. Share documents, schedule appointments, and clarify legal matters conveniently through secure messaging channels.",
 		lawyer: true,
 		user: true,
-		img: quickFix,
+		img: chat,
 		path: "/chat",
 	},
 	{
@@ -89,16 +107,6 @@ const content = [
 		lawyer: true,
 		user: false,
 		path: "/requests",
-	},
-
-	{
-		title: "ChatBot",
-		description:
-			"This section allows users to interact with a chatbot that can answer their legal queries and provide them with the necessary information.",
-		img: quickFix,
-		lawyer: true,
-		user: true,
-		path: "/chat-bot",
 	},
 ];
 

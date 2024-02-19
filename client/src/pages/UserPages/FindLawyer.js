@@ -11,6 +11,7 @@ import Navbar from "../../components/Navbar";
 import LawyerDetails from "../../components/LawyerDetails";
 import ProfileImg from "../../components/ProfileImg";
 import "../../styles/RequestsPage.css";
+import Footer from "../../components/Dashboard/Footer";
 // import requests from "../assets/requests";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);

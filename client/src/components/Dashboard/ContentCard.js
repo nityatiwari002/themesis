@@ -1,17 +1,22 @@
 import React from "react";
 import "../../styles/Dashboard/ContentCard.css";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function ContentCard(props) {
+	const navigate = useNavigate();
+	// console.log(props.links);
 	const handleClick = (content) => {
-		console.log(content);
-		if (content.path) {
-			window.location.href = content.path;
+		// console.log(content);
+		if (content.path && props.links) {
+			// window.location.href = content.path;
+			navigate(content.path);
+		} else {
+			alert("Login to access this section");
 		}
 	};
 	const content = props.content;
 	console.log(props.pos);
-	if (props.pos === 0) {
+	if (props.pos === 1) {
 		return (
 			<div
 				className={"content-wrapper wrapper-right"}
@@ -31,7 +36,7 @@ function ContentCard(props) {
 	} else
 		return (
 			<div
-				className={"content-wrapper wrapper-right"}
+				className={"content-wrapper wrapper-left"}
 				onClick={() => handleClick(content)}
 			>
 				<div className="content-desc">

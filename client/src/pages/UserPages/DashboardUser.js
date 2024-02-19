@@ -4,7 +4,7 @@ import Dashboard from "../../components/Dashboard/Dashboard";
 function DashboardUser() {
 	return (
 		<>
-			<Dashboard />
+			<Dashboard links={true} />
 		</>
 	);
 }
