@@ -8,6 +8,8 @@ import getCookies from "../hooks/getCookies";
 import removeCookies from "../hooks/removeCookies";
 import Sidebar from "../components/Sidebar";
 import ProfileSidebar from "../components/ProfileSidebar";
+import DashboardLawyer from "../pages/LawyerPages/DashboardLawyer";
+import LegalGuideSidebar from "../components/LegalGuideSidebar";
 
 const AuthContext = createContext();
 export const AuthData = () => useContext(AuthContext);
@@ -17,6 +19,7 @@ export const AuthWrapper = () => {
   const navigate = useNavigate();
   let role = "user";
   const [isProtected, setProtected] = useState(false);
+
 
   async function checkProtected() {
     let userData = {
@@ -39,6 +42,7 @@ export const AuthWrapper = () => {
         }
       });
   }
+
 
   const [user, setUser] = useState({
     user: localStorage.getItem("userInfo"),
@@ -267,7 +271,42 @@ export const AuthWrapper = () => {
         </div>
       </AuthContext.Provider>
     );
-  } else {
+  }
+
+  if (
+    window.location.pathname === "/guide" || window.location.pathname === `/guide/article/${localStorage.getItem("Index")}` || window.location.pathname === "/guide/article/0"
+  ) {
+    return (
+      <AuthContext.Provider
+        value={{
+          user,
+          login,
+          logout,
+          selectedChat,
+          setSelectedChat,
+          chats,
+          setChats,
+          showSidebar,
+          toggleSidebar,
+          setShowSidebar,
+          updateMe,
+          updatePassword,
+          setUser,
+        }}
+      >
+        <div className="outer-container">
+          <LegalGuideSidebar />
+          <div className="right-container">
+            {/* <Navbar /> */}
+            <RenderRoutes />
+            {user.isAuthenticated && <ChatIcon />}
+          </div>
+        </div>
+      </AuthContext.Provider>
+    );
+  }
+  
+  else {
     return (
       <AuthContext.Provider
         value={{

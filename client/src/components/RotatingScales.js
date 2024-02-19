@@ -62,13 +62,13 @@ function RotatingScales() {
 		<div
 			className="scales-wrapper"
 			style={{
-				width: "100%",
-				height: "100%",
+				width: "100vw",
+				height: "100vh",
 				position: "fixed",
 				zIndex: "0",
 			}}
 		>
-			<div style={{ width: "100%", height: "100%" }} ref={mount}></div>
+			<div style={{ width: "100vw", height: "100vh" }} ref={mount}></div>
 		</div>
 	);
 }

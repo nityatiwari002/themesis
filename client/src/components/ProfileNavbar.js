@@ -7,7 +7,7 @@ const ProfileNavbar = () => {
   const { user } = AuthData();
   console.log(JSON.parse(user.user).image);
   return (
-    <div style={{ margin: "0px", paddingLeft: "0px", paddingRight: "0px" }}>
+    <div style={{ margin: "0px", paddingLeft: "0px", paddingRight: "0px", backgroundColor : "#141414" }}>
       <Navbar
         bg="dark"
         data-bs-theme="dark"
@@ -17,7 +17,7 @@ const ProfileNavbar = () => {
         <Container style={{ display: "flex", boxSizing: "border-box" }}>
           <Navbar.Brand href="/me" style={{ display: "flex", width: "100%", zIndex : "1000" }}>
             <div style={{ flex: 7 }}></div>
-            <div style={{ display: "flex", flex : 2 }}>
+            <div style={{ display: "flex", flex : 1 }}>
               <div
                 style={{ heigth: "2rem", width: "2rem", borderRadius: "50%"}}
               >

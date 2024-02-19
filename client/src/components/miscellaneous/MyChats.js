@@ -22,6 +22,8 @@ import "../../styles/Mychats.css";
 const MyChats = ({ fetchAgain }) => {
   const { user, selectedChat, setSelectedChat, chats, setChats } = AuthData();
   const [loggedUser, setLoggedUser] = useState();
+  const [search, setSearch] = useState();
+  const [searchResults, setSearchResults] = useState();
 
   const fetchChats = async () => {
     try {
@@ -36,7 +38,6 @@ const MyChats = ({ fetchAgain }) => {
         config
       );
       setChats(data);
-      console.log(chats);
     } catch (err) {
       alert("Error loading chats!!");
       console.log("ERROR", err);
@@ -48,6 +49,24 @@ const MyChats = ({ fetchAgain }) => {
     fetchChats();
     setSelectedChat(false);
   }, [fetchAgain]);
+
+
+  const handleSearch = async (e) => {
+    setSearch(e.target.value);
+    
+    if(e.key === 'Enter'){
+    try{
+        const {data} = await axios.get(`http://127.0.0.1:5001/api/v1/users/getChats?search=${search}`);
+        console.log("search value", data);
+        setSearchResults(data);
+    }
+    catch(error){
+        alert('No Users Found!!');
+        console.log(error);
+    }
+  }
+}
+
 
   return (
     <div
@@ -80,7 +99,7 @@ const MyChats = ({ fetchAgain }) => {
                   placeholder="&#xF002; search chats"
                   style={{ fontFamily: "Arial, FontAwesome" }}
                   autoFocus
-                  // onChange = {}
+                  onChange = {handleSearch}
                 />
               </Form.Group>
             </Form>{" "}
@@ -100,6 +119,23 @@ const MyChats = ({ fetchAgain }) => {
         </Row>
         <Row>
           <Col>
+          {searchResults ? 
+          (    <Stack direction="vertical" gap={3}>
+          {searchResults.map((chat) =>
+            !chat.isGroupChat ? (
+              <UserStackItem
+                key={chat._id}
+                setSelectedChat={setSelectedChat}
+                chat={chat}
+                selectedChat={selectedChat}
+              />
+            ) : (
+              <> </>
+            )
+          )}
+        </Stack>) 
+
+          : (<></>)}
             {chats.length > 0 ? (
               <Stack direction="vertical" gap={3}>
                 {chats.map((chat) =>
@@ -113,17 +149,9 @@ const MyChats = ({ fetchAgain }) => {
                   ) : (
                     <> </>
                   )
-                  // <div
-                  //   className="p-2"
-                  // onClick={() => setSelectedChat(chat)}
-                  //   key={chat._id}
-                  // >
-                  //   {!chat.isGroupChat ? chat.users[1].name : chat.chatName}
-                  // </div>
                 )}
               </Stack>
             ) : (
-              // <ChatLoading />
               <div style ={{backgroundColor : "rgba(63, 61, 61, 0.8)", padding: "1rem", display : "flex", justifyContent: "center", alignContent: "center", borderRadius : "1rem"}}>Oops!! No conversations to show..Do send connection requests to lawyers to start chatting.</div>
             )}
           </Col>
