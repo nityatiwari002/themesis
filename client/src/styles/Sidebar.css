@@ -4,6 +4,7 @@
     padding-right: 1.5rem;
     min-width: 200px;
     overflow-y: scroll;
+    border-right: 1px solid #685e5e;
 }
 
 .side-bar {
@@ -63,7 +64,7 @@
 }
 
 .inactive button {
-    color: #8f8585;
+    color: #968585;
 }
 
 .active button {
