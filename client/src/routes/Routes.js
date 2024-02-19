@@ -44,6 +44,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 import VideoConference from "../pages/VideoConferencing.js";
+import ArticlesRender from "../pages/SharedPages/ArticlesRender.js";
 
 const routes = [
 	{
@@ -303,6 +304,16 @@ const routes = [
 		isMenuUser: false,
 		icon: <FontAwesomeIcon icon={faUnlockKeyhole} />,
 	},
+	{
+		path: "/guide/article/:index",
+		component: <ArticlesRender index ={localStorage.getItem("Index")}/>,
+		name : 'Articles',
+		isPrivate : true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: false,
+		isMenuUser: false,
+	}
 ];
 
 export default routes;
