@@ -160,33 +160,52 @@ export const protect = catchAsync(async (req, res, next) => {
 
 // Only for rendered pages, no errors!
 export const isLoggedIn = async (req, res, next) => {
-  if (req.cookies.jwt) {
-    try {
-      // 1) verify token
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
-      );
-
-      // 2) Check if user still exists
-      const currentUser = await User.findById(decoded.id);
-      if (!currentUser) {
-        return next();
-      }
-
-      // 3) Check if user changed password after the token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
-        return next();
-      }
-
-      // THERE IS A LOGGED IN USER
-      res.locals.user = currentUser;
-      return next();
-    } catch (err) {
-      return next();
-    }
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.body.jwt) {
+    token = req.body.jwt;
   }
-  next();
+
+  if (!token) {
+    res.status(401).json({
+      status: "fail",
+      message: "You are not logged in! Please log in to get access",
+    });
+  }
+
+  // 2) Verification token
+  const decoded = verify(token, process.env.JWT_SECRET);
+
+  // 3) Check if user still exists
+  let currentUser = await User.findById(decoded.id);
+
+  if (!currentUser) {
+    res.status(401).json({
+      status: "fail",
+      message: "We are unable to find the user!! Please login again.",
+    });
+  }
+
+  // 4) Check if user changed password after the token was issued
+  if (currentUser.changedPasswordAfterToken(decoded.iat)) {
+    res.status(401).json({
+      status: "fail",
+      message: "User recently changed password! Please login again",
+    });
+  }
+
+  // GRANT ACCESS TO PROTECTED ROUTE
+  req.user = currentUser;
+  res.locals.user = currentUser;
+  res.status(200).json({
+    status: 'success',
+    data : currentUser,
+  });
+  
 };
 
 export const restrictTo = (...roles) => {
