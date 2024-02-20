@@ -17,7 +17,7 @@ const ProfileNavbar = () => {
         <Container style={{ display: "flex", boxSizing: "border-box" }}>
           <Navbar.Brand href="/me" style={{ display: "flex", width: "100%", zIndex : "1000" }}>
             <div style={{ flex: 7 }}></div>
-            <div style={{ display: "flex", flex : 1 }}>
+            <div style={{ display: "flex", flex : 2 }}>
               <div
                 style={{ heigth: "2rem", width: "2rem", borderRadius: "50%"}}
               >

@@ -8,17 +8,25 @@ import ArticlesRender from "./ArticlesRender";
 import SearchLegal from "../../components/SearchLegal";
 import Navbar from "../../components/Navbar";
 import "../../styles/LegalGuide.css";
+import { filter } from "@chakra-ui/react";
 const sample = require("../../assets/COI.json");
 
 function LegalGuide() {
   const [searchResults, setSearchResults] = useState(sample[0]);
+  const fields = ["Name","ArtNo", "ArtDesc", "Status"];
 
   const handleSearch = (e) => {
     const query = e.target.value;
     if (query != "") {
-      const filteredData = sample[0].filter((item) =>
+      let filteredData = sample[0].filter((item) =>
         item.Name.toLowerCase().includes(query.toLowerCase())
+        || item.ArtNo.includes(query.toLowerCase())
+        // || item.SubHeading ? item.Subheading.includes(query.toLowerCase()) : ""
+        //  || item.Status ? console.log("idhar") : ""
       );
+
+
+
       setSearchResults(filteredData);
     }
     console.log("results", searchResults);
@@ -151,7 +159,6 @@ function LegalGuide() {
           <></>
         )}
       </div>
-      <ArticlesRender />
     </>
   );
 }
