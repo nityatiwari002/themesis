@@ -32,13 +32,12 @@ export const getAllUsers = async (req, res, next) => {
     ? {
         $or: [
           { name: { $regex: /${req.query.search}/, $options: 'i', } },
-          { email: { $regex: req.query.search, $options: 'i', } },
+          { email: { $regex: /${req.query.search}/, $options: 'i', } },
+          {username : { $regex: /${req.query.search}/, $options: 'i', }}
         ],
       }
     : {};
   
-    console.log(req.query.search);
-    console.log(keyword);
 
   const users = await User.find(keyword);
   res.send(users);

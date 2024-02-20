@@ -20,12 +20,17 @@ export const AuthWrapper = () => {
   let role = "user";
   const [isProtected, setProtected] = useState(false);
 
+  const [user, setUser] = useState({user : "", isAuthenticated: false});
 
-  async function checkProtected() {
+
+
+  const checkProtected = async() => {
     let userData = {
       jwt: getCookies("jwt"),
     };
-    const response = await fetch("http://127.0.0.1:5001/api/v1/users/protect", {
+
+    try{
+    const response = await fetch("http://127.0.0.1:5001/api/v1/users/isLoggedIn", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -34,23 +39,32 @@ export const AuthWrapper = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        if (data.status === "success") {
-          setProtected(true);
-        } else {
-          setProtected(false);
+        if(data.status === 'success'){
+        setUser({user : JSON.stringify(data.data), isAuthenticated: true});
+        }
+        else{
+          setUser({user: "", isAuthenticated: false});
         }
       });
+    }catch(err){
+      alert("Error Fetching results!!");
+      console.log("error", err);
+    }
   }
 
 
-  const [user, setUser] = useState({
-    user: localStorage.getItem("userInfo"),
-    isAuthenticated: getCookies("jwt") ? true : false,
-  });
+//   const [user, setUser] = useState({
+//     user: localStorage.getItem("userInfo"),
+//     isAuthenticated: getCookies("jwt") ? true : false,
+// });
+
+
+
 
   const [selectedChat, setSelectedChat] = useState([]);
   const [chats, setChats] = useState([]);
+
+  
 
   const updateMe = async (userDetails) => {
     let userData = userDetails;
@@ -149,9 +163,10 @@ export const AuthWrapper = () => {
             if (data.status === "success") {
               const tken = data.token;
               removeCookies("jwt");
-              localStorage.setItem("userInfo", JSON.stringify(data.data.user));
+              // localStorage.setItem("userInfo", JSON.stringify(data.data.user));
+              console.log(data.data.user);
               setUser({
-                user: localStorage.getItem("userInfo"),
+                user: JSON.stringify(data.data.user),
                 isAuthenticated: true,
               });
               setCookies("jwt", tken);
@@ -174,7 +189,7 @@ export const AuthWrapper = () => {
         });
     } catch (err) {
       console.log(err);
-      setUser({ user: "", role: "", isAuthenticated: false });
+      // setUser({ user: "", role: "", isAuthenticated: false });
       alert("Invalid Credentials!!");
     }
   };
@@ -207,6 +222,12 @@ export const AuthWrapper = () => {
       return !prevShowSidebar;
     });
   };
+
+  useEffect(() => {
+    console.log("user", user);
+    checkProtected();
+    console.log("userafter", user);
+  }, [user]);
 
   useEffect(() => {
     // Save the state to localStorage whenever it changes

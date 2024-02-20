@@ -51,7 +51,7 @@ function LegalGuide() {
             type="search"
             id="site-search"
             name="q"
-            placeholder="Search Articles!!"
+            placeholder="Search articles, e.g: right to freedom etc."
             style={{
               backgroundColor: "#595555d4",
               border: "none",

@@ -12,6 +12,7 @@ import {
 	resetPasswordGet,
 	updatePassword,
 	protect,
+	isLoggedIn,
 } from "../controllers/authController.js";
 
 import {
@@ -29,12 +30,13 @@ router.post("/login", login);
 router.post("/logout", logout);
 router.post("/forgotPassword", forgotPassword);
 router.get("/resetPasswordGet/:token", resetPasswordGet);
-router.post("/protect", protect);
+router.post("/isLoggedIn", isLoggedIn);
 router.get("/getUsers", getAllUsers);
 router.get("/getLawyers", getAllLawyers);
 router.get("/getUser/:id", getUser);
 router.patch("/updateMe", protect, updateMe);
 router.patch("/updatePassword", protect, updatePassword);
+
 
 
 const storage = multer.diskStorage({
