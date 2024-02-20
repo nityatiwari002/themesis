@@ -57,6 +57,38 @@ const userSchema = new mongoose.Schema(
 			default: true,
 			select: false,
 		},
+		extraFields: {
+			typeOfLawyer: {
+				type: String,
+				required: [true, "Please Enter your Specification!!"],
+			},
+			numberOfCasesFought: {
+				type: Number,
+			},
+			numberOfCasesWon: {
+				type: Number,
+				required: [true, "Please Enter your Years of experience!!"],
+
+			},
+			experienceInYears: {
+				type: Number,
+				required: [true, "Please Enter your Years of experience!!"],
+			},
+			age: {
+				type: Number,
+				required: [true, "Please Enter your age in Years!!"],
+
+			},
+			about: {
+				type: String,
+				required: [true, "Please Enter some important details about yourself...so that people can know you better!!"],
+
+			},
+			feesCharged: {
+				type: Number,
+				required: [true, "Please Enter the Fees you Charge per case!!"],
+			}
+		}
 	},
 	{
 		timestamps: true,
