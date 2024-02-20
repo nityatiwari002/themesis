@@ -50,9 +50,8 @@ app.use("/api/v1/discord", discordRoutes);
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "public")));
 
-const CONNECTION_URL =
-	"mongodb+srv://singhshreya0511:shreya1234@themesis.39cw6yy.mongodb.net/";
-const PORT = 5001;
+const CONNECTION_URL = process.env.DATABASE;
+const PORT = process.env.PORT;
 
 mongoose
 	.connect(CONNECTION_URL)

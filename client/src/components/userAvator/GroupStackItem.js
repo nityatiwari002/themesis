@@ -7,7 +7,6 @@ import { getSender } from "../../services/ChatLogics";
 
 const GroupStackItem = ({ setSelectedChat, chat, selectedChat }) => {
   const { user } = AuthData();
-  console.log("chat", chat);
 
   const handleTime = (chat) => {
     var createdAt = chat.updatedAt;

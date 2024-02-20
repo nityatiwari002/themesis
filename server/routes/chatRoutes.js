@@ -11,6 +11,6 @@ router.route("/rename").put(protect, renameGroup);
 router.route("/groupremove").put(protect, removeFromGroup);
 router.route("/groupadd").put(protect, addToGroup);
 router.route("/deleteGroup/:id").delete(protect, deleteGroup);
-router.route("/getChats", protect, getChats);
+router.route("/getChats").get(protect, getChats);
 
 export default router;

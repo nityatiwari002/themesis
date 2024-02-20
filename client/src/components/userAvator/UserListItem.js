@@ -1,13 +1,23 @@
 import React from "react";
 import { AuthData } from "../../services/AuthService";
 import Card from "react-bootstrap/Card";
+import UserStackItem from "./UserStackItem";
 
-const UserListItem = ({ user, handleFunction }) => {
+const UserListItem = ({ chat }) => {
+
   return (
-    <Card onClick = {handleFunction}>
+    
+    <Card style ={{boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", marginBottom : "1rem"}}>
        {/* <Card.Img variant="left" src={user.image} /> */}
-      <Card.Body>{user.name}</Card.Body>
+      <Card.Body>
+        <div></div>
+        <div>{chat.chatName}</div>
+        </Card.Body>
     </Card>
+    // <>
+    
+    // <UserStackItem setSelectedChat={setSelectedChat} chat={chati} selectedChat={selectedChat}/>
+    // </>
   );
 };
 

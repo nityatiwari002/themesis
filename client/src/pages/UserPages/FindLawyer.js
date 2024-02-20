@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	faCaretDown,
 	faFilter,
@@ -16,6 +17,7 @@ import Footer from "../../components/Dashboard/Footer";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);
 	const [numLawyers, setNumLawyers] = useState(-1);
+	const navigate = useNavigate();
 	useEffect(() => {
 		const fetchLawyers = async () => {
 			const response = await fetch(
@@ -211,7 +213,7 @@ function FindLawyer() {
 						{matchingRequest.accepted ? (
 							<button
 								className="request-button request-acc-button"
-								onClick={console.log("redirect to chat")}
+								onClick={console.log("direct to chat page")}
 							>
 								{type === "Chat"
 									? "Start Chatting"

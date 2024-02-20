@@ -2,6 +2,8 @@ import React from "react";
 import "../../styles/efilling.css";
 import { Color } from "three";
 import Navbar from "../../components/Navbar";
+import { NavLink } from "react-router-dom";
+
 function Efiling() {
 	return (
 		<>
@@ -36,11 +38,11 @@ function Efiling() {
 									Want to know required docs or confused about
 									how to pitch lawyer?
 									<br />
-									Go to: Prep & Pitch ⚖️
+									Go to: <NavLink style ={{textDecoration : "none"}}to = "/prep-and-pitch"> Prep & Pitch ⚖️ </NavLink>
 									<br />
 									Need legal muscle?
 									<br />
-									Go to: Find Lawyer
+									Go to: <NavLink style ={{textDecoration: "none"}}to = "/find-lawyer">Find Lawyer </NavLink>
 								</p>
 								<div className="vid-img"></div>
 								<div>
