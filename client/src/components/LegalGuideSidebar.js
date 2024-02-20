@@ -80,7 +80,7 @@ function LegalGuideSidebar() {
               className={
                 window.location.pathname === "/guide"
                   ? "articleActv"
-                  : "listItem"
+                  : "listIt"
               }
             >
               Legal Guide
