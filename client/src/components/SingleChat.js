@@ -75,7 +75,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 				);
 
 				socket.emit("new message", data);
-				console.log("d", data);
 				setMessages([...messages, data]);
 			} catch (err) {
 				alert("Some error sending the message!! Please try again!");
@@ -103,14 +102,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
 	useEffect(() => {
 		socket.on("message received", (newMessageReceived) => {
-			console.log(newMessageReceived.chat._id);
 			if (
 				!selectedChatCompare ||
 				selectedChatCompare._id !== newMessageReceived.chat._id
 			) {
 				//display notification
 			} else {
-				console.log("notify");
 				setMessages([...messages, newMessageReceived]);
 			}
 		});

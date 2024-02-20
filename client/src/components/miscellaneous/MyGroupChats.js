@@ -37,7 +37,6 @@ const MyGroupChats = ({ fetchAgain }) => {
         config
       );
       setChats(data);
-      console.log(chats);
     } catch (err) {
       alert("Error loading chats!!");
       console.log("ERROR", err);

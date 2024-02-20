@@ -14,7 +14,7 @@ import { addToGroup } from "./chatController.js";
 
 const signToken = (id) => {
   // console.log(process.env.NODE_ENV);
-  return sign({ id }, "i-am-shreya", {
+  return sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "2d",
   });
 };

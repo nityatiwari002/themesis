@@ -42,24 +42,11 @@ export const AuthWrapper = () => {
         if(data.status === 'success'){
         setUser({user : JSON.stringify(data.data), isAuthenticated: true});
         }
-        else{
-          setUser({user: "", isAuthenticated: false});
-        }
       });
     }catch(err){
-      alert("Error Fetching results!!");
-      console.log("error", err);
+      
     }
   }
-
-
-//   const [user, setUser] = useState({
-//     user: localStorage.getItem("userInfo"),
-//     isAuthenticated: getCookies("jwt") ? true : false,
-// });
-
-
-
 
   const [selectedChat, setSelectedChat] = useState([]);
   const [chats, setChats] = useState([]);
@@ -68,7 +55,6 @@ export const AuthWrapper = () => {
 
   const updateMe = async (userDetails) => {
     let userData = userDetails;
-    console.log(JSON.stringify(userData));
 
     try {
       const response = await fetch(
@@ -89,9 +75,8 @@ export const AuthWrapper = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          localStorage.setItem("userInfo", JSON.stringify(data.data.User));
           setUser({
-            user: localStorage.getItem("userInfo"),
+            user: JSON.stringify(data.data.user),
             isAuthenticated: true,
           });
           alert(
@@ -127,11 +112,7 @@ export const AuthWrapper = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          localStorage.setItem("userInfo", JSON.stringify(data.data.user));
-          setUser({
-            user: localStorage.getItem("userInfo"),
-            isAuthenticated: true,
-          });
+          setUser({user: JSON.stringify(data.data.user), isAuthenticated: true})
           alert(
             "Congratulations!! You have succesfully changed your details..."
           );
@@ -163,8 +144,6 @@ export const AuthWrapper = () => {
             if (data.status === "success") {
               const tken = data.token;
               removeCookies("jwt");
-              // localStorage.setItem("userInfo", JSON.stringify(data.data.user));
-              console.log(data.data.user);
               setUser({
                 user: JSON.stringify(data.data.user),
                 isAuthenticated: true,
@@ -194,9 +173,31 @@ export const AuthWrapper = () => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     removeCookies("jwt");
-    setUser({ user: "", isAuthenticated: false });
+    setUser({"user": "", "isAuthenticated": false});
+    // let userData = {
+    //   jwt: getCookies("jwt"),
+    // };
+
+    // try{
+    // const response = await fetch("http://127.0.0.1:5001/api/v1/users/logout", {
+    //   method: "post",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(userData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if(data.status === 'success'){
+    //     setUser({user : "", isAuthenticated: false});
+    //     }
+    //   });
+    // }catch(err){
+    //   alert("Error Logging Out the User!!");
+    //   console.log("error", err);
+    // }
   };
 
   const [wasManuallyClosed, setWasManuallyClosed] = useState(() => {
@@ -224,15 +225,12 @@ export const AuthWrapper = () => {
   };
 
   useEffect(() => {
-    console.log("user", user);
     checkProtected();
-    console.log("userafter", user);
   }, [user]);
 
   useEffect(() => {
     // Save the state to localStorage whenever it changes
     localStorage.setItem("showSidebar", JSON.stringify(showSidebar));
-    console.log(showSidebar);
   }, [showSidebar]);
 
   useEffect(() => {
