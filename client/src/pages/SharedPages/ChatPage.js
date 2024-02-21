@@ -22,27 +22,36 @@ function ChatPage() {
 			<div
 				style={{
 					width: "100%",
-					height: "90%",
+					height: "92%",
 					backgroundColor: "rgb(63, 61, 61, 0.8)",
-					// backgroundColor: "rgba(255, 255, 255, 0.5)",
+					// backgroundColor: "pink",
 					padding: "1.5rem",
 					// paddingTop : "0px",
 				}}
 			>
-				<Container
+				<div
 					style={{
 						width: "100%",
 						height: "100%",
-						overflow: "scroll",
+						// backgroundColor: "blue",
 					}}
 				>
-					<Row style={{ display: "flex", height: "100%" }}>
-						<Col
+					<div
+						style={{
+							display: "flex",
+							width: "100%",
+							height: "100%",
+							// backgroundColor: "purple",
+						}}
+					>
+						<div
 							style={{
-								width: "100%",
+								width: "30%",
 								height: "100%",
-								//   backgroundColor:"red",
+								minWidth: "300px",
+								// backgroundColor: "red",
 								flex: 2,
+								margin: "0 5px",
 								//   borderRadius:"2rem"
 							}}
 						>
@@ -50,13 +59,14 @@ function ChatPage() {
 							{user.isAuthenticated && (
 								<MyChats fetchAgain={fetchAgain} />
 							)}
-						</Col>
-						<Col
+						</div>
+						<div
 							style={{
-								width: "100%",
+								width: "70%",
 								height: "100%",
-								flex: 5,
+								// flex: 5,
 								backgroundColor: "black",
+								// backgroundColor: "yellow",
 								borderRadius: "1rem",
 							}}
 						>
@@ -67,9 +77,9 @@ function ChatPage() {
 									setFetchAgain={setFetchAgain}
 								/>
 							)}
-						</Col>
-					</Row>
-				</Container>
+						</div>
+					</div>
+				</div>
 			</div>
 		</>
 	);

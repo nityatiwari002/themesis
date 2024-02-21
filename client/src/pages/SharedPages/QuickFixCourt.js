@@ -16,50 +16,76 @@ function QuickFixCourt() {
 	const [fetchAgain, setFetchAgain] = useState();
 
 	return (
-		<div style ={{display : "flex", flexDirection: "column", height : "100%"}}>
-		<div style ={{ paddingBottom : "0.5rem", position: "relative"}}>
-		<Navbar/>
-
-		</div>
-		<div
-		  style={{
-			  width: "100%",
-			  height: "100%",
-			  backgroundColor : "rgb(63, 61, 61, 0.8)",
-			  flex : "5"
-			  // backgroundColor: "rgba(255, 255, 255, 0.5)",
-			//   padding: "1.5rem",
-			  // paddingTop : "0px",
-			}}
-			>
-		  <Container 
-		  style=
-		  {{ marginTop : "1.5rem" }}
-		  >
-			<Row style ={{display : "flex" }} >
-			  <Col
+		<>
+			{/* <div style={{ paddingBottom: "0.5rem", position: "relative" }}> */}
+			<Navbar />
+			{/* </div> */}
+			<div
 				style={{
-				  width: "100%",
-				//   height: "100vh",
-				  flex : 2,
-				  borderRadius:"2rem"
-				
+					width: "100%",
+					height: "90%",
+					backgroundColor: "rgb(63, 61, 61, 0.8)",
+					// backgroundColor: "blue",
+					// flex: "5",
+					// backgroundColor: "rgba(255, 255, 255, 0.5)",
+					//   padding: "1.5rem",
+					// paddingTop : "0px",
 				}}
-			  >
-				{" "}
-				  {user.isAuthenticated && <MyGroupChats fetchAgain={fetchAgain} />}
-			  </Col>
-			  <Col style={{ flex : 5, backgroundColor:"black", borderRadius : "1rem" }}>
-				{" "}
-				{user.isAuthenticated && (
-				  <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
-				)}
-			  </Col>
-			</Row>
-		  </Container>
-		</div>
-		</div>
-	
+			>
+				<div
+					style={{
+						// marginTop: "1.5rem",
+						width: "100%",
+						height: "100%",
+						display: "flex",
+						padding: "1rem",
+						// justifyContent: "space-around",
+						justifyContent: "center",
+						// backgroundColor: "pink",
+						boxSizing: "border-box",
+					}}
+				>
+					<Row
+						style={{
+							display: "flex",
+							// backgroundColor: "purple",
+							width: "100%",
+							height: "100%",
+						}}
+					>
+						<div
+							style={{
+								width: "30%",
+								height: "100%",
+								// backgroundColor: "red",
+								flex: 2,
+								// borderRadius: "2rem",
+							}}
+						>
+							{" "}
+							{user.isAuthenticated && (
+								<MyGroupChats fetchAgain={fetchAgain} />
+							)}
+						</div>
+						<Col
+							style={{
+								flex: 5,
+								backgroundColor: "black",
+								borderRadius: "1rem",
+							}}
+						>
+							{" "}
+							{user.isAuthenticated && (
+								<ChatBox
+									fetchAgain={fetchAgain}
+									setFetchAgain={setFetchAgain}
+								/>
+							)}
+						</Col>
+					</Row>
+				</div>
+			</div>
+		</>
 	);
 }
 
