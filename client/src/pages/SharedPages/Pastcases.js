@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../styles/pastcases.css";
-const sample = require("../SharedPages/pastcase.json");
+const sample = require("../../assets/pastcase.json");
 
 function FilterBar() {
   const [year, setYear] = useState('');
@@ -13,14 +13,8 @@ function FilterBar() {
 	Robbery: false,
 	Burglary : false,
 	Larceny:false,
-
-
-
-
   });
   const [cases, setCases] = useState([]);
-
-  
 
   const [courts, setCourts] = useState({
     supreme: false,
@@ -52,18 +46,18 @@ function FilterBar() {
     setArticle(event.target.value);
   };
   
-  const handleSubmit = (event) => {
-    //event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     const filteredCases = sample.filter((caseData) => {
-      const yearMatch = year ? caseData.year.toString() === year : true;
+      const yearMatch = year ? caseData.year.toString() === year : false;
       const caseTypeMatch = Object.keys(caseTypes).some(
         (type) => caseTypes[type] && caseData.case_type.toLowerCase().includes(type.toLowerCase())
       );
       const courtMatch = Object.keys(courts).some(
         (court) => courts[court] && caseData.court.toLowerCase().includes(court.toLowerCase())
       );
-      const articleMatch = article ? caseData.article_number.toLowerCase().includes(article.toLowerCase()) : true;
+      const articleMatch = article ? caseData.article_number.toLowerCase().includes(article.toLowerCase()) : false;
       return yearMatch || caseTypeMatch || courtMatch || articleMatch;
     });
     
@@ -81,17 +75,18 @@ function FilterBar() {
 
 useEffect(() => {
  
-  setCases(sample);
+  setCases(JSON.parse(JSON.stringify(sample)));
 }, []);
-useEffect(() => {
+// useEffect(() => {
 
-  handleSubmit();
-}, [year, caseTypes, courts, article]);
+//   handleSubmit();
+// }, [year, caseTypes, courts, article]);
+
   return (
 	
 	<div className='container'>
     <div className="filter-bar">
-      <form onSubmit={handleSubmit}>
+      <div>
         <div className="filter-group">
           <label htmlFor="year"><h4>Year:</h4></label>
 		  <br/>
@@ -224,10 +219,9 @@ useEffect(() => {
 			style={{ width: '150px', height: '20px'  , color: 'white'  }} 
           />
         </div>
-	
-        <button  className='submit-button' onClick={handleSubmit} type="submit">Apply Filters</button>
-		
-      </form>
+        <button  className='submit-button' onClick={(e) => handleSubmit(e)}>Apply Filters</button>
+      </div>
+      
 
     </div>
     <br/>
