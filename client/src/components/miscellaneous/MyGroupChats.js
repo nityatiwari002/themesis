@@ -62,7 +62,7 @@ const MyGroupChats = ({ fetchAgain }) => {
         <Row
           style={{
             display: "flex",
-            flexDirection: "column",
+            // flexDirection: "column",
             padding: "0.8rem",
             paddingTop: "0.5rem",
           }}
