@@ -193,6 +193,11 @@ function FindLawyer() {
 		return reqStatus;
 	};
 
+	const handleNavigate = (type, index) => {
+		if (type === "Chat") {
+			navigate("/chat");
+		}
+	};
 	const renderMatchingRequest = (index, type) => {
 		const matchingRequest = findMatchingRequest(index, type);
 		const deleteFunction =
@@ -213,7 +218,7 @@ function FindLawyer() {
 						{matchingRequest.accepted ? (
 							<button
 								className="request-button request-acc-button"
-								onClick={console.log("direct to chat page")}
+								onClick={() => handleNavigate(type, index)}
 							>
 								{type === "Chat"
 									? "Start Chatting"
