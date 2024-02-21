@@ -29,7 +29,13 @@ function ChatPage() {
 					// paddingTop : "0px",
 				}}
 			>
-				<Container style={{ width: "100%", height: "100%" }}>
+				<Container
+					style={{
+						width: "100%",
+						height: "100%",
+						overflow: "scroll",
+					}}
+				>
 					<Row style={{ display: "flex", height: "100%" }}>
 						<Col
 							style={{
