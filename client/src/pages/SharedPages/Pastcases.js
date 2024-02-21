@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../../styles/pastcases.css";
+const sample = require("../SharedPages/pastcase.json");
+
 function FilterBar() {
   const [year, setYear] = useState('');
   const [caseTypes, setCaseTypes] = useState({
@@ -19,17 +21,7 @@ function FilterBar() {
   const [cases, setCases] = useState([]);
 
   
- // const apiUrl = 'https://your-api-endpoint.com/cases';
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const response = await fetch(apiUrl);
-//       const data = await response.json();
-//       setCases(data);
-//     };
-
-//     fetchData();
-//   }, []);
   const [courts, setCourts] = useState({
     supreme: false,
     high: false,
@@ -60,21 +52,41 @@ function FilterBar() {
     setArticle(event.target.value);
   };
   
-//   const filteredCases = cases.filter((caseData) => {
-//     const yearMatch = year ? caseData.year === year : true;
-//     const caseTypeMatch = Object.values(caseTypes).some((type) => caseData.type === type);
-//     const courtMatch = Object.values(courts).some((court) => caseData.court === court);
-//     const articleMatch = article ? caseData.title.toLowerCase().includes(article.toLowerCase()) : true;
-//     return yearMatch && caseTypeMatch && courtMatch && articleMatch;
-//   });
-
   const handleSubmit = (event) => {
-    event.preventDefault();
-      console.log(
-      `Year: ${year}, Case Types: ${JSON.stringify(caseTypes)}, Courts: ${JSON.stringify(courts)}, Article: ${article}`
-    );
+    //event.preventDefault();
+
+    const filteredCases = sample.filter((caseData) => {
+      const yearMatch = year ? caseData.year.toString() === year : true;
+      const caseTypeMatch = Object.keys(caseTypes).some(
+        (type) => caseTypes[type] && caseData.case_type.toLowerCase().includes(type.toLowerCase())
+      );
+      const courtMatch = Object.keys(courts).some(
+        (court) => courts[court] && caseData.court.toLowerCase().includes(court.toLowerCase())
+      );
+      const articleMatch = article ? caseData.article_number.toLowerCase().includes(article.toLowerCase()) : true;
+      return yearMatch || caseTypeMatch || courtMatch || articleMatch;
+    });
+    
+   
+    setCases(filteredCases.length > 0 ? filteredCases : []);
   };
 
+  
+  // const handleSubmit = async (e) => {
+  //   // e.preventDefault();
+  //   const filteredCases = await filteredCases(year, caseTypes, courts, article);
+  //   setCases(filteredCases);
+  // };
+
+
+useEffect(() => {
+ 
+  setCases(sample);
+}, []);
+useEffect(() => {
+
+  handleSubmit();
+}, [year, caseTypes, courts, article]);
   return (
 	
 	<div className='container'>
@@ -90,7 +102,7 @@ function FilterBar() {
             <option value="2021">2021</option>
 			<option value="2020">2020</option>
 			<option value="2019">2019</option>
-			<option value="2018">2018</option>
+			<option value="2018">2018</option>min-height: 300px; /* Adjust as needed */
 			<option value="2017">2017</option>
 			<option value="2016">2016</option>
 			<option value="2015">2015</option>
@@ -166,7 +178,7 @@ function FilterBar() {
             <input
               type="checkbox"
               name="Larency"
-              checked={caseTypes.Larceny}
+              checked={caseTypes.Larecny}
               onChange={handleCaseTypeChange}
             />
             Larceny
@@ -213,19 +225,37 @@ function FilterBar() {
           />
         </div>
 	
-        <button  className='submit-button' type="submit">Apply Filters</button>
+        <button  className='submit-button' onClick={handleSubmit} type="submit">Apply Filters</button>
 		
       </form>
+
     </div>
+    <br/>
 	<div className="search-bar">
         <input type="text" placeholder="Search for related past cases" style={{ width: '450px', height: '20px'  , color: 'white'  }}  />
         <button type="button"><i className="fas fa-search"></i></button>
-		
+        <br/>
+        <div className="filtered-cases">
+      
+      {cases.map((item, index) => (
+        <div key={index} className="case-details">
+            <div className='pastt'>
+          <h3>{item.case_title}</h3>
+          <p><strong>Advocate Name:</strong> {item.advocate_name}</p>
+          <p><strong>Party A Name:</strong> {item.party_a_name}</p>
+          <p><strong>Party B Name:</strong> {item.party_b_name}</p>
+          <p><strong>Article Number:</strong> {item.article_number}</p>
+          <p><strong>Article Name:</strong> {item.article_name}</p>
+          <p><strong>Case Type:</strong> {item.case_type}</p>
+          <p><strong>Court:</strong> {item.court}</p>
+          <p><strong>Year:</strong> {item.year}</p>
+          <p><strong>Judgement:</strong> {item.judgement}</p>
+        </div>  </div> ))};
       </div>
-	</div>
-	
-	
+      
+
+        	</div>
+</div>
   );
 }
-
 export default FilterBar;
