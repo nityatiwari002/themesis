@@ -12,7 +12,7 @@ import Navbar from "../../components/Navbar";
 import LawyerDetails from "../../components/LawyerDetails";
 import ProfileImg from "../../components/ProfileImg";
 import "../../styles/RequestsPage.css";
-import Footer from "../../components/Dashboard/Footer";
+// import Footer from "../../components/Dashboard/Footer";
 // import requests from "../assets/requests";
 function FindLawyer() {
 	const [lawyers, setLawyers] = useState([]);
@@ -40,17 +40,17 @@ function FindLawyer() {
 	}, []);
 
 	const { user } = AuthData();
-	const [searchInput, setSearchInput] = useState("");
+	// const [searchInput, setSearchInput] = useState("");
 	const [formVisible, setFormVisible] = useState(false);
-	const handleSearch = (e) => {
-		setSearchInput(e.target.value);
-	};
+	// const handleSearch = (e) => {
+	// 	setSearchInput(e.target.value);
+	// };
 
-	const submitForm = () => {
-		console.log(searchInput);
-		//handle search
-		setSearchInput("");
-	};
+	// const submitForm = () => {
+	// 	console.log(searchInput);
+	// 	//handle search
+	// 	setSearchInput("");
+	// };
 
 	const [requests, setRequests] = useState([]);
 
@@ -244,6 +244,20 @@ function FindLawyer() {
 		<>
 			<Navbar />
 			<div className="find-lawyer-body">
+				<div
+					className="title-find-lawyer"
+					style={{
+						fontSize: "2rem",
+						margin: "auto",
+						width: "100%",
+						textAlign: "center",
+					}}
+				>
+					<span className="initial login-txt">F</span>
+					<span className="login-txt">ind </span>
+					<span className="initial login-txt">L</span>
+					<span className="login-txt">awyer</span>
+				</div>
 				<div className="search-section">
 					{/* <div className="filter-text"></div> */}
 					<div className="filter">

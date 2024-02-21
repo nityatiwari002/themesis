@@ -39,6 +39,7 @@ import {
 	faUnlockKeyhole,
 	faFilePen,
 	faMessage,
+	faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 import VideoConference from "../pages/VideoConferencing.js";
@@ -65,6 +66,7 @@ const routes = [
 		isMenuLawyer: false,
 		isMenuProfile: false,
 		isMenuUser: false,
+		icon: <FontAwesomeIcon icon={faVideo} />,
 	},
 	{
 		path: "/dashboard",
