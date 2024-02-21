@@ -21,7 +21,7 @@ const ProfileDashboard = () => {
 			style={{
 				backgroundColor: "",
 				width: "100vw",
-				boxsizing: "border-box",
+				padding : "0px"
 			}}
 		>
 			<Container
@@ -29,11 +29,11 @@ const ProfileDashboard = () => {
 					overflow: "hiding",
 					backgroundColor: "",
 					height: "100%",
-					width: "100vw",
+					width : "100%",
 					margin: "0px",
 				}}
 			>
-				<Row>
+				<Row style ={{height : "100%", width : "100%"}}>
 					<Col
 						style={{
 							backgroundColor: "black",

@@ -35,6 +35,7 @@ function LegalGuide() {
   useEffect(() => {
     localStorage.setItem("Index", 0);
   }, []);
+
   return (
     <>
       <Navbar />

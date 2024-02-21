@@ -56,13 +56,15 @@ const MyGroupChats = ({ fetchAgain }) => {
         backgroundColor: "black",
         borderRadius: "1rem",
         overflowX: "hidden",
+        width:"100%",
+        height:"100%"
       }}
     >
       <Container className="p-3 mb-2 text-white">
         <Row
           style={{
             display: "flex",
-            flexDirection: "column",
+            // flexDirection: "column",
             padding: "0.8rem",
             paddingTop: "0.5rem",
           }}

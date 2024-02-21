@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { AuthData } from "../services/AuthService";
-import routes from "../routes/Routes";
+// import routes from "../routes/Routes";
 import "../styles/Sidebar.css";
 function Navbar() {
   const [profileSec, setProfileSec] = useState(false);
