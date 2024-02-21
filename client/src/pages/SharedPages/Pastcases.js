@@ -101,7 +101,10 @@ function FilterBar() {
 					width: "100%",
 				}}
 			>
-				<div className="filter-bar ">
+				<div
+					className="filter-bar "
+					style={{ height: "90%", overflow: "scroll", width: "40%" }}
+				>
 					<div>
 						<div className="filter-group">
 							<label htmlFor="year">
@@ -259,6 +262,7 @@ function FilterBar() {
 				<div
 					style={{
 						height: "100%",
+						// overflow: "scroll",
 					}}
 				>
 					<div className="search-bar">
