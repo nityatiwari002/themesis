@@ -211,7 +211,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 								{/* {" "} */}
 							</div>
 						)}
-						<div style ={{flex : "7" }}>
+						<div style ={{height : "100%"}}>
 						<Form.Control
 							type="text"
 							placeholder="Enter a Message!"
