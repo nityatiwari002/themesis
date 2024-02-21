@@ -1,4 +1,4 @@
-.filter-bar {
+/* .filter-bar {
     width: 300px; 
     background-color: rgb(7, 6, 6); 
     margin-left: 0%;
@@ -14,10 +14,10 @@
     color: white; 
     flex: 0 0 200px; /* Set a fixed width for the filter bar */
 
-  padding: 20px;
+  /* padding: 20px;
   border-right: 1px solid #ddd; /* Optional border */
 
-  }
+  /* }
 
   #articlee{
     
@@ -35,4 +35,4 @@ align-items: center;  }
     justify-content:start;
     align-items:self-start;
     color: white; 
-}  
+}   */ 

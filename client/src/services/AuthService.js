@@ -25,9 +25,14 @@ export const AuthWrapper = () => {
 
 
   const checkProtected = async() => {
+    
+    if(getCookies("jwt") === undefined){
+      setUser({user : "", isAuthenticated: false});
+      return;
+    }
     let userData = {
       jwt: getCookies("jwt"),
-    };
+    }
 
     try{
     const response = await fetch("http://127.0.0.1:5001/api/v1/users/isLoggedIn", {
@@ -44,7 +49,7 @@ export const AuthWrapper = () => {
         }
       });
     }catch(err){
-      
+
     }
   }
 

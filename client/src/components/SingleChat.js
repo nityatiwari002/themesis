@@ -117,7 +117,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 		<>
 			{selectedChat ? (
 				<>
-					<div className="chat_user">
+					<div className="chat_user" style ={{height : "100%"}}>
 						<div className="imageHolder">
 							{!selectedChat.isGroupChat ? (
 								<Image
@@ -192,7 +192,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 							<></>
 						)}
 					</div>
-					<div style={{ height: "50%" }}>
+					<div  style ={{display : "flex",flexDirection: "column", height : "100%", overflowY : "hidden"}}>
 						{loading ? (
 							<Spinner
 								className="mx-auto mb-9
@@ -205,12 +205,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 								</span>
 							</Spinner>
 						) : (
-							<div className="messages">
+							<div className="messages" style ={{flex : "5"}}>
 								{/* {" "} */}
 								<ScrollableChat messages={messages} />
 								{/* {" "} */}
 							</div>
 						)}
+						<div style ={{flex : "7" }}>
 						<Form.Control
 							type="text"
 							placeholder="Enter a Message!"
@@ -219,8 +220,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 							value={newMessages}
 							isRequired
 							className="mt-10"
-							style={{ marginTop: "10px" }}
+							style={{ marginTop: "10px"}}
 						/>
+						</div>
 					</div>
 				</>
 			) : (
