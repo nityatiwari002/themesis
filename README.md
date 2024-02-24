@@ -1,4 +1,4 @@
-**Themesis Guarding - An Online web application bridging the justice gap**	<br/> 
+**Themesis Guardian - An Online Web Application bridging the justice gap**	<br/> 
 <br/>
 **Overview:** <br/>
 Themesis Guardian, aligned with the goal of promoting just, peaceful, and inclusive societies under 
