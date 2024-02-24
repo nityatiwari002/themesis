@@ -3,6 +3,7 @@ import express from "express";
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from "../models/userModel.js";
+import { connections } from "mongoose";
 
 
 
@@ -28,18 +29,30 @@ export const getUser = async (req, res, next) => {
 
 //api/v1/users?search=shreya
 export const getAllUsers = async (req, res, next) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: /${req.query.search}/, $options: 'i', } },
-          { email: { $regex: /${req.query.search}/, $options: 'i', } },
-          {username : { $regex: /${req.query.search}/, $options: 'i', }}
-        ],
-      }
-    : {};
-  
+  const param = req.query.search;
+  var regex = new RegExp(param, "i");
+    var users = await User.find({
+      username: regex,
+      name : regex,
+      email : regex,
+    })
+  // console.log("query", req.query.search);
+  // const keyword = req.query.search
+  //   ? {
+  //       $or: [
+  //         { name: { $regex: /${req.query.search}/, $options: 'i', } },
+  //         { email: { $regex: /${req.query.search}/, $options: 'i', } },
+  //         {username : { $regex: /${req.query.search}/, $options: 'i', }}
+  //       ],
+  //     }
+  //   : {};
 
-  const users = await User.find(keyword);
+    
+    
+    
+    // const users = await User.find(keyword);
+    // console.log("Users", users);
+  
   res.send(users);
 };
 

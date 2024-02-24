@@ -57,29 +57,29 @@ const MyGroupChats = ({ fetchAgain }) => {
         borderRadius: "1rem",
         overflowX: "hidden",
         width:"100%",
-        height:"100%"
+        height:"100%",
+        // display : "flex",
       }}
     >
-      <Container className="p-3 mb-2 text-white">
+      <Container style ={{display : "flex", flexDirection : "column", padding : "1rem"}}>
         <Row
           style={{
             display: "flex",
-            // flexDirection: "column",
+            flexDirection: "column",
             padding: "0.8rem",
             paddingTop: "0.5rem",
+            margin : "auto"
+
           }}
         >
-          <Col style={{}}>
+          <Col style={{
+            display : "flex",
+            alignItems : "center",
+            justifyContent: "center",
+          }}>
             <SideDrawer />
           </Col>
 
-          {/* <Col
-            style={{marginTop: "1rem", fontWeight: "bold", color: "white", display : "flex", alignItems: "center", justifyContent: "center" }}
-          >
-            <div style ={{backgroundColor : "#de9b6a",  padding : "0.7rem", borderRadius : "1.1rem"}}>
-            + Create new room
-            </div>
-          </Col> */}
           {JSON.parse(user.user).role === "lawyer" ? (
             <Col>
               <GroupChatModel>
@@ -103,11 +103,13 @@ const MyGroupChats = ({ fetchAgain }) => {
                     + Create new room
                   </div>
                 </Col>{" "}
-              </GroupChatModel>
+                </GroupChatModel>
+
             </Col>
           ) : (
             <></>
           )}
+
         </Row>
         <Row>
           <Col style ={{marginTop : "1rem"}}>

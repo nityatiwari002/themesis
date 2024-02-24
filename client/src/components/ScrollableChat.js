@@ -17,7 +17,7 @@ const ScrollableChat = ({ messages }) => {
 		dummy.current.scrollIntoView();
 	}, []);
 	return (
-		<div className="messageBox" style={{}}>
+		<div className="messageBox">
 			{messages &&
 				messages.map((m, i) => (
 					<div style={{ display: "flex" }} key={m._id}>

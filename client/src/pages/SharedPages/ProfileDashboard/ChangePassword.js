@@ -26,7 +26,7 @@ const ChangePassword = () => {
 					boxsizing: "border-box",
 				}}
 			>
-				<Container
+				<div
 					style={{
 						overflow: "hiding",
 						backgroundColor: "",
@@ -47,11 +47,11 @@ const ChangePassword = () => {
 								{" "}
 								<ProfileNavbar />
 							</Row>
-							<div style={{ paddingRight: "0rem" }}>
+							<div style={{ paddingRight: "5rem" }}>
 								<Row
 									style={{
 										display: "flex",
-										paddingLeft: "1rem",
+										paddingLeft: "1.1rem",
 										margin: "auto",
 										marginTop: "1rem",
 										fontSize: "1.5rem",
@@ -65,7 +65,7 @@ const ChangePassword = () => {
 									style={{
 										paddingLeft: "0rem",
 										display: "flex",
-										paddingRight: "0rem",
+										paddingRight: "2rem",
 										justifyContent: "space-around",
 									}}
 								>
@@ -84,7 +84,7 @@ const ChangePassword = () => {
 							</div>
 						</Col>
 					</Row>
-				</Container>
+				</div>
 			</div>
 		</div>
 	);
