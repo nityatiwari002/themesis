@@ -44,6 +44,7 @@ import {
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 import VideoConference from "../pages/VideoConferencing.js";
 import ArticlesRender from "../pages/SharedPages/ArticlesRender.js";
+import ChatDetailsModel from "../components/userAvator/ChatDetailsModel.js";
 
 const routes = [
 	{
@@ -308,6 +309,16 @@ const routes = [
 		path: "/guide/article/:index",
 		component: <ArticlesRender index ={localStorage.getItem("Index")}/>,
 		name : 'Articles',
+		isPrivate : true,
+		isUtility: false,
+		isMenuLawyer: false,
+		isMenuProfile: false,
+		isMenuUser: false,
+	},
+	{
+		path: "/ChatDetails",
+		component: <ChatDetailsModel />,
+		name : 'Chat Details',
 		isPrivate : true,
 		isUtility: false,
 		isMenuLawyer: false,

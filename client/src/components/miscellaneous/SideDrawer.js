@@ -9,7 +9,7 @@ import Row from "react-bootstrap/Row";
 import Toast from "react-bootstrap/Toast";
 import axios from "axios";
 import ChatLoading from "./ChatLoading";
-import ChatListItem from "../userAvator/UserListItem";
+import ChatListItem from "../miscellaneous/ChatListItem";
 import { AuthData } from "../../services/AuthService";
 import getCookies from "../../hooks/getCookies";
 import Spinner from "react-bootstrap/Spinner";
