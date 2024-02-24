@@ -9,7 +9,7 @@ import Row from "react-bootstrap/Row";
 import Toast from "react-bootstrap/Toast";
 import axios from "axios";
 import ChatLoading from "./ChatLoading";
-import UserListItem from "../userAvator/UserListItem";
+import ChatListItem from "../userAvator/UserListItem";
 import { AuthData } from "../../services/AuthService";
 import getCookies from "../../hooks/getCookies";
 import Spinner from "react-bootstrap/Spinner";
@@ -95,7 +95,7 @@ const SideDrawer = () => {
 
   return (
     <>
-      <div className="SidedrawerButton" onClick={handleShow}>
+      <div className="SidedrawerButton" onClick={handleShow} style ={{paddingLeft : "2rem", paddingRight : "2rem"}}>
         <FontAwesomeIcon icon={faMagnifyingGlass} />{" "}
         <div style={{ marginLeft: "0.6rem" }}>Search Rooms</div>
       </div>
@@ -123,7 +123,7 @@ const SideDrawer = () => {
         ) : (
           searchResult?.map((chat) => (
             <>
-            <UserListItem
+            <ChatListItem
             key={chat._id}
             chat={chat}
             style ={{marginTop : "10rem"}}

@@ -2,38 +2,30 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import Nav from "react-bootstrap/Nav";
-// import Tab from "react-bootstrap/Tab";
-// import ProfileSidebar from "../../../components/ProfileSidebar";
-// import Figure from "react-bootstrap/Figure";
-
 import { AuthData } from "../../../services/AuthService";
-// import { createContext, useContext, useEffect, useState } from "react";
 import ProfileNavbar from "../../../components/ProfileNavbar";
-// import ImageContainer from "../../../components/ImageContainer";
 import ImageEditController from "../../../components/ImageEditController";
-// import UserInfo from "../../../components/UserInfo";
 import UserInfoEdit from "../../../components/UserInfoEdit";
 
-const ProfileDashboard = () => {
+const EditDetails = () => {
 	const { user, setShowSidebar } = AuthData();
 
 	return (
 		<div
 			style={{
-				backgroundColor: "",
-				padding: "0px",
-				margin: "0px",
-				width: "100vw",
+				backgroundColor: "red",
+				width : "100%"
 			}}
 		>
-			<Container
+			<div
 				style={{
 					overflow: "auto",
 					backgroundColor: "",
 					height: "100%",
-					width: "100vw",
 					margin: "0px",
+					width: "100vw",
+					boxsizing: "border-box",
+
 				}}
 			>
 				<Row>
@@ -41,7 +33,8 @@ const ProfileDashboard = () => {
 						style={{
 							backgroundColor: "black",
 							margin: "0px",
-							height: "100vh",
+							// height: "100vh",
+							width : "100%"
 						}}
 					>
 						<Row>
@@ -51,7 +44,7 @@ const ProfileDashboard = () => {
 						<Row
 							style={{
 								display: "flex",
-								paddingLeft: "1rem",
+								paddingLeft: "2rem",
 								margin: "auto",
 								marginTop: "1rem",
 								fontSize: "1.5rem",
@@ -63,12 +56,12 @@ const ProfileDashboard = () => {
 						</Row>
 						<Row
 							style={{
-								paddingLeft: "1rem",
+								paddingLeft: "2rem",
 								display: "flex",
-								paddingRight: "1rem",
+								marginRight: "7rem",
 							}}
 						>
-							<Col style={{ flex: "1" }}>
+							<Col style={{ flex: "1", }}>
 								{" "}
 								<ImageEditController />{" "}
 							</Col>
@@ -85,9 +78,9 @@ const ProfileDashboard = () => {
 						</Row>
 					</Col>
 				</Row>
-			</Container>
+			</div>
 		</div>
 	);
 };
 
-export default ProfileDashboard;
+export default EditDetails;

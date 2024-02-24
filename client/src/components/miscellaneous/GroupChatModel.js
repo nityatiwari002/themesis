@@ -12,22 +12,29 @@ import UserBadgeItem from '../userAvator/UserBadgeItem';
 const GroupChatModel = ({children}) => {
     const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [groupChatName, setGroupChatName] = useState();
-  const [selectedUser, setSelectedUser] = useState([]);
-  const [search, setSearch] = useState();
-  const [searchResult, setSearchResult] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const {user, chats, setChats} = AuthData();
-
+    const handleShow = () => setShow(true);
+    
+    const [groupChatName, setGroupChatName] = useState();
+    const [selectedUser, setSelectedUser] = useState([]);
+    const [search, setSearch] = useState();
+    const [searchResult, setSearchResult] = useState([]);
+    const [loading, setLoading] = useState(false);
+    
+    const {user, chats, setChats} = AuthData();
+    
+    const handleClose = () => {
+      setSearch("");
+      setSelectedUser([]);
+      setLoading(false);
+      setGroupChatName("");
+      setSearchResult([]);
+      setShow(false);
+    }
   const handleSearch = async (query) => {
     setSearch(query);
-    if(!query){
-        return;
-    }
+    // if(!query){
+    //     return;
+    // }
 
     try{
         setLoading(true);
@@ -37,8 +44,9 @@ const GroupChatModel = ({children}) => {
                 authorization : `Bearer ${getCookies("jwt")}`,
             },
         }
-
-        const {data} = await axios.get(`http://127.0.0.1:5001/api/v1/users/getUsers?search=${search}`, config);
+        console.log("search", search);
+        const {data} = await axios.get(`http://127.0.0.1:5001/api/v1/users/searchUsers?search=${search}`, config);
+        console.log("data", data);
         setSearchResult(data);
         setLoading(false);
         console.log(data);

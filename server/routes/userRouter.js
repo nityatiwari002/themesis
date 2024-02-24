@@ -31,7 +31,7 @@ router.post("/logout", logout);
 router.post("/forgotPassword", forgotPassword);
 router.get("/resetPasswordGet/:token", resetPasswordGet);
 router.post("/isLoggedIn", isLoggedIn);
-router.get("/getUsers", getAllUsers);
+router.get("/searchUsers", getAllUsers);
 router.get("/getLawyers", getAllLawyers);
 router.get("/getUser/:id", getUser);
 router.patch("/updateMe", protect, updateMe);

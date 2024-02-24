@@ -16,7 +16,7 @@ const VideoCallModal = () => {
       }
 
   return (
-    <div style ={{display : "flex", alignItems: "center", justifyContent: "center", marginRight : "1rem"}}>
+    <div style ={{display : "flex", alignItems: "center", justifyContent: "center", marginRight : "1rem", marginTop : "0px"}}>
          <OverlayTrigger
           key='bottom'
           placement='bottom'

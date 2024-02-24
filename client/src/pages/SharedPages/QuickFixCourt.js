@@ -25,11 +25,6 @@ function QuickFixCourt() {
 					width: "100%",
 					height: "90%",
 					backgroundColor: "rgb(63, 61, 61, 0.8)",
-					// backgroundColor: "blue",
-					// flex: "5",
-					// backgroundColor: "rgba(255, 255, 255, 0.5)",
-					//   padding: "1.5rem",
-					// paddingTop : "0px",
 				}}
 			>
 				<div
@@ -39,16 +34,13 @@ function QuickFixCourt() {
 						height: "100%",
 						display: "flex",
 						padding: "1rem",
-						// justifyContent: "space-around",
 						justifyContent: "center",
-						// backgroundColor: "pink",
 						boxSizing: "border-box",
 					}}
 				>
 					<Row
 						style={{
 							display: "flex",
-							// backgroundColor: "purple",
 							width: "100%",
 							height: "100%",
 						}}
@@ -57,9 +49,7 @@ function QuickFixCourt() {
 							style={{
 								width: "30%",
 								height: "100%",
-								// backgroundColor: "red",
 								flex: 2,
-								// borderRadius: "2rem",
 							}}
 						>
 							{" "}

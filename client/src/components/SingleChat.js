@@ -117,8 +117,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 		<>
 			{selectedChat ? (
 				<>
-					<div className="chat_user" style={{ height: "100%" }}>
-						<div className="imageHolder">
+					<div className="chat_user" style={{ height: "100%", padding : "1rem", display : "flex" }}>
+						<div className="imageHolder" style ={{flex : "1"}}>
 							{!selectedChat.isGroupChat ? (
 								<Image
 									style={{
@@ -161,7 +161,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 								/>
 							)}
 						</div>
-						<div className="username">
+						<div className="username" style ={{flex : "7", alignItems : "flex-start", justifyContent: "flex-start"}}>
 							{selectedChat ? (
 								<>
 									{!selectedChat.isGroupChat
@@ -181,8 +181,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 								style={{
 									display: "flex",
 									justifyContent: "center",
-									alignItems: "center",
-									marginLeft: "16rem",
+									alignItems: "flex-start",
+									// marginLeft: "16rem",
+									// paddingBottom : "2rem",
+									marginTop : "0px",
+									flex : "2"
 								}}
 							>
 								<VideoCallModal />

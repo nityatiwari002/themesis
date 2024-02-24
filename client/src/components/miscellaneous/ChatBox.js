@@ -6,7 +6,7 @@ import "./../../styles/ChatBox.css";
 const ChatBox = ({fetchAgain, setFetchAgain}) => {
   const {selectedChat} = AuthData();
   return (
-    <div className = "chatbox" >
+    <div className = "chatbox" style ={{padding : "0.5rem"}}>
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
     </div>
   )
