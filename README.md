@@ -50,11 +50,16 @@ Provide incentives for pro bono work (In affiliation with non profit organizatio
 5. Intall the dependencies : npm install <br/>
 6. Start the server : npm start <br/>
 
+**Starting the ChatBot Server:**<br />
+7. Navigate back to the root repository using the command "cd.." or open another terminal in the directory themesis and navigate to the chatbot folder using command "cd chatbot"  <br/>
+8. Install the dependencies: npm install <br />
+9. Starting the chatbot : npm start
+
 **Starting the client** <br/>
-7. Navigate back to the root repository using the command "cd.." or open another terminal in the directory themesis and navigate to the client folder using command "cd client"  <br/>
-8. Install the dependencies : npm install <br/>
-9. Install three.js : npm install three <br/>
-10. start the client : npm start <br/>
+10. Navigate back to the root repository using the command "cd.." or open another terminal in the directory themesis and navigate to the client folder using command "cd client"  <br/>
+11. Install the dependencies : npm install <br/>
+12. Install three.js : npm install three <br/>
+13. start the client : npm start <br/>
 
 The app is running on localhost:3000, <br/>
 Open the browser and simply just search for "localhost:3000" to see the app "Themesis Guardian". <br/>
