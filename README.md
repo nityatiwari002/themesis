@@ -1,14 +1,16 @@
-Overview :
-  Themis Guardian, aligned with the goal of promoting just, peaceful, and inclusive societies under SDG 16.3 - "Promote the rule of law and ensure equal access to justice." 
+**Themesis Guarding - An Online web application bridging the justice gap**	 
+**Overview:**
+Themesis Guardian, aligned with the goal of promoting just, peaceful, and inclusive societies under 
+**SDG 16.3 - Promote the rule of law and ensure equal access to justice.**
 Our solution addresses the justice gap through an online website. A key feature is our chatbot, powered by Google's Gemini API, offering multilingual legal assistance, basic information, and directing users to relevant resources.
-Our primary target is SDG 16.3.1, focusing on victim reports of crime. We aim to increase general awareness and responsibility through our knowledge base, including legal guides, past cases with feature based filter functionality, and resources. Users can connect directly with lawyers through our chat feature, request legal assistance, and file cases online through e-filing.
-Addressing SDG 16.3.2 concerning unsentenced detainees, we provide a dedicated section offering knowledge of rights and legal support tailored to their needs.
-For SDG 16.3.3, promoting dispute resolution mechanisms, our platform includes a "Quick Fix Court" section. Here, lawyers can create temporary dispute resolution rooms to facilitate discussions and resolve minor disputes, discouraging direct communication between parties.
+Our primary target is : 
+**SDG 16.3.1,** focusing on victim reports of crime. We aim to increase general awareness and responsibility through our knowledge base, including legal guides, past cases with feature based filter functionality, and resources. Users can connect directly with lawyers through our chat feature, request legal assistance, and file cases online through e-filing.
+Addressing **SDG 16.3.2** concerning unsentenced detainees, we provide a dedicated section offering knowledge of rights and legal support tailored to their needs.
+For **SDG 16.3.3**, promoting dispute resolution mechanisms, our platform includes a "Quick Fix Court" section. Here, lawyers can create temporary dispute resolution rooms to facilitate discussions and resolve minor disputes, discouraging direct communication between parties.
 Additionally, our platform features "Peer Connect," a community server enabling users to discuss problems with one another online.
 
- Background :
-       The current legal system often feels fortresslike, overwhelming and impenetrable. Lack of legal knowledge, complex procedures and cost overruns present insurmountable barriers for millions of people. This uneven distribution of legal resources creates injustice, privileges the vulnerable, and undermines the foundations of a just society.
-
+ **Background:**
+The current legal system often feels fortresslike, overwhelming and impenetrable. Lack of legal knowledge, complex procedures and cost overruns present insurmountable barriers for millions of people. This uneven distribution of legal resources creates injustice, privileges the vulnerable, and undermines the foundations of a just society.
 
 This project aims to establish a comprehensive platform that empowers individuals and communities to navigate legal matters efficiently and affordably. It seeks to achieve this by:
 
@@ -19,7 +21,7 @@ This project aims to establish a comprehensive platform that empowers individual
 5. Fostering a collaborative environment: Building a vibrant forum where individuals can seek and offer peer-to-peer advice, fostering a sense of community and empowering users to collaborate in resolving disputes.
 6. Introducing online dispute resolution: Establishing an online courtroom facilitated by lawyers, allowing both parties in minor disputes to resolve conflicts constructively and efficiently.
 
-Features Breakdown- 
+**Features Breakdown:**
 1. Registration and Categorization: The app enables users to register as either seeking legal  assistance or lawyers with specific expertise. 
 Benefit - Tailored connections.
 2. Open Access with No Fees: The platform provides legal assistance without financial barriers
@@ -37,22 +39,21 @@ Provide incentives for pro bono work (In affiliation with non profit organizatio
 11. E-filing  : The app directs users to the available sites of regional authority to file the case online.
 12. Unsentenced Detainees: The app provides a separate section for unsentenced detainees which contains all the rights and legal support they can avail and information about lawyers who can take their case.
 
-SETUP:
-Clone the github repository :
-    git clone https://github.com/nityatiwari002/themesis.git
+**SETUP:**
+1. Open terminal.
+2. Clone the github repositroy using the command : git clone https://github.com/nityatiwari002/themesis.git
+3. Navigate to the project directory : cd themesis
 
-Navigate to project repository :
-  cd themesis
-Install dependencies:
-    npm install
-Start the client and backend server:
-      cd client
-      npm install
-      npm start
-      cd server
-      npm install
-      npm start
-      
-Install three.js in client
-      cd client
-      npm install three
+**Starting the server:**
+4. Navigate to the server folder : cd server
+5. Intall the dependencies : npm install
+6. Start the server : npm start
+
+**Starting the client**
+7. Navigate back to the root repository using the command "cd.." or open another terminal in the directory themesis and navigate to the client folder using command "cd client"
+8. Install the dependencies : npm install
+9. Install three.js : npm install three
+10. start the client : npm start
+
+The app is started on localhost:3000,
+Open the browser and simply just search for localhost:3000 to see the app "Themesis Guardian"
