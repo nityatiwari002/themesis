@@ -23,7 +23,7 @@ function Peerconnect() {
 				return response.json();
 			})
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				setHasAccess(data.hasAccess);
 			})
 			.catch((error) => {
