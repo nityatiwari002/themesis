@@ -1,8 +1,8 @@
 // Code to fetch discord data from the server
-import  getCookies  from "../../hooks/getCookies";
+import getCookies from "../../hooks/getCookies";
 
 const fetchDiscord = async () => {
-	console.log("fecthing");
+	// console.log("fecthing");
 	try {
 		const response = await fetch("http://localhost:5001/api/v1/discord", {
 			method: "GET",
@@ -15,7 +15,7 @@ const fetchDiscord = async () => {
 			throw new Error("Network response was not ok");
 		}
 		const data = await response.json();
-		console.log("fetch data", data);
+		// console.log("fetch data", data);
 		return data;
 	} catch (error) {
 		console.error("There was a problem with the fetch operation:", error);

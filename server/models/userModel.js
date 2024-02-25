@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
 		role: {
 			type: String,
 			enum: ["user", "lawyer"],
-			required : [true, "Please select a suitable role for yourself!!"],
+			required: [true, "Please select a suitable role for yourself!!"],
 		},
 		password: {
 			type: String,
@@ -70,7 +70,10 @@ const userSchema = new mongoose.Schema(
 			numberOfCasesWon: {
 				type: Number,
 				required: [true, "Please Enter the number of cases you have won!!"],
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16b0edd (refactored code)
 			},
 			experienceInYears: {
 				type: Number,
@@ -79,18 +82,33 @@ const userSchema = new mongoose.Schema(
 			age: {
 				type: Number,
 				required: [true, "Please Enter your age in Years!!"],
+<<<<<<< HEAD
 
 			},
 			about: {
 				type: String,
 				required: [true, "Please Enter some important details about yourself...so that people can know you better!!"],
 
+=======
+			},
+			about: {
+				type: String,
+				// required: [
+				// 	true,
+				// 	"Please Enter some important details about yourself...so that people can know you better!!",
+				// ],
+>>>>>>> 16b0edd (refactored code)
 			},
 			feesCharged: {
 				type: Number,
 				required: [true, "Please Enter the Fees you Charge per case!!"],
+<<<<<<< HEAD
 			}
 		}
+=======
+			},
+		},
+>>>>>>> 16b0edd (refactored code)
 	},
 	{
 		timestamps: true,

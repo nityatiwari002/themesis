@@ -51,7 +51,7 @@ function PeerconnectChat() {
 	};
 	useEffect(() => {
 		fetchDiscord().then((data) => {
-			console.log("data", data);
+			// console.log("data", data);
 			setDiscordChat(data);
 		});
 		getMsgs();
@@ -136,6 +136,8 @@ function PeerconnectChat() {
 	const chat = (index) => {
 		const chatMsg = usersChats[index];
 		const sender = chatMsg.sender;
+		if (!sender) return null;
+		// console.log("sender", sender, "user", JSON.parse(user.user)._id);
 		if (sender._id === JSON.parse(user.user)._id) {
 			// console.log("sender", sender, "user", JSON.parse(user.user)._id);
 			return <ChatMsg key={index} chatMsg={chatMsg} position="right" />;
