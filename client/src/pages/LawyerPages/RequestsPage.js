@@ -36,7 +36,8 @@ function RequestsPage() {
 			.then((response) => response.json())
 			.then((data) => {
 				setRequests(data);
-				setNumRequests(data.length);
+				if (data) setNumRequests(data.length);
+				else setNumRequests(0);
 			});
 	};
 	useEffect(() => {
@@ -46,6 +47,7 @@ function RequestsPage() {
 	const [chatRequests, setChatRequests] = useState([]);
 	const getTypeRequests = async (type) => {
 		let typeReq = [];
+		if (!requests) return typeReq;
 		for (let i = 0; i < requests.length; i++) {
 			if (requests[i].pending === false) continue;
 			if (requests[i].request_type !== type) continue;
@@ -65,6 +67,7 @@ function RequestsPage() {
 	const [deletedRequests, setDeletedRequests] = useState([]);
 	const getDeletedRequests = async () => {
 		let deletedReq = [];
+		if (!requests) return deletedReq;
 		for (let i = 0; i < requests.length; i++) {
 			if (requests[i].pending === true) continue;
 			if (requests[i].accepted === true) continue;
