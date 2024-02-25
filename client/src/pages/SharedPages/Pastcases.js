@@ -103,7 +103,7 @@ function FilterBar() {
 			>
 				<div
 					className="filter-bar "
-					style={{ height: "90%", overflow: "scroll", width: "40%" }}
+					style={{ height: "90%", overflow: "scroll", width: "100%" }}
 				>
 					<div>
 						<div className="filter-group">
@@ -236,23 +236,28 @@ function FilterBar() {
 						</div>
 						<div className="filter-group" id="articlee">
 							<label htmlFor="article">
-								<h4>Article No. :</h4>
+								<h4 style ={{marginRight : "0.4rem"}}>Article No: </h4>
 							</label>
 							<input
 								type="text"
 								id="article"
 								value={article}
 								onChange={handleArticleChange}
+								placeholder="1, 2 etc."
 								style={{
 									width: "150px",
 									height: "20px",
 									color: "white",
+									backgroundColor : "#6e6767ce",
+									padding : "0.5rem",
+									height : "2rem"
 								}}
 							/>
 						</div>
 						<button
 							className="submit-button"
 							onClick={(e) => handleSubmit(e)}
+							style ={{color : "white", backgroundColor : "#C29879", padding : "0.5rem", borderRadius : "1rem", marginLeft : "1rem"}}
 						>
 							Apply Filters
 						</button>
@@ -270,9 +275,19 @@ function FilterBar() {
 							type="text"
 							placeholder="Search for related past cases"
 							style={{
-								width: "450px",
-								height: "20px",
+								width: "94%",
+								height: "2rem",
 								color: "white",
+								backgroundColor : "#6e6767ce",
+								marginLeft: "1.5rem",
+								borderRadius : "1rem",
+								padding : "1rem",
+								marginTop : "1rem",
+								display : "flex",
+
+								// alignItems: "center",
+								// justifyContent: "center"
+								
 							}}
 						/>
 						<button type="button">
@@ -287,12 +302,13 @@ function FilterBar() {
 							height: "90%",
 							// backgroundColor: "pink",
 							overflow: "scroll",
+							padding : "1rem"
 						}}
 					>
 						{cases.map((item, index) => (
-							<div key={index} className="case-details">
+							<div key={index} className="case-details" style ={{backgroundColor : "#6e6767ce", borderRadius : "2rem", marginBottom : "1rem"}}>
 								<div className="pastt">
-									<h3>{item.case_title}</h3>
+									<h3 style ={{color : "#C29879"}}>{item.case_title}</h3>
 									<p>
 										<strong>Advocate Name:</strong>{" "}
 										{item.advocate_name}

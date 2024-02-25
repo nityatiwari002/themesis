@@ -68,6 +68,15 @@ export const signup = catchAsync(async (req, res, next) => {
       password: req.body.password,
       username: req.body.username,
       passwordConfirm: req.body.passwordConfirm,
+      extraFields: {
+        typeOfLawyer: "not a field for user",
+        numberOfCasesFought: 0,
+        numberOfCasesWon: 0,
+        experienceInYears: 0,
+        age: 0,
+        about: "not a field for user",
+        feesCharged: 0,
+      },
     });
   }
 

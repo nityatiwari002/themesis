@@ -60,14 +60,16 @@ const userSchema = new mongoose.Schema(
 		extraFields: {
 			typeOfLawyer: {
 				type: String,
-				// required: [true, "Please Enter your Specification!!"],
+				required: [true, "Please Enter your Specification!!"],
 			},
 			numberOfCasesFought: {
 				type: Number,
+				required: [true, "Please Enter the number of cases you have fought!!"],
+
 			},
 			numberOfCasesWon: {
 				type: Number,
-				// required: [true, "Please Enter your Years of experience!!"],
+				required: [true, "Please Enter the number of cases you have won!!"],
 <<<<<<< HEAD
 
 =======
@@ -75,17 +77,17 @@ const userSchema = new mongoose.Schema(
 			},
 			experienceInYears: {
 				type: Number,
-				// required: [true, "Please Enter your Years of experience!!"],
+				required: [true, "Please Enter your experience!!"],
 			},
 			age: {
 				type: Number,
-				// required: [true, "Please Enter your age in Years!!"],
+				required: [true, "Please Enter your age in Years!!"],
 <<<<<<< HEAD
 
 			},
 			about: {
 				type: String,
-				// required: [true, "Please Enter some important details about yourself...so that people can know you better!!"],
+				required: [true, "Please Enter some important details about yourself...so that people can know you better!!"],
 
 =======
 			},
@@ -99,7 +101,7 @@ const userSchema = new mongoose.Schema(
 			},
 			feesCharged: {
 				type: Number,
-				// required: [true, "Please Enter the Fees you Charge per case!!"],
+				required: [true, "Please Enter the Fees you Charge per case!!"],
 <<<<<<< HEAD
 			}
 		}
