@@ -39,22 +39,22 @@ function NotFound() {
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setTimer((timer) => timer - 1);
-		}, 100000);
+		}, 1000);
 		return () => clearInterval(timer);
 	}, []);
 
-	// useEffect(() => {
-	// 	setTimeout(function () {
-	// 		// console.log("user", isprotected);
-	// 		if (user.isAuthenticated) {
-	// 			navigate("/dashboard");
-	// 		} else {
-	// 			if (privateRoutes.includes(window.location.pathname)) {
-	// 				navigate("/login");
-	// 			} else navigate("/home");
-	// 		}
-	// 	}, 30000);
-	// }, [user, navigate]);
+	useEffect(() => {
+		setTimeout(function () {
+			// console.log("user", isprotected);
+			if (user.isAuthenticated) {
+				navigate("/dashboard");
+			} else {
+				if (privateRoutes.includes(window.location.pathname)) {
+					navigate("/login");
+				} else navigate("/home");
+			}
+		}, 30000);
+	}, [user, navigate]);
 
 	return (
 		<div className="not-found-container">
