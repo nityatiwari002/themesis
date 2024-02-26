@@ -52,14 +52,14 @@ const UserStackItem = ({ setSelectedChat, chat, selectedChat }) => {
         <div>
           <Image
             style={{ height: "2.5rem", width: "2.5rem" }}
-            // src = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+            src = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
             // src = {getSender(JSON.parse(user.user).name, selectedChat.users).image}
-            src={
-              getSender(JSON.parse(user.user).name, chat.users).image ===
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                ? getSender(JSON.parse(user.user).name, chat.users).image
-                : `http://localhost:5001/uploads/${getSender(JSON.parse(user.user).name, chat.users).image}`
-            }
+            // src={
+            //   getSender(JSON.parse(user.user).name, chat.users).image ===
+            //   "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+            //     ? getSender(JSON.parse(user.user).name, chat.users).image
+            //     : `http://localhost:5001/uploads/${getSender(JSON.parse(user.user).name, chat.users).image}`
+            // }
             // src = {imageSrc(getSender(JSON.parse(user.user).name, selectedChat.users).image)}
             roundedCircle
           />
