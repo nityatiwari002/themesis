@@ -40,11 +40,13 @@ import {
 	faFilePen,
 	faMessage,
 	faVideo,
+	faStarOfDavid,
 } from "@fortawesome/free-solid-svg-icons";
 import RequestsPage from "../pages/LawyerPages/RequestsPage";
 import VideoConference from "../pages/VideoConferencing.js";
 import ArticlesRender from "../pages/SharedPages/ArticlesRender.js";
 import ChatDetailsModel from "../components/userAvator/ChatDetailsModel.js";
+import Myths from "../pages/UserPages/myths.js";
 
 const routes = [
 	{
@@ -171,6 +173,16 @@ const routes = [
 		isMenuLawyer: false,
 		isUtility: false,
 		icon: <FontAwesomeIcon icon={faScaleBalanced} />,
+	},
+	{
+		path: "/myths",
+		component: <Myths />,
+		name: "Legal Mythbusters",
+		isPrivate: true,
+		isMenuUser: true,
+		isMenuLawyer: false,
+		isUtility: false,
+		icon: <FontAwesomeIcon icon={faStarOfDavid} />,
 	},
 	{
 		path: "/pastcases",

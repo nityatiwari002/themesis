@@ -62,23 +62,14 @@ function RotatingScales() {
 		<div
 			className="scales-wrapper"
 			style={{
-<<<<<<< HEAD
-				width: "100vw",
-				height: "100vh",
-=======
 				width: "100vh",
 				height: "100vw",
->>>>>>> 370cf08 (pastcases)
 				position: "fixed",
 				zIndex: "0",
 				backgroundColor :"red"
 			}}
 		>
-<<<<<<< HEAD
-			<div style={{ width: "100vw", height: "100vh" }} ref={mount}></div>
-=======
 			<div style={{ width: "100vh", height: "100vw" }} ref={mount}></div>
->>>>>>> 370cf08 (pastcases)
 		</div>
 	);
 }
