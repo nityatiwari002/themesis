@@ -1,7 +1,3 @@
-.scorll{
-  overflow-y: auto;
-  
-}
 .filter-bar {
     width: 300px; 
     background-color: rgb(7, 6, 6); 
@@ -10,22 +6,7 @@
     border-right: 1px solid black; 
 
   }
-  .pastt {
-    position: relative;
-    background-color: var(--bgtransparentmax);
-    margin: 10px auto;
-    width: auto;
-    border-radius: 10px;
-    padding: 2%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items:left ;
-  }
-.search-bar{
-justify-content: space-evenly;
-}
-
+  
 
   .filter-group {
     margin-bottom: 50px; 
@@ -51,7 +32,7 @@ align-items: center;  }
     margin-left: 0%;
     display: flex;
     flex-direction:row;
-    justify-content:space-evenly;
+    justify-content:start;
     align-items:self-start;
     color: white; 
 }  
